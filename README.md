@@ -1,2 +1,2 @@
-# UNIDAD1_RECU
-Repaso de la Unidad 1, 2º DAM - Acceso a Datos. 
+# RECUPERACIÓN:
+Repaso de la Unidad 1 a 6, 2º DAM - Acceso a Datos. 
