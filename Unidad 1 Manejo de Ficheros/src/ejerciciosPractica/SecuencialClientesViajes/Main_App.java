@@ -1,12 +1,15 @@
 import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutput;
 import java.io.ObjectOutputStream;
 
+import datos.Cliente;
 import datos.Viaje;
 
 public class Main_App {
@@ -17,9 +20,102 @@ public class Main_App {
 
     public static void main(String[] args) throws FileNotFoundException {
         Apartado_1();
+        Apartado_2();
 
-        
+    }
 
+    private static void Apartado_2() {
+        /*
+         * 2) [2,5 puntos] Actualizar en el fichero Clientes.dat:
+         *  El campo viajescontratados para que almacene el nº de viajes contratados
+         * por el cliente. Cada registro en el fichero de reservas es un viaje
+         * contratado.
+         *  El campo importetotal debe almacenar la suma de lo que valen las reservas
+         * que ha realizado el cliente. El importe de cada reserva es igual a la
+         * multiplicación del pvp del viaje por el número de plazas.
+         */
+        try {
+            DataInputStream dataIS = new DataInputStream(new FileInputStream(reservas));
+
+            int idViaje, idCliente, plazas, totalClientes;
+            try {
+                while (true) {
+                    idViaje = dataIS.readInt();
+                    idCliente = dataIS.readInt();
+                    plazas = dataIS.readInt();
+                    totalClientes = sumaClientes(idCliente);
+
+                    actualizarClientes(idCliente, totalClientes);
+                    System.out.println("Cliente: " + idCliente + " Total viajes contratados: " + totalClientes);
+                }
+            } catch (IOException e) {
+                System.out.println("Archivo clientes.dat actualizado");
+
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        System.out.println("Apartado 2 finalizado");
+    }
+
+    private static void actualizarClientes(int idCliente, int totalClientes) {
+        Cliente cli;
+        try (ObjectInputStream dataIS = new ObjectInputStream(new FileInputStream(clientes))) {
+            File ficheroClientesAux = new File("clientesAux.dat");
+            ObjectOutputStream dataOSAux = new ObjectOutputStream(new FileOutputStream(ficheroClientesAux));
+            try {
+                while (true) {
+                    cli = (Cliente) dataIS.readObject();
+                    if (cli.getId() == idCliente) {
+                        cli.setViajescontratados(totalClientes);
+
+                    }
+                    dataOSAux.writeObject(cli);
+
+                }
+            } catch (IOException | ClassNotFoundException e) {
+
+            }
+            dataIS.close();
+            dataOSAux.close();
+            clientes.delete();
+            ficheroClientesAux.renameTo(clientes);
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Archivo clientes.dat actualizado");
+        }
+
+    }
+
+    @SuppressWarnings("unused")
+    private static int sumaClientes(int idCliente) {
+        // declaramos fichero reservas.dat
+        int idViaje, idCliAUX, plazas, totalClientes = 0;
+
+        try {
+            DataInputStream dataIS = new DataInputStream(new FileInputStream(reservas));
+            try {
+                while (true) {
+                    idViaje = dataIS.readInt();
+                    idCliAUX = dataIS.readInt();
+                    plazas = dataIS.readInt();
+                    if (idCliAUX == idCliente) {
+                        totalClientes++;
+                    }
+                }
+
+            } catch (IOException e) {
+
+            }
+            dataIS.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return totalClientes;
     }
 
     private static void Apartado_1() throws FileNotFoundException {
@@ -31,8 +127,10 @@ public class Main_App {
                     idCliente = dataIS.readInt();
                     plazas = dataIS.readInt();
                     totalPlazas = sumaPlazas(idViaje);
-                   
+
                     actualizarViaje(idViaje, totalPlazas);
+                    System.out.println("Viaje: " + idViaje + " Total plazas: " + totalPlazas + "\n\t cliente: "
+                            + idCliente + " Plazas reservadas: " + plazas);
 
                 }
             } catch (IOException e) {
@@ -49,7 +147,6 @@ public class Main_App {
     }
 
     private static void actualizarViaje(int idViaje, int totalPlazas) throws FileNotFoundException, IOException {
-        // TODO Auto-generated method stub
 
         ObjectInputStream dataIS = new ObjectInputStream(new FileInputStream(viajes));
         File ficheroAux = new File("viajesAux.dat");
@@ -66,25 +163,23 @@ public class Main_App {
             }
 
         } catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
-            //e.printStackTrace();
+
         } catch (IOException e) {
-            // TODO Auto-generated catch block
-            //e.printStackTrace();
+
         } catch (ClassNotFoundException e) {
-            // TODO Auto-generated catch block
-            //e.printStackTrace();
+
         }
         dataIS.close();
         dataOS.close();
         viajes.delete();
         ficheroAux.renameTo(viajes);
 
-    }//Actualizar viajes
+    }// Actualizar viajes
 
+    @SuppressWarnings("unused")
     private static int sumaPlazas(int idViaje) throws FileNotFoundException {
         int total = 0;
-        int idCliente;
+        int idCliente = 0;
         try (DataInputStream dataIS = new DataInputStream(new FileInputStream(reservas))) {
             int idV, plazas;
             try {
@@ -98,7 +193,6 @@ public class Main_App {
 
                 }
             } catch (IOException e) {
-                System.out.println("FIN Archivo reservas");
 
             }
         } catch (FileNotFoundException e) {
