@@ -1,17 +1,16 @@
 import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
-import java.io.ObjectOutput;
 import java.io.ObjectOutputStream;
 
 import datos.Cliente;
 import datos.Viaje;
 
+@SuppressWarnings("unused")
 public class Main_App {
 
     static File viajes = new File("viajes.dat");
@@ -52,7 +51,7 @@ public class Main_App {
                 System.out.println("Archivo clientes.dat actualizado");
 
             }
-
+            dataIS.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -68,7 +67,11 @@ public class Main_App {
                 while (true) {
                     cli = (Cliente) dataIS.readObject();
                     if (cli.getId() == idCliente) {
+
                         cli.setViajescontratados(totalClientes);
+                        
+                        double importeTotal = 0;
+                        cli.setImportetotal(importeTotal += calculaImporteTotal(idCliente));
 
                     }
                     dataOSAux.writeObject(cli);
@@ -85,6 +88,52 @@ public class Main_App {
             e.printStackTrace();
             System.out.println("Archivo clientes.dat actualizado");
         }
+
+    }
+
+    private static double calculaImporteTotal(int idCliente) {
+        // leer fichero viajes, fichero clientes y fichero reservas
+        // recorrer fichero reservas y buscar el idCliente
+        // recorrer fichero viajes y buscar el idViaje
+        // recorrer fichero clientes y buscar el idCliente
+        // calcular el importe total
+        // actualizar el campo importetotal del cliente
+        Viaje v;
+        Cliente cli;
+        int idViaje, idCliAUX, plazas;
+        double importeTotal = 0;
+
+        try (DataInputStream dataISReservas = new DataInputStream(new FileInputStream(reservas))) {
+            try {
+                while (true) {
+                    idViaje = dataISReservas.readInt();
+                    idCliAUX = dataISReservas.readInt();
+                    plazas = dataISReservas.readInt();
+                    if (idCliAUX == idCliente) {
+                        try (ObjectInputStream dataISViajes = new ObjectInputStream(new FileInputStream(viajes))) {
+                            try {
+                                while (true) {
+                                    v = (Viaje) dataISViajes.readObject();
+                                    if (v.getId() == idViaje) {
+                                        importeTotal += (v.getPvp() * plazas);
+                                    }
+                                }
+                            } catch (IOException | ClassNotFoundException e) {
+                            }
+                            dataISViajes.close();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            } catch (IOException e) {
+            }
+            dataISReservas.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return importeTotal;
 
     }
 
