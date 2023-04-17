@@ -9,6 +9,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.time.format.DateTimeFormatter;
+import java.util.Scanner;
 
 import datos.Cliente;
 import datos.Viaje;
@@ -19,17 +21,312 @@ public class Main_App {
     static File viajes = new File("viajes.dat");
     static File clientes = new File("clientes.dat");
     static File reservas = new File("reservas.dat");
+    static Scanner sc = new Scanner(System.in);
 
     public static void main(String[] args) throws FileNotFoundException {
         Apartado_1();
         Apartado_2();
         Apartado_3();
         Apartado_4();
+        Apartado_5();
+        Apartado_6();
 
     }
 
+    private static void Apartado_6() {
+        int id;
+        // proceso repetitivo para leer clientes hasta que el id sea 0
+        System.out.print("Introduce un ID de cliente (0 para salir): ");
+        id = sc.nextInt();
+        while (id != 0) {
+            double totalPVP = 0;
+            // si el cliente existe
+            if (existeCliente(id)) {
+                // mostrar los datos del cliente
+                try (ObjectInputStream dataIS = new ObjectInputStream(new FileInputStream(clientes))) {
+                    Cliente cliente;
+                    try {
+                        while (true) {
+                            cliente = (Cliente) dataIS.readObject();
+
+                            if (cliente.getId() == id) {
+                                if (cliente.getViajescontratados() == 0) {
+                                    System.out.println("\tNO HA CONTRATADO NINGÚN VIAJE");
+                                    System.out.println("==================================================");
+                                    break;
+                                } else {
+                                    System.out.println(cliente.getNombre() + ", viajes contratados: "
+                                            + cliente.getViajescontratados());
+                                    // mostrar los viajes reservados por el cliente
+                                    try (DataInputStream dataIS2 = new DataInputStream(new FileInputStream(reservas))) {
+                                        int idViaje = 0, idCliente = 0, plazas;
+                                        try {
+                                            System.out.println(
+                                                    "===================================================================");
+                                            System.out.printf("%-3s %-31s %-16s %-3s %-6s%n", "ID", "DESCRIPCIÓN",
+                                                    "FEC SALIDA", "PVP", "PLAZAS");
+                                            System.out.println(
+                                                    "=== =============================== ========== ========= ======");
+                                            while (true) {
+                                                idViaje = dataIS2.readInt();
+                                                idCliente = dataIS2.readInt();
+                                                plazas = dataIS2.readInt();
+                                                if (idCliente == id) {
+                                                    try (ObjectInputStream dataIS3 = new ObjectInputStream(
+                                                            new FileInputStream(viajes))) {
+                                                        Viaje viaje;
+                                                        try {
+                                                            while (true) {
+                                                                viaje = (Viaje) dataIS3.readObject();
+                                                                if (viaje.getId() == idViaje) {
+                                                                    System.out.printf("%-3d %-31s %-11s %-11.2f %-6d%n",
+                                                                            viaje.getId(),
+                                                                            viaje.getDescripcion(),
+                                                                            viaje.getFechasalida()
+                                                                                    .format(DateTimeFormatter
+                                                                                            .ofPattern("dd-MM-yyyy")),
+                                                                            viaje.getPvp(), plazas);
+                                                                    totalPVP += viaje.getPvp() * plazas;
+                                                                }
+                                                            }
+                                                        } catch (EOFException eofe) {
+                                                        } catch (ClassNotFoundException e) {
+                                                            e.printStackTrace();
+                                                        } catch (IOException e) {
+                                                            e.printStackTrace();
+                                                        }
+                                                    } catch (FileNotFoundException e) {
+                                                        e.printStackTrace();
+                                                    } catch (IOException e) {
+                                                        e.printStackTrace();
+                                                    }
+                                                }
+
+                                            }
+                                            
+                                        } catch (EOFException eofe) {
+                                        } catch (IOException e) {
+                                            e.printStackTrace();
+                                        }
+                                        System.out.println("\tTotal PVP: " + totalPVP);
+                                        System.out.println("===================================================================");
+                                    } catch (FileNotFoundException e) {
+                                        e.printStackTrace();
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                            }
+                        }
+                    } catch (EOFException eofe) {
+                    } catch (ClassNotFoundException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                
+                System.out.print("\nIntroduce un ID de cliente (0 para salir): ");
+                id = sc.nextInt();
+            } else {
+                System.out.println("\tNO EXISTE EL ID DEL CLIENTE");
+                System.out.println("==================================================");
+                System.out.print("\nIntroduce un ID de cliente (0 para salir): ");
+                id = sc.nextInt();
+            }
+
+        }
+        System.out.println("FIN APARTADO 6");
+    }
+
+    private static boolean existeCliente(int id) {
+        boolean clienteExiste = false;
+        try {
+            try (ObjectInputStream dataIS = new ObjectInputStream(new FileInputStream(clientes))) {
+                Cliente cliente;
+
+                try {
+                    while (true) {
+                        cliente = (Cliente) dataIS.readObject();
+                        if (cliente.getId() == id) {
+                            clienteExiste = true;
+                        }
+                    }
+                } catch (EOFException eofe) {
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return clienteExiste;
+    }
+
+    private static void Apartado_5() {
+        // SI EL ID ES DISTINTO DE 0, BUSCAR EL VIAJE EN EL FICHERO VIAJES.DAT
+        // SI EL VIAJE NO EXISTE MOSTRAR MENSAJE "EL VIAJE NO EXISTE"
+        // SI EL VIAJE EXISTE MOSTRAR LOS DATOS DEL VIAJE
+        // SI EL VIAJE EXISTE MOSTRAR LOS DATOS DE LOS CLIENTES QUE HAN RESERVADO EL
+        // VIAJE
+        // SI EL VIAJE EXISTE MOSTRAR EL NÚMERO DE PLAZAS RESERVADAS
+        int id;
+        System.out.print("Introduce un ID de viaje (0 para salir): ");
+        id = sc.nextInt();
+
+        while (id != 0) {
+            int cont = 0;
+
+            boolean existe = existeViaje(id);
+
+            if (existe) {
+                try (ObjectInputStream dataIS = new ObjectInputStream(new FileInputStream(viajes))) {
+                    Viaje viaje;
+                    try {
+                        while (true) {
+                            viaje = (Viaje) dataIS.readObject();
+                            if (viaje.getId() == id) {
+                                System.out.print(viaje.getDescripcion());
+                                System.out.println(", viajeros: " + viaje.getViajeros());
+                                try (DataInputStream dataIS2 = new DataInputStream(new FileInputStream(reservas))) {
+                                    int idViaje = 0, idCliente = 0, plazas;
+                                    try {
+                                        System.out.printf("%-3s %-20s %-6s%n", "ID", "NOMBRE",
+                                                "PLAZAS");
+                                        System.out.println("=== ==================== ======");
+                                        while (true) {
+                                            idViaje = dataIS2.readInt();
+                                            idCliente = dataIS2.readInt();
+                                            plazas = dataIS2.readInt();
+                                            if (idViaje == id) {
+                                                try (ObjectInputStream dataIS3 = new ObjectInputStream(
+                                                        new FileInputStream(clientes))) {
+                                                    Cliente cliente;
+                                                    try {
+                                                        while (true) {
+                                                            cliente = (Cliente) dataIS3.readObject();
+                                                            if (cliente.getId() == idCliente) {
+                                                                System.out.printf("%-3d %-20s %-6d%n", cliente.getId(),
+                                                                        cliente.getNombre(), plazas);
+                                                                cont++;
+                                                            }
+                                                        }
+
+                                                    } catch (EOFException eofe) {
+                                                    } catch (ClassNotFoundException e) {
+                                                        e.printStackTrace();
+                                                    } catch (IOException e) {
+                                                        e.printStackTrace();
+                                                    }
+
+                                                } catch (FileNotFoundException e) {
+                                                    e.printStackTrace();
+                                                } catch (IOException e) {
+                                                    e.printStackTrace();
+                                                }
+                                            }
+                                        }
+                                    } catch (EOFException eofe) {
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                } catch (FileNotFoundException e) {
+                                    e.printStackTrace();
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }
+
+                    } catch (EOFException eofe) {
+                    } catch (ClassNotFoundException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                System.out.println("numero de clientes: " + cont);
+                System.out.println("=================================");
+                System.out.print("Introduce un ID de viaje (0 para salir): ");
+                id = sc.nextInt();
+            } else {
+                System.out.println("El viaje no existe");
+                System.out.print("Introduce un ID de viaje (0 para salir): ");
+                id = sc.nextInt();
+            }
+        }
+        System.out.println("FIN APARTADO 5");
+    }
+
+    private static boolean existeViaje(int id) {
+        boolean viajeExiste = false;
+        try (ObjectInputStream dataIS = new ObjectInputStream(new FileInputStream(viajes))) {
+            Viaje viaje;
+            try {
+                while (true) {
+                    viaje = (Viaje) dataIS.readObject();
+                    if (viaje.getId() == id) {
+                        viajeExiste = true;
+                    }
+                }
+            } catch (EOFException eofe) {
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return viajeExiste;
+    }
+
     private static void Apartado_4() {
-        
+        // crear el objeto ObjectInputStream para leer el fichero viajes.dat
+        try {
+            try (ObjectInputStream dataIS = new ObjectInputStream(new FileInputStream(viajes))) {
+                // leer fichero viajes creando un bucle while
+                try {
+                    System.out.printf("%-3s %-31s %-10s %-8s\n", "ID", "DESCRIPCIÓN", "FEC SALIDA", "VIAJEROS", "");
+                    System.out.println("=== =============================== ========== ========");
+
+                    while (true) {
+                        Viaje viaje = (Viaje) dataIS.readObject();
+                        // mostrar texto con formato usando ID, descripción, fecha de salida, número de
+                        // VIAJEROS
+                        System.out.printf("%-3s %-31s %-13s %-8s\n",
+                                viaje.getId(), viaje.getDescripcion(), viaje.getFechasalida(), viaje.getViajeros());
+                    }
+                } catch (EOFException eofe) {
+                    System.out.println("FIN APARTADO 4");
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     private static void Apartado_3() {
