@@ -1,8 +1,11 @@
+import java.io.BufferedWriter;
 import java.io.DataInputStream;
+import java.io.EOFException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -20,7 +23,113 @@ public class Main_App {
     public static void main(String[] args) throws FileNotFoundException {
         Apartado_1();
         Apartado_2();
+        Apartado_3();
+        Apartado_4();
 
+    }
+
+    private static void Apartado_4() {
+        
+    }
+
+    private static void Apartado_3() {
+        // Creamos un objeto File para el fichero Errores.txt
+        File ficheroErrores = new File("Errores.txt");
+        // Creamos un objeto FileWriter y un objeto BufferedWriter para escribir en el
+        // fichero
+        FileWriter fw;
+        try {
+            fw = new FileWriter(ficheroErrores);
+
+            BufferedWriter br = new BufferedWriter(fw);
+            // Creamos una variable int para llevar la cuenta de los errores
+            int numError = 0;
+
+            // Creamos un objeto DataInputStream para leer el fichero
+            // Reservas.dat
+            try (DataInputStream dataIS = new DataInputStream(new FileInputStream(reservas))) {
+                int idViaje = 0, idCliente = 0, plazas;
+
+                while (true) {
+                    idViaje = dataIS.readInt();
+                    idCliente = dataIS.readInt();
+                    plazas = dataIS.readInt();
+                    // Creamos una variable booleana para indicar si el viaje existe o no
+                    boolean viajeExiste = false;
+                    // Creamos un objeto ObjectInputStream para leer el fichero
+                    // Viajes.dat
+                    try (ObjectInputStream dataIS2 = new ObjectInputStream(new FileInputStream(viajes))) {
+                        Viaje viaje;
+                        try {
+                            while (true) {
+                                viaje = (Viaje) dataIS2.readObject();
+                                if (viaje.getId() == idViaje) {
+                                    viajeExiste = true;
+                                    break;
+                                }
+                            }
+                        } catch (IOException e) {
+                        } catch (ClassNotFoundException e) {
+                            e.printStackTrace();
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    // Si el viaje no existe, escribimos un mensaje de error en el fichero
+                    // Errores.txt
+                    if (!viajeExiste) {
+                        // Incrementamos el número de error
+                        numError++;
+                        // Escribimos el mensaje con el formato: "ERROR " + numError + ". EL VIAJE " +
+                        // idViaje + ", no existe\n"
+
+                        br.write("ERROR " + numError + ". EL VIAJE " + idViaje + ", no existe\n");
+                        br.flush();
+                    }
+                    // Creamos una variable booleana para indicar si el cliente existe o no
+                    boolean clienteExiste = false;
+                    // Creamos un objeto ObjectInputStream para leer el fichero Cliente.dat
+                    try (ObjectInputStream dataIS3 = new ObjectInputStream(new FileInputStream(clientes))) {
+                        Cliente cliente;
+                        try {
+                            while (true) {
+                                cliente = (Cliente) dataIS3.readObject();
+                                if (cliente.getId() == idCliente) {
+                                    clienteExiste = true;
+                                    break;
+                                }
+                            }
+                        } catch (IOException e) {
+                        } catch (ClassNotFoundException e) {
+                            e.printStackTrace();
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                    // Si el cliente no existe, escribimos un mensaje de error en el fichero
+                    // Errores.txt
+                    if (!clienteExiste) {
+                        // Incrementamos el número de error
+                        numError++;
+                        // Escribimos el mensaje con el formato: "ERROR " + numError + ". EL CLIENTE " +
+                        // idCliente + ", no existe\n"
+                        br.write("ERROR " + numError + ". EL CLIENTE " + idCliente + ", no existe\n");
+                        br.flush();
+                    }
+
+                } // While
+            } catch (EOFException eofe) { // Añadimos este bloque catch para capturar la excepción EOFException
+                br.close(); // Cerramos el objeto br dentro del bloque catch
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        System.out.println("FICHERO ERRORES ACTUALIZADO");
+        System.out.println("FIN APARTADO 3");
     }
 
     private static void Apartado_2() {
@@ -69,7 +178,7 @@ public class Main_App {
                     if (cli.getId() == idCliente) {
 
                         cli.setViajescontratados(totalClientes);
-                        
+
                         double importeTotal = 0;
                         cli.setImportetotal(importeTotal += calculaImporteTotal(idCliente));
 
@@ -137,7 +246,6 @@ public class Main_App {
 
     }
 
-    @SuppressWarnings("unused")
     private static int sumaClientes(int idCliente) {
         // declaramos fichero reservas.dat
         int idViaje, idCliAUX, plazas, totalClientes = 0;
@@ -168,6 +276,12 @@ public class Main_App {
     }
 
     private static void Apartado_1() throws FileNotFoundException {
+        /*
+         * 1) [1,5 puntos] Actualizar en el fichero Viajes.dat:
+         *  El campo viajeros del fichero para que contenga el nº de viajeros que hacen
+         * el viaje. Este campo será igual a la suma de las plazas reservadas en el
+         * viaje correspondiente.
+         */
         try (DataInputStream dataIS = new DataInputStream(new FileInputStream(reservas))) {
             int idViaje, idCliente, plazas, totalPlazas;
             try {
@@ -225,7 +339,6 @@ public class Main_App {
 
     }// Actualizar viajes
 
-    @SuppressWarnings("unused")
     private static int sumaPlazas(int idViaje) throws FileNotFoundException {
         int total = 0;
         int idCliente = 0;
