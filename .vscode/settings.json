@@ -6,5 +6,6 @@
         "listarclientes",
         "viajescontratados",
         "xampp"
-    ]
+    ],
+    "java.dependency.packagePresentation": "hierarchical"
 }
