@@ -8,5 +8,8 @@
         "viajescontratados",
         "xampp"
     ],
-    "java.dependency.packagePresentation": "hierarchical"
+    "java.dependency.packagePresentation": "hierarchical",
+    "java.project.sourcePaths": [
+        "RA1_RECU_GUERRAVALENCIABORJA"
+    ]
 }
