@@ -1,0 +1,39 @@
+Este ejercicio lo pone en clase, viene del que manda de ejercicioRa5 2020 clientes viajes reservas:
+CONVERTIR SECUENCIALES VIAJES Y CLIENTES A FICH ALEATORIOS
+A PARTIR DE LOS FICHEROS SECUENCIALES Clientes y Viajes CREAR LOS FICHEROS ALEATORIOS.
+
+
+ Registro Clientes del Fichero aleatorio
+
+private int id;
+
+private String nombre; 18 caracteres
+
+private int viajescontratados; nº viajes contratados
+
+private double importetotal; importe total de los viajes realizados
+
+ 
+
+Longitud del registro = ¿
+
+Registro Viajes del Fichero aleatorio
+
+private int id;
+
+private String descripcion;  35 caracteres
+
+private String fechasalida;  10 caracteres
+
+private double pvp;
+
+private int dias;      nº dias que dura el viaje
+
+private int viajeros;  nº de viajeros que hacen el viaje
+
+Longitud del registro = ¿
+
+ 
+
+LLenar los ficheros aleatorios a partir de los secuenciales.
+Después realizar el mismo proceso de actualización sobre los aleatorios con acceso aleatorio siempre que sea posible.
