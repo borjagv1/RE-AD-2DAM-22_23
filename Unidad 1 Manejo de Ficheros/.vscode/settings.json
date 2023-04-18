@@ -3,5 +3,15 @@
     "java.project.outputPath": "bin",
     "java.project.referencedLibraries": [
         "lib/**/*.jar"
+    ],
+    "cSpell.words": [
+        "deptno",
+        "Empl",
+        "Emple",
+        "empley",
+        "empno",
+        "Fich",
+        "nombredept",
+        "posicion"
     ]
 }

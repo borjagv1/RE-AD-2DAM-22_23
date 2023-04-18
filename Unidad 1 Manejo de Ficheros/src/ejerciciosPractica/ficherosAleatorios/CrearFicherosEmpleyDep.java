@@ -1,4 +1,5 @@
 package ejerciciosPractica.ficherosAleatorios;
+
 import java.io.DataOutputStream;
 import java.io.EOFException;
 import java.io.File;
@@ -25,7 +26,7 @@ public class CrearFicherosEmpleyDep {
 
 	}// main
 
-	//crea el fichero secuencial de tipos primitivos con los datos a modificar
+	// crea el fichero secuencial de tipos primitivos con los datos a modificar
 	private static void CreaEmpleModif() throws IOException {
 		File fichero = new File("FichEmpleadosModif.dat");
 		DataOutputStream dataOS = new DataOutputStream(new FileOutputStream(fichero));
@@ -131,20 +132,23 @@ public class CrearFicherosEmpleyDep {
 
 		File fichero = new File("FichDepartamentos.dat");
 		FileOutputStream fileout = new FileOutputStream(fichero);
-		ObjectOutputStream dataOS = new ObjectOutputStream(fileout);
+		try (ObjectOutputStream dataOS = new ObjectOutputStream(fileout)) {
+			int dep[] = { 10, 20, 30, 40, 50 };
+			String nombres[] = { "CONTABILIDAD", "VENTAS", "COMERCIO", "INFORMATICA", "PRODUCCION" };
+			String loc[] = { "MADRID", "SEVILLA", "TOLEDO", "BILBAO", "GUADALAJARA" };
 
-		int dep[] = { 10, 20, 30, 40, 50 };
-		String nombres[] = { "CONTABILIDAD", "VENTAS", "COMERCIO", "INFORMATICA", "PRODUCCION" };
-		String loc[] = { "MADRID", "SEVILLA", "TOLEDO", "BILBAO", "GUADALAJARA" };
+			int i;
+			Departamento depar;
 
-		int i;
-		Departamento depar;
-
-		for (i = 0; i < dep.length; i++) {
-			depar = new Departamento(dep[i], nombres[i], loc[i]);
-			dataOS.writeObject(depar);
+			for (i = 0; i < dep.length; i++) {
+				depar = new Departamento(dep[i], nombres[i], loc[i]);
+				dataOS.writeObject(depar);
+			}
+			dataOS.close();
+		}catch(IOException e){
+			
 		}
-		dataOS.close();
+
 		fileout.close();
 
 	}// CreaDepartamentos
