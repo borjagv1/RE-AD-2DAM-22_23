@@ -1,5 +1,4 @@
-package ejerciciosPractica.ficherosAleatorios;
-
+package ejerciciosPractica.ficherosAleat;
 import java.io.DataInputStream;
 import java.io.EOFException;
 import java.io.FileInputStream;
@@ -97,7 +96,7 @@ public class Main_empleyDep_aleatorios {
                 // convierto a String el array
                 @SuppressWarnings("unused")
                 String oficioS = new String(oficio);
-
+                @SuppressWarnings("unused")
                 float salario = raf.readFloat();
 
                 depto = raf.readInt();

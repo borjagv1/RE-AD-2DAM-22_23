@@ -1,4 +1,4 @@
-package ejerciciosPractica.ficherosAleatorios;
+package ejerciciosPractica.ficherosAleat;
 import java.io.Serializable;
 
 public class Empleado implements Serializable {

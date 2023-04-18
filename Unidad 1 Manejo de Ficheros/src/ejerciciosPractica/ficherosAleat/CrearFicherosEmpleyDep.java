@@ -1,4 +1,4 @@
-package ejerciciosPractica.ficherosAleatorios;
+package ejerciciosPractica.ficherosAleat;
 
 import java.io.DataOutputStream;
 import java.io.EOFException;
