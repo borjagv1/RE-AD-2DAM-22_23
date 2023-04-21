@@ -1,4 +1,0 @@
-ERROR 1. EL VIAJE 138, no existe
-ERROR 2. EL VIAJE 220, no existe
-ERROR 3. EL CLIENTE 55, no existe
-ERROR 4. EL CLIENTE 55, no existe

@@ -13,7 +13,6 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.RandomAccessFile;
 
-import datos.*;
 import ejerciciosPractica.Examen2022_2023.datos.Alumno;
 
 public class ListarLosFicheros {
@@ -27,7 +26,7 @@ public class ListarLosFicheros {
 	static final int longRegCurso = 4 + 50 + 4 + 8;
 	static final int longRegAlumno = 4 + 30 + 8 + 4 + 50 + 4;
 	
-
+@SuppressWarnings("unused")
 	public static void main(String[] args) throws IOException, ClassNotFoundException {
 
 		
@@ -77,11 +76,10 @@ public class ListarLosFicheros {
 		dataIS.close();
 		
 	}
-
+	@SuppressWarnings("resource")
 	public static void listadoAlumnos() throws IOException {
 
 		System.out.println("=======================LISTADO DE ALUMNOS ====================================");
-
 		// declara el fichero de acceso aleatorio
 		RandomAccessFile file = new RandomAccessFile(ficheroal, "rw");
 
@@ -136,7 +134,7 @@ public class ListarLosFicheros {
 
 	}// listado alumnos
 
-	
+	@SuppressWarnings("resource")
 	// listar cursos
 	public static void listadoCursos() throws IOException {
 		System.out.println("=======================LISTADO DE CURSOS ====================================");

@@ -14,7 +14,7 @@ import java.io.RandomAccessFile;
 import datos.*;
 import ejerciciosPractica.Examen2022_2023.datos.Alumno;
 import ejerciciosPractica.Examen2022_2023.datos.Curso;
-
+@SuppressWarnings("unused")
 public class CrearFicherosAlumnos {	
 	static File ficheroc = new File("Cursos.dat");
 	static File ficheroal = new File("Alumnos.dat"); 
