@@ -1,0 +1,305 @@
+SET SESSION FOREIGN_KEY_CHECKS=0;
+
+DROP TABLE IF EXISTS INCIDENCIAS;
+DROP TABLE IF EXISTS RESERVAS;
+DROP TABLE IF EXISTS VIAJES;
+DROP TABLE IF EXISTS CATALOGO;
+DROP TABLE IF EXISTS CLIENTES;
+
+CREATE TABLE CATALOGO
+(
+	CODIGOVIAJECATALOGO numeric(5) zerofill NOT NULL,
+	PVP decimal(6,2),
+	KM numeric(5),
+	NOMBREVIAJE varchar(25),
+	CIUDADORIGEN varchar(25),
+	CIUDADDESTINO varchar(25),
+	CONSTRAINT CATALOGOPK PRIMARY KEY (CODIGOVIAJECATALOGO)
+);
+
+CREATE TABLE CLIENTES
+(
+	CODCLIEN numeric(5) zerofill NOT NULL,
+	NOMBRE varchar(25),
+	DIRECCION varchar(25),
+	TLF varchar(10),
+	POBLACION varchar(25),
+	CONSTRAINT CLIENTESPK PRIMARY KEY (CODCLIEN)
+);
+
+CREATE TABLE RESERVAS
+(
+	CODRESERVA numeric(5) zerofill NOT NULL,
+	NUMPLAZAS numeric(4),
+	FECHARESERVA date,
+	CODCLIEN numeric(5) zerofill,
+	CODVIAJE numeric(5) zerofill,
+	CONSTRAINT RESERVASPK PRIMARY KEY (CODRESERVA)
+);
+
+CREATE TABLE VIAJES
+(
+	CODVIAJE numeric(5) zerofill NOT NULL,
+	FECHAINICIO date,
+	PLAZASOFERTADAS numeric(4),
+	PLAZASOCUPADAS numeric(4),
+	CODIGOVIAJECATALOGO numeric(5) zerofill,
+	CONSTRAINT VIAJESPK PRIMARY KEY (CODVIAJE)
+);
+
+ALTER TABLE VIAJES
+	ADD CONSTRAINT CATALOGOVIAJE FOREIGN KEY (CODIGOVIAJECATALOGO)
+	REFERENCES CATALOGO (CODIGOVIAJECATALOGO)
+	ON UPDATE CASCADE
+	ON DELETE RESTRICT
+;
+
+ALTER TABLE RESERVAS
+	ADD CONSTRAINT REALIZANRESERV FOREIGN KEY (CODCLIEN)
+	REFERENCES CLIENTES (CODCLIEN)
+	ON UPDATE CASCADE
+	ON DELETE RESTRICT
+;
+
+ALTER TABLE RESERVAS
+	ADD CONSTRAINT VIAJERESERVA FOREIGN KEY (CODVIAJE)
+	REFERENCES VIAJES (CODVIAJE)
+	ON UPDATE CASCADE
+	ON DELETE RESTRICT
+;
+
+ insert into clientes values (1, 'AG. Alicia Gil', 'C/Prado 25', '925453535', 'Talavera de la Reina');
+ insert into clientes values (2, 'Transportes Gómez', 'Polígono la Floresta', '925009988', 'Talavera de la Reina');
+ insert into clientes values (3, 'Limpiezas brillante', 'C/La Alameda 22', '915009900', 'Madrid');
+ insert into clientes values (4, 'Pedro Pérez', 'C/Martillo 10', '919191919', 'Madrid');
+  insert into clientes values(5, 'Ana Maryín', 'C/Alameda 3', '925450035', 'Talavera de la Reina');
+ insert into clientes values (6, 'Viajes María Rato Melz', 'C/Chicharrón 22', '923456588', 'Alcalá de Henares');
+ insert into clientes values (7, 'Escuela Padel', 'Polígono ceniceros', '912332900', 'Madrid');
+ insert into clientes values (8, 'Rosaura Memez', 'C/Televisiones 5', '9100998877', 'Madrid');
+
+ Insert into CATALOGO values(1,100,1965,'ALEMANIA1','MADRID','MUNICH');
+  Insert into CATALOGO values(2,120,1869,'ALEMANIA2','MADRID','BERLIN');
+  Insert into CATALOGO values(3,150,1327,'ALEMANIA3','BARCELONA','FRANKFURT');
+  Insert into CATALOGO values(4,110,1365,'ALEMANIA4','BARCELONA','MUNICH');
+  Insert into CATALOGO values(5,110,1808,'ALEMANIA5','BILBAO','HAMBURGO');
+
+  Insert into CATALOGO values(100,100,3597,'RUSIA1','VALENCIA','MOSCU');
+
+   Insert into CATALOGO values(6,1010,16666,'AUSTRALIA1','MADRID','ADELAIDA');
+  Insert into CATALOGO values(7,1200,16947,'AUSTRALIA2','BARCELONA','BRISBANE');
+  Insert into CATALOGO values(8,1230,17179,'AUSTRALIA3','BARCELONA','SIDNEY');
+  Insert into CATALOGO values(9,1100,16599,'AUSTRALIA4','BILBAO','ADELAIDA');
+	
+  Insert into CATALOGO values(10,900,10044,'ARGENTINA1','MADRID','BUENOS AIRES');
+  Insert into CATALOGO values(11,920,10035,'ARGENTINA2','MADRID','ROSARIO');
+  Insert into CATALOGO values(12,850,10465,'ARGENTINA3','BARCELONA','BUENOS AIRES');
+  Insert into CATALOGO values(13,710,10438,'ARGENTINA4','BARCELONA','MAR DE PLATA');
+  Insert into CATALOGO values(14,810,10566,'ARGENTINA5','BARCELONA','CÓRDOBA');
+
+Insert into CATALOGO values(15,900,1053,'FRANCIA1','MADRID','PARIS');
+Insert into CATALOGO values(16,920,1145,'FRANCIA2','MADRID','RENNES');
+Insert into CATALOGO values(17,850,831,'FRANCIA3','BARCELONA','PARIS');
+Insert into CATALOGO values(18,710,743,'FRANCIA4','BILBAO','PARIS');
+Insert into CATALOGO values(19,810,1087,'FRANCIA5','BARCELONA','RENNES');
+Insert into CATALOGO values(20,710,881,'FRANCIA6','BILBAO','LYON');
+Insert into CATALOGO values(21,810,838,'FRANCIA7','BILBAO','MARSELLA');
+	 
+Insert into VIAJES values(1,ADDDATE(curdate(),+10), 50,5,1);
+Insert into VIAJES values(2,ADDDATE(curdate(),+15), 100,15,1);
+
+Insert into VIAJES values(3,ADDDATE(curdate(),+20), 80,65,2);
+Insert into VIAJES values(4,ADDDATE(curdate(),+25), 50,20,2);
+
+Insert into VIAJES values(5,ADDDATE(curdate(),+20), 80,65,3);
+Insert into VIAJES values(6,ADDDATE(curdate(),+25), 50,20,3);
+Insert into VIAJES values(7,ADDDATE(curdate(),+20), 80,65,3);
+
+Insert into VIAJES values(8,ADDDATE(curdate(),+15), 50,20,4);
+
+Insert into VIAJES values(9,ADDDATE(curdate(),+10), 50,20,5);
+
+Insert into VIAJES values(10,ADDDATE(curdate(),+8), 50,20,6);
+
+Insert into VIAJES values(11,ADDDATE(curdate(),+20), 50,10,4);
+
+Insert into VIAJES values(12,ADDDATE(curdate(),+15), 50,10,5);
+
+Insert into VIAJES values(13,ADDDATE(curdate(),+12), 50,10,6);
+
+
+Insert into VIAJES values(14,ADDDATE(curdate(),+10), 75,65,7);
+
+Insert into VIAJES values(15,ADDDATE(curdate(),+15), 50,20,8);
+
+Insert into VIAJES values(16,ADDDATE(curdate(),+20), 90,55,9);
+
+Insert into VIAJES values(17,ADDDATE(curdate(),+10), 80,65,10);
+
+Insert into VIAJES values(18,ADDDATE(curdate(),+15), 150,20,11);
+
+Insert into VIAJES values(19,ADDDATE(curdate(),+20), 80,5,12);
+
+Insert into VIAJES values(20,ADDDATE(curdate(),+10), 100,65,13);
+
+Insert into VIAJES values(21,ADDDATE(curdate(),+15), 150,20,14);
+
+Insert into VIAJES values(22,ADDDATE(curdate(),+20), 80,5,15);
+
+Insert into VIAJES values(23,ADDDATE(curdate(),+17), 70,65,13);
+
+Insert into VIAJES values(24,ADDDATE(curdate(),+25), 50,20,14);
+
+Insert into VIAJES values(25,ADDDATE(curdate(),+29), 55,5,15);
+
+Insert into VIAJES values(26,ADDDATE(curdate(),+25), 50,20,16);
+Insert into VIAJES values(27,ADDDATE(curdate(),+39), 55,5,16);
+
+Insert into VIAJES values(28,ADDDATE(curdate(),+15), 50,20,17);
+Insert into VIAJES values(29,ADDDATE(curdate(),+29), 55,5,17);
+
+Insert into VIAJES values(30,ADDDATE(curdate(),+5), 50,20,18);
+Insert into VIAJES values(31,ADDDATE(curdate(),+49), 55,5,18);
+
+Insert into VIAJES values(32,ADDDATE(curdate(),+45), 50,20,19);
+Insert into VIAJES values(33,ADDDATE(curdate(),+59), 55,5,19);
+
+Insert into VIAJES values(34,ADDDATE(curdate(),+15), 50,20,20);
+
+Insert into VIAJES values(35,ADDDATE(curdate(),+20), 55,5,21);
+
+Insert into RESERVAS values(1,1,  ADDDATE(curdate(),-40), 1, 1);
+Insert into RESERVAS values(2,10,ADDDATE(curdate(),-41), 2, 1);
+Insert into RESERVAS values(3,5,  ADDDATE(curdate(),-42), 3, 1);
+Insert into RESERVAS values(4,2,  ADDDATE(curdate(),-41), 4, 1);
+Insert into RESERVAS values(5,1,  ADDDATE(curdate(),-40), 5, 1);
+Insert into RESERVAS values(6,6,  ADDDATE(curdate(),-39), 6, 1);
+
+Insert into RESERVAS values(7,  1,ADDDATE(curdate(),-40), 7, 2);
+Insert into RESERVAS values(8,  5,ADDDATE(curdate(),-43), 8, 2);
+Insert into RESERVAS values(9,  2,ADDDATE(curdate(),-36), 3, 2);
+Insert into RESERVAS values(10,2,ADDDATE(curdate(),-37), 4, 2);
+Insert into RESERVAS values(11,3,ADDDATE(curdate(),-35), 2, 2);
+Insert into RESERVAS values(12,4,ADDDATE(curdate(),-32), 1, 2);
+Insert into RESERVAS values(13,1,ADDDATE(curdate(),-31), 5, 2);
+
+
+Insert into RESERVAS values(14,  4,ADDDATE(curdate(),-40), 7, 3);
+Insert into RESERVAS values(15, 10,ADDDATE(curdate(),-43), 8, 3);
+Insert into RESERVAS values(16,  2,ADDDATE(curdate(),-36), 3, 3);
+Insert into RESERVAS values(17,  3,ADDDATE(curdate(),-37), 4, 3);
+
+
+Insert into RESERVAS values(18, 3, ADDDATE(curdate(),-39), 2, 4);
+Insert into RESERVAS values(19, 4, ADDDATE(curdate(),-36), 1, 4);
+Insert into RESERVAS values(20, 1, ADDDATE(curdate(),-41), 5, 4);
+
+Insert into RESERVAS values(21,  1,ADDDATE(curdate(),-50), 7, 5);
+Insert into RESERVAS values(22,  5,ADDDATE(curdate(),-53), 8, 5);
+Insert into RESERVAS values(23,  2,ADDDATE(curdate(),-56), 3, 5);
+Insert into RESERVAS values(24, 2,ADDDATE(curdate(),-57), 4, 5);
+Insert into RESERVAS values(25, 3,ADDDATE(curdate(),-45), 2, 5);
+Insert into RESERVAS values(26, 4,ADDDATE(curdate(),-42), 1, 5);
+Insert into RESERVAS values(27, 1,ADDDATE(curdate(),-41), 5, 5);
+
+
+Insert into RESERVAS values(28,  4,ADDDATE(curdate(),-50), 1, 6);
+Insert into RESERVAS values(29, 10,ADDDATE(curdate(),-53), 2, 6);
+Insert into RESERVAS values(30,  2,ADDDATE(curdate(),-56), 3, 6);
+Insert into RESERVAS values(31,  3,ADDDATE(curdate(),-57), 4, 6);
+
+
+Insert into RESERVAS values(32, 3, ADDDATE(curdate(),-49), 6, 7);
+Insert into RESERVAS values(33, 4, ADDDATE(curdate(),-46), 7, 7);
+Insert into RESERVAS values(34, 1, ADDDATE(curdate(),-41), 8, 7);
+
+Insert into RESERVAS values(35,  1,ADDDATE(curdate(),-50), 1, 8);
+Insert into RESERVAS values(36,  1,ADDDATE(curdate(),-53), 8, 8);
+Insert into RESERVAS values(37,  2,ADDDATE(curdate(),-56), 3, 8);
+Insert into RESERVAS values(38, 2,ADDDATE(curdate(),-57), 5, 8);
+Insert into RESERVAS values(39, 1,ADDDATE(curdate(),-45), 7, 8);
+Insert into RESERVAS values(40, 4,ADDDATE(curdate(),-42), 4, 8);
+Insert into RESERVAS values(41, 1,ADDDATE(curdate(),-41), 2, 8);
+
+
+Insert into RESERVAS values(42,  10,ADDDATE(curdate(),-50), 1, 9);
+Insert into RESERVAS values(43, 10,ADDDATE(curdate(),-53), 2, 9);
+Insert into RESERVAS values(44,  1,ADDDATE(curdate(),-56), 3, 9);
+Insert into RESERVAS values(45,  2,ADDDATE(curdate(),-57), 4, 9);
+
+Insert into RESERVAS values(46, 2, ADDDATE(curdate(),-49), 6, 10);
+Insert into RESERVAS values(47, 2, ADDDATE(curdate(),-46), 7, 10);
+Insert into RESERVAS values(48, 1, ADDDATE(curdate(),-41), 8, 10);
+Insert into RESERVAS values(49, 2, ADDDATE(curdate(),-46), 4, 10);
+Insert into RESERVAS values(50, 10, ADDDATE(curdate(),-41), 1, 10);
+
+Insert into RESERVAS values(51,  4,ADDDATE(curdate(),-30), 1, 11);
+Insert into RESERVAS values(52,  3,ADDDATE(curdate(),-33), 8, 11);
+Insert into RESERVAS values(53,  2,ADDDATE(curdate(),-36), 3, 11);
+Insert into RESERVAS values(54, 2,ADDDATE(curdate(),-37), 5, 11);
+Insert into RESERVAS values(55, 10,ADDDATE(curdate(),-35), 7, 11);
+Insert into RESERVAS values(56, 4,ADDDATE(curdate(),-32), 4, 11);
+Insert into RESERVAS values(57, 10,ADDDATE(curdate(),-31), 2, 11);
+
+Insert into RESERVAS values(58,  10,ADDDATE(curdate(),-41), 1, 12);
+Insert into RESERVAS values(59, 10,ADDDATE(curdate(),-43), 2, 12);
+Insert into RESERVAS values(60,  1,ADDDATE(curdate(),-36), 3, 12);
+Insert into RESERVAS values(61,  2,ADDDATE(curdate(),-47), 4, 12);
+
+Insert into RESERVAS values(62, 2, ADDDATE(curdate(),-39), 6, 13);
+Insert into RESERVAS values(63, 4, ADDDATE(curdate(),-36), 7, 13);
+Insert into RESERVAS values(64, 1, ADDDATE(curdate(),-31), 8, 13);
+Insert into RESERVAS values(65, 2, ADDDATE(curdate(),-36), 4, 13);
+Insert into RESERVAS values(66, 10, ADDDATE(curdate(),-31), 1, 13);
+
+Insert into RESERVAS values(67,  1,ADDDATE(curdate(),-20), 1, 14);
+Insert into RESERVAS values(68,  1,ADDDATE(curdate(),-23), 8, 14);
+Insert into RESERVAS values(69,  2,ADDDATE(curdate(),-26), 3, 14);
+Insert into RESERVAS values(70, 2, ADDDATE(curdate(),-27), 5, 14);
+Insert into RESERVAS values(71, 1, ADDDATE(curdate(),-25), 7, 14);
+Insert into RESERVAS values(72, 4, ADDDATE(curdate(),-22), 4, 14);
+Insert into RESERVAS values(73, 1, ADDDATE(curdate(),-21), 2, 14);
+
+Insert into RESERVAS values(74,  1,ADDDATE(curdate(),-21), 1, 15);
+Insert into RESERVAS values(75, 3, ADDDATE(curdate(),-23), 2, 15);
+Insert into RESERVAS values(76,  4,ADDDATE(curdate(),-36), 3, 15);
+Insert into RESERVAS values(77,  2,ADDDATE(curdate(),-27), 1, 15);
+
+
+Insert into RESERVAS values(78, 2, ADDDATE(curdate(),-39), 6, 16);
+Insert into RESERVAS values(79, 4, ADDDATE(curdate(),-36), 7, 16);
+Insert into RESERVAS values(80, 1, ADDDATE(curdate(),-31), 4, 16);
+Insert into RESERVAS values(81, 2, ADDDATE(curdate(),-36), 4, 16);
+Insert into RESERVAS values(82, 10, ADDDATE(curdate(),-31), 1, 16);
+
+Insert into RESERVAS values(83, 15, ADDDATE(curdate(),-19), 6, 17);
+Insert into RESERVAS values(84, 10, ADDDATE(curdate(),-16), 7, 17);
+
+Insert into RESERVAS values(85, 10, ADDDATE(curdate(),-31), 1, 18);
+Insert into RESERVAS values(86, 8, ADDDATE(curdate(),-36), 2, 18);
+Insert into RESERVAS values(87, 10, ADDDATE(curdate(),-31), 3, 18);
+
+Insert into RESERVAS values(88, 25, ADDDATE(curdate(),-9), 6, 19);
+Insert into RESERVAS values(89, 14, ADDDATE(curdate(),-16), 1, 19);
+Insert into RESERVAS values(90, 1, ADDDATE(curdate(),-17), 8, 19);
+
+Insert into RESERVAS values(91, 3, ADDDATE(curdate(),-19), 4, 20);
+Insert into RESERVAS values(92, 1, ADDDATE(curdate(),-16), 5, 20);
+
+Insert into RESERVAS values(93, 4, ADDDATE(curdate(),-31), 1, 21);
+Insert into RESERVAS values(94, 1, ADDDATE(curdate(),-36), 2, 21);
+Insert into RESERVAS values(95, 1, ADDDATE(curdate(),-31), 3, 21);
+
+Insert into RESERVAS values(96, 5, ADDDATE(curdate(),-9), 8, 22);
+Insert into RESERVAS values(97, 4, ADDDATE(curdate(),-16), 8, 22);
+Insert into RESERVAS values(98, 10, ADDDATE(curdate(),-17), 7, 22);
+
+Insert into RESERVAS values(99, 1, ADDDATE(curdate(),-9), 4, 23);
+Insert into RESERVAS values(100, 10, ADDDATE(curdate(),-6), 6, 23);
+
+Insert into RESERVAS values(101, 3, ADDDATE(curdate(),-21), 6, 24);
+Insert into RESERVAS values(102, 10, ADDDATE(curdate(),-26), 2, 24);
+Insert into RESERVAS values(103, 10, ADDDATE(curdate(),-21), 3, 24);
+
+Insert into RESERVAS values(104, 1, ADDDATE(curdate(),-19), 4, 25);
+Insert into RESERVAS values(105, 5, ADDDATE(curdate(),-26), 5, 25);
+Insert into RESERVAS values(106, 5, ADDDATE(curdate(),-27), 7, 25);

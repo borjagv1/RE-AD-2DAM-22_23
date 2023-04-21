@@ -1,0 +1,119 @@
+
+SQL*Plus: Release 18.0.0.0.0 - Production on Mar Oct 18 12:11:04 2022
+Version 18.4.0.0.0
+
+Copyright (c) 1982, 2018, Oracle.  All rights reserved.
+
+Hora de Última Conexión Correcta: Mar Oct 18 2022 12:09:13 +02:00
+
+Conectado a:
+Oracle Database 18c Express Edition Release 18.0.0.0.0 - Production
+Version 18.4.0.0.0
+
+CREATE TABLE CLIENTES (
+             *
+ERROR en línea 1:
+ORA-00955: este nombre ya lo está utilizando otro objeto existente
+
+
+INSERT INTO CLIENTES  VALUES
+*
+ERROR en línea 1:
+ORA-00001: restricción única (UNIDAD2.SYS_C007306) violada
+
+
+INSERT INTO CLIENTES  VALUES
+*
+ERROR en línea 1:
+ORA-00001: restricción única (UNIDAD2.SYS_C007306) violada
+
+
+INSERT INTO CLIENTES  VALUES
+*
+ERROR en línea 1:
+ORA-00001: restricción única (UNIDAD2.SYS_C007306) violada
+
+
+INSERT INTO CLIENTES  VALUES
+*
+ERROR en línea 1:
+ORA-00001: restricción única (UNIDAD2.SYS_C007306) violada
+
+
+CREATE TABLE PRODUCTOS (
+             *
+ERROR en línea 1:
+ORA-00955: este nombre ya lo está utilizando otro objeto existente
+
+
+INSERT INTO PRODUCTOS  VALUES
+*
+ERROR en línea 1:
+ORA-00001: restricción única (UNIDAD2.SYS_C007309) violada
+
+
+INSERT INTO PRODUCTOS  VALUES
+*
+ERROR en línea 1:
+ORA-00001: restricción única (UNIDAD2.SYS_C007309) violada
+
+
+INSERT INTO PRODUCTOS  VALUES
+*
+ERROR en línea 1:
+ORA-00001: restricción única (UNIDAD2.SYS_C007309) violada
+
+
+INSERT INTO PRODUCTOS  VALUES
+*
+ERROR en línea 1:
+ORA-00001: restricción única (UNIDAD2.SYS_C007309) violada
+
+
+INSERT INTO PRODUCTOS  VALUES
+*
+ERROR en línea 1:
+ORA-00001: restricción única (UNIDAD2.SYS_C007309) violada
+
+
+CREATE TABLE VENTAS (
+             *
+ERROR en línea 1:
+ORA-00955: este nombre ya lo está utilizando otro objeto existente
+
+
+INSERT INTO VENTAS VALUES (1, '16-07-2012', 1, 4, 3)
+*
+ERROR en línea 1:
+ORA-00001: restricción única (UNIDAD2.SYS_C007315) violada
+
+
+INSERT INTO VENTAS VALUES (2, '17-07-2012', 4, 5, 2)
+*
+ERROR en línea 1:
+ORA-00001: restricción única (UNIDAD2.SYS_C007315) violada
+
+
+INSERT INTO VENTAS VALUES (3, '19-09-2012', 2, 5, 1)
+*
+ERROR en línea 1:
+ORA-00001: restricción única (UNIDAD2.SYS_C007315) violada
+
+
+INSERT INTO VENTAS VALUES (4, '20-08-2012', 1, 6, 5)
+*
+ERROR en línea 1:
+ORA-00001: restricción única (UNIDAD2.SYS_C007315) violada
+
+
+INSERT INTO VENTAS VALUES (5, '22-08-2012', 3, 4, 1)
+*
+ERROR en línea 1:
+ORA-00001: restricción única (UNIDAD2.SYS_C007315) violada
+
+
+
+Confirmación terminada.
+
+SQL> Desconectado de Oracle Database 18c Express Edition Release 18.0.0.0.0 - Production
+Version 18.4.0.0.0
