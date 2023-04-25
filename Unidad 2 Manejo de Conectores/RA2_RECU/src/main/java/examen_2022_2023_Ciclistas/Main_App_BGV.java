@@ -39,6 +39,16 @@ public class Main_App_BGV {
      * especial), la pendiente media del tramo, el número de la etapa donde se sube
      * el tramo (FK) y el código del ciclista que ha ganado el tramo al pasar en
      * primera posición (FK).
+     * • CAMISETAS( codigocamiseta , tipo, color, importepremio): contiene los datos
+     * de los premios que se otorgan mediante las distintas camisetas: código de la
+     * camiseta (PK), tipo de camiseta (líder de la General, líder de la
+     * Clasificación por puntos, mejor Joven, Rey de la Montaña) , color (Rojo,
+     * Verde, Blanco y Lunares) y el importe del premio que correspondería al
+     * ciclista que lleve esa camiseta en la vuelta.
+     * • LLEVA(numetapa, codigocamiseta, codigociclista): contiene la información
+     * sobre qué ciclistas (codigociclista) han llevado cada camiseta
+     * (codigocamiseta) en cada una de las etapas (numetapa). La PK es numetapa +
+     * codigocamiseta. Las otras columnas son FK.
      */
 
     public static void main(String[] args) {
