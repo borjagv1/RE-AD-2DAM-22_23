@@ -4,9 +4,9 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
+import java.sql.ResultSet;
 
 /**
  * Actividad_2_11
@@ -78,12 +78,16 @@ public class Actividad_2_11 {
             try {
                 if (rs != null)
                     rs.close();
+                    System.out.println("Primer resultSet cerrado?: " + rs.isClosed());
                 if (rs2 != null)
                     rs2.close();
+                    System.out.println("Segundo resultSet cerrado?: " + rs2.isClosed());
                 if (sentencia != null)
                     sentencia.close();
+                    System.out.println("Sentencia cerrada?: " + sentencia.isClosed());
                 if (conexion != null)
                     conexion.close();
+                    System.out.println("Conexion cerrada?: " + conexion.isClosed());
             } catch (SQLException e) {
                 e.printStackTrace();
             }
