@@ -1,5 +1,6 @@
 {
     "cSpell.words": [
+        "BORJAGUERRAVALENCIA",
         "codigociclistaganador",
         "conexion",
         "empley",
@@ -7,14 +8,17 @@
         "fechanacimiento",
         "fechasalida",
         "filein",
+        "Funcion",
         "importetotal",
         "jefeequipo",
         "listarclientes",
+        "NONEDITIONABLE",
         "pais",
         "resultset",
         "tramospuertos",
         "viajescontratados",
-        "xampp"
+        "xampp",
+        "Yllama"
     ],
     "java.dependency.packagePresentation": "hierarchical",
     "java.project.sourcePaths": [
