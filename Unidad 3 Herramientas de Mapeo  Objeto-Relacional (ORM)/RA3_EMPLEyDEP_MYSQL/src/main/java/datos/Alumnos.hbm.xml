@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 17 nov 2022 11:20:23 by Hibernate Tools 4.3.6.Final -->
+<hibernate-mapping>
+    <class name="datos.Alumnos" table="alumnos" optimistic-lock="version">
+        <id name="dni" type="string">
+            <column name="DNI" length="10" />
+            <generator class="assigned" />
+        </id>
+        <property name="apenom" type="string">
+            <column name="APENOM" length="30" />
+        </property>
+        <property name="direc" type="string">
+            <column name="DIREC" length="30" />
+        </property>
+        <property name="pobla" type="string">
+            <column name="POBLA" length="15" />
+        </property>
+        <property name="telef" type="string">
+            <column name="TELEF" length="10" />
+        </property>
+        <set name="notases" table="notas" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="DNI" length="10" not-null="true" />
+            </key>
+            <one-to-many class="datos.Notas" />
+        </set>
+    </class>
+</hibernate-mapping>

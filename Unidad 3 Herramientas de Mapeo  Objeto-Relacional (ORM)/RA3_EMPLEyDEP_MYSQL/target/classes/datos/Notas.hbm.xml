@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 17 nov 2022 11:20:23 by Hibernate Tools 4.3.6.Final -->
+<hibernate-mapping>
+    <class name="datos.Notas" table="notas" optimistic-lock="version">
+        <composite-id name="id" class="datos.NotasId">
+            <key-property name="dni" type="string">
+                <column name="DNI" length="10" />
+            </key-property>
+            <key-property name="cod" type="int">
+                <column name="COD" />
+            </key-property>
+        </composite-id>
+        <many-to-one name="alumnos" class="datos.Alumnos" update="false" insert="false" fetch="select">
+            <column name="DNI" length="10" not-null="true" />
+        </many-to-one>
+        <many-to-one name="asignaturas" class="datos.Asignaturas" update="false" insert="false" fetch="select">
+            <column name="COD" not-null="true" />
+        </many-to-one>
+        <property name="nota" type="java.lang.Integer">
+            <column name="NOTA" />
+        </property>
+    </class>
+</hibernate-mapping>

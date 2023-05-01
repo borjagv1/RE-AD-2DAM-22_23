@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 15 nov 2022 19:32:23 by Hibernate Tools 4.3.6.Final -->
+<hibernate-mapping>
+    <class name="datos.C1Centros" table="c1_centros" optimistic-lock="version">
+        <id name="codCentro" type="int">
+            <column name="COD_CENTRO" />
+            <generator class="assigned" />
+        </id>
+        <property name="nomCentro" type="string">
+            <column name="NOM_CENTRO" length="20" />
+        </property>
+        <property name="director" type="java.lang.Integer">
+            <column name="DIRECTOR" />
+        </property>
+        <property name="direccion" type="string">
+            <column name="DIRECCION" length="25" />
+        </property>
+        <property name="localidad" type="string">
+            <column name="LOCALIDAD" length="20" />
+        </property>
+        <property name="provincia" type="string">
+            <column name="PROVINCIA" length="20" />
+        </property>
+        <set name="c1Profesoreses" table="c1_profesores" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="COD_CENTRO" />
+            </key>
+            <one-to-many class="datos.C1Profesores" />
+        </set>
+    </class>
+</hibernate-mapping>

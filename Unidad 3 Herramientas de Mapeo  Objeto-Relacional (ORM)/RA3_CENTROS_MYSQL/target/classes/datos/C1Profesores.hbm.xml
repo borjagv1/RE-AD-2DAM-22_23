@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 15 nov 2022 19:32:23 by Hibernate Tools 4.3.6.Final -->
+<hibernate-mapping>
+    <class name="datos.C1Profesores" table="c1_profesores" optimistic-lock="version">
+        <id name="codProf" type="int">
+            <column name="COD_PROF" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="c1Centros" class="datos.C1Centros" fetch="select">
+            <column name="COD_CENTRO" />
+        </many-to-one>
+        <many-to-one name="c1Especialidad" class="datos.C1Especialidad" fetch="select">
+            <column name="ESPECIALIDAD" length="2" />
+        </many-to-one>
+        <many-to-one name="c1Profesores" class="datos.C1Profesores" fetch="select">
+            <column name="COD_PROF1" />
+        </many-to-one>
+        <property name="nombreApe" type="string">
+            <column name="NOMBRE_APE" length="30" />
+        </property>
+        <property name="fechaNac" type="date">
+            <column name="FECHA_NAC" length="10" />
+        </property>
+        <property name="sexo" type="java.lang.Character">
+            <column name="SEXO" length="1" />
+        </property>
+        <set name="c1Asignaturases" table="c1_asigprof" inverse="false" lazy="true" fetch="select">
+            <key>
+                <column name="C1_PROFESORES_COD_PROF" not-null="true" />
+            </key>
+            <many-to-many entity-name="datos.C1Asignaturas">
+                <column name="C1_ASIGNATURAS_COD_ASIG" length="6" not-null="true" />
+            </many-to-many>
+        </set>
+        <set name="c1Profesoreses" table="c1_profesores" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="COD_PROF1" />
+            </key>
+            <one-to-many class="datos.C1Profesores" />
+        </set>
+    </class>
+</hibernate-mapping>

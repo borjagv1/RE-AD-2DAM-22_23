@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 15 nov 2022 19:32:23 by Hibernate Tools 4.3.6.Final -->
+<hibernate-mapping>
+    <class name="datos.C1Especialidad" table="c1_especialidad" optimistic-lock="version">
+        <id name="especialidad" type="string">
+            <column name="ESPECIALIDAD" length="2" />
+            <generator class="assigned" />
+        </id>
+        <property name="nombreEspe" type="string">
+            <column name="NOMBRE_ESPE" length="30" />
+        </property>
+        <set name="c1Profesoreses" table="c1_profesores" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="ESPECIALIDAD" length="2" />
+            </key>
+            <one-to-many class="datos.C1Profesores" />
+        </set>
+    </class>
+</hibernate-mapping>

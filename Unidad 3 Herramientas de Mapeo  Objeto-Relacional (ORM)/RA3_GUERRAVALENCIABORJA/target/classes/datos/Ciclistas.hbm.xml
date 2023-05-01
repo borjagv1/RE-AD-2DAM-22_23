@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 28 dic 2022 19:02:11 by Hibernate Tools 4.3.6.Final -->
+<hibernate-mapping>
+    <class name="datos.Ciclistas" table="CICLISTAS" optimistic-lock="version">
+        <id name="codigociclista" type="big_integer">
+            <column name="CODIGOCICLISTA" precision="22" scale="0" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="equipos" class="datos.Equipos" fetch="select">
+            <column name="CODIGOEQUIPO" precision="22" scale="0" not-null="true" />
+        </many-to-one>
+        <many-to-one name="ciclistas" class="datos.Ciclistas" fetch="select">
+            <column name="JEFEEQUIPO" precision="22" scale="0" />
+        </many-to-one>
+        <property name="nombreciclista" type="string">
+            <column name="NOMBRECICLISTA" length="50" not-null="true" />
+        </property>
+        <property name="fechanacimiento" type="date">
+            <column name="FECHANACIMIENTO" length="7" not-null="true" />
+        </property>
+        <property name="peso" type="big_decimal">
+            <column name="PESO" precision="5" not-null="true" />
+        </property>
+        <set name="llevas" table="LLEVA" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="CODIGOCICLISTA" precision="22" scale="0" not-null="true" />
+            </key>
+            <one-to-many class="datos.Lleva" />
+        </set>
+        <set name="resumenCamisetases" table="RESUMEN_CAMISETAS" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="CODIGOCICLISTA" precision="22" scale="0" not-null="true" />
+            </key>
+            <one-to-many class="datos.ResumenCamisetas" />
+        </set>
+        <set name="ciclistases" table="CICLISTAS" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="JEFEEQUIPO" precision="22" scale="0" />
+            </key>
+            <one-to-many class="datos.Ciclistas" />
+        </set>
+        <set name="tramospuertoses" table="TRAMOSPUERTOS" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="CICLISTAGANADOR" precision="22" scale="0" not-null="true" />
+            </key>
+            <one-to-many class="datos.Tramospuertos" />
+        </set>
+        <set name="etapases" table="ETAPAS" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="CICLISTAGANADOR" precision="22" scale="0" not-null="true" />
+            </key>
+            <one-to-many class="datos.Etapas" />
+        </set>
+    </class>
+</hibernate-mapping>

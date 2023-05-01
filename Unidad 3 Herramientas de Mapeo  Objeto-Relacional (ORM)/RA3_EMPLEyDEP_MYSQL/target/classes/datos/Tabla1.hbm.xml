@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 17 nov 2022 11:20:23 by Hibernate Tools 4.3.6.Final -->
+<hibernate-mapping>
+    <class name="datos.Tabla1" table="tabla1" optimistic-lock="version">
+        <composite-id name="id" class="datos.Tabla1Id">
+            <key-property name="nom" type="string">
+                <column name="NOM" length="20" />
+            </key-property>
+            <key-property name="ed" type="java.lang.Integer">
+                <column name="ED" />
+            </key-property>
+        </composite-id>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 22 nov 2022 12:25:43 by Hibernate Tools 4.3.6.Final -->
+<hibernate-mapping>
+    <class name="datos.Tlineasventas" table="TLINEASVENTAS" optimistic-lock="version">
+        <composite-id name="id" class="datos.TlineasventasId">
+            <key-property name="idventa" type="string">
+                <column name="IDVENTA" length="4" />
+            </key-property>
+            <key-property name="numerolinea" type="short">
+                <column name="NUMEROLINEA" precision="3" scale="0" />
+            </key-property>
+        </composite-id>
+        <many-to-one name="tproductos" class="datos.Tproductos" fetch="select">
+            <column name="IDPRODUCTO" length="4" />
+        </many-to-one>
+        <many-to-one name="tventas" class="datos.Tventas" update="false" insert="false" fetch="select">
+            <column name="IDVENTA" length="4" not-null="true" />
+        </many-to-one>
+        <property name="cantidad" type="java.lang.Short">
+            <column name="CANTIDAD" precision="3" scale="0" />
+        </property>
+    </class>
+</hibernate-mapping>

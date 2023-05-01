@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.org/dtd/hibernate-reverse-engineering-3.0.dtd" >
+
+<hibernate-reverse-engineering>
+  <table-filter match-name="c1_asignaturas"/>
+  <table-filter match-name="c1_asigprof"/>
+  <table-filter match-name="c1_centros"/>
+  <table-filter match-name="c1_especialidad"/>
+  <table-filter match-name="c1_profesores"/>
+</hibernate-reverse-engineering>

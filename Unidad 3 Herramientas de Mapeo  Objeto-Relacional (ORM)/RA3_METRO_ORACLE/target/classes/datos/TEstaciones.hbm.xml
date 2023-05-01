@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 12 dic 2022 1:26:44 by Hibernate Tools 4.3.6.Final -->
+<hibernate-mapping>
+    <class name="datos.TEstaciones" table="T_ESTACIONES" optimistic-lock="version">
+        <id name="codEstacion" type="int">
+            <column name="COD_ESTACION" precision="5" scale="0" />
+            <generator class="assigned" />
+        </id>
+        <property name="nombre" type="string">
+            <column name="NOMBRE" length="50" not-null="true" />
+        </property>
+        <property name="direccion" type="string">
+            <column name="DIRECCION" length="50" not-null="true" />
+        </property>
+        <property name="numaccesos" type="java.lang.Integer">
+            <column name="NUMACCESOS" precision="5" scale="0" />
+        </property>
+        <property name="numlineas" type="java.lang.Integer">
+            <column name="NUMLINEAS" precision="5" scale="0" />
+        </property>
+        <property name="numviajesdestino" type="java.lang.Integer">
+            <column name="NUMVIAJESDESTINO" precision="5" scale="0" />
+        </property>
+        <property name="numviajesprocedencia" type="java.lang.Integer">
+            <column name="NUMVIAJESPROCEDENCIA" precision="5" scale="0" />
+        </property>
+        <set name="TViajesesForEstaciondestino" table="T_VIAJES" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="ESTACIONDESTINO" precision="5" scale="0" />
+            </key>
+            <one-to-many class="datos.TViajes" />
+        </set>
+        <set name="TViajesesForEstacionorigen" table="T_VIAJES" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="ESTACIONORIGEN" precision="5" scale="0" />
+            </key>
+            <one-to-many class="datos.TViajes" />
+        </set>
+    </class>
+</hibernate-mapping>

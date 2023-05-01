@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 15 nov 2022 19:41:49 by Hibernate Tools 4.3.6.Final -->
+<hibernate-mapping>
+    <class name="datos.TEstaciones" table="t_estaciones" optimistic-lock="version">
+        <id name="codEstacion" type="int">
+            <column name="cod_estacion" />
+            <generator class="assigned" />
+        </id>
+        <property name="nombre" type="string">
+            <column name="nombre" length="50" not-null="true" />
+        </property>
+        <property name="direccion" type="string">
+            <column name="direccion" length="50" not-null="true" />
+        </property>
+        <set name="TLineaEstacions" table="t_linea_estacion" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="cod_estacion" not-null="true" />
+            </key>
+            <one-to-many class="datos.TLineaEstacion" />
+        </set>
+        <set name="TAccesoses" table="t_accesos" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="cod_estacion" not-null="true" />
+            </key>
+            <one-to-many class="datos.TAccesos" />
+        </set>
+    </class>
+</hibernate-mapping>

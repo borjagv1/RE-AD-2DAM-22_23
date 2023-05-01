@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 22 nov 2022 12:25:43 by Hibernate Tools 4.3.6.Final -->
+<hibernate-mapping>
+    <class name="datos.Tproductos" table="TPRODUCTOS" optimistic-lock="version">
+        <id name="idproducto" type="string">
+            <column name="IDPRODUCTO" length="4" />
+            <generator class="assigned" />
+        </id>
+        <property name="descripcion" type="string">
+            <column name="DESCRIPCION" length="80" />
+        </property>
+        <property name="pvp" type="big_decimal">
+            <column name="PVP" precision="6" />
+        </property>
+        <property name="stockactual" type="java.lang.Short">
+            <column name="STOCKACTUAL" precision="3" scale="0" />
+        </property>
+        <property name="stockminimo" type="java.lang.Short">
+            <column name="STOCKMINIMO" precision="3" scale="0" />
+        </property>
+        <set name="tlineasventases" table="TLINEASVENTAS" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="IDPRODUCTO" length="4" />
+            </key>
+            <one-to-many class="datos.Tlineasventas" />
+        </set>
+    </class>
+</hibernate-mapping>

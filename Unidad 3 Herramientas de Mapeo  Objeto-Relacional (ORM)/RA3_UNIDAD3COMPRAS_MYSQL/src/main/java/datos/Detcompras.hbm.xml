@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 15 nov 2022 19:49:34 by Hibernate Tools 4.3.6.Final -->
+<hibernate-mapping>
+    <class name="datos.Detcompras" table="detcompras" optimistic-lock="version">
+        <composite-id name="id" class="datos.DetcomprasId">
+            <key-property name="numcompra" type="int">
+                <column name="NUMCOMPRA" />
+            </key-property>
+            <key-property name="codproducto" type="int">
+                <column name="CODPRODUCTO" />
+            </key-property>
+        </composite-id>
+        <many-to-one name="compras" class="datos.Compras" update="false" insert="false" fetch="select">
+            <column name="NUMCOMPRA" not-null="true" />
+        </many-to-one>
+        <many-to-one name="productos" class="datos.Productos" update="false" insert="false" fetch="select">
+            <column name="CODPRODUCTO" not-null="true" />
+        </many-to-one>
+        <property name="unidades" type="java.lang.Integer">
+            <column name="UNIDADES" />
+        </property>
+    </class>
+</hibernate-mapping>

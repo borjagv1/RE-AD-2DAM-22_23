@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 28 dic 2022 19:02:11 by Hibernate Tools 4.3.6.Final -->
+<hibernate-mapping>
+    <class name="datos.Etapas" table="ETAPAS" optimistic-lock="version">
+        <id name="codigoetapa" type="big_integer">
+            <column name="CODIGOETAPA" precision="22" scale="0" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="ciclistas" class="datos.Ciclistas" fetch="select">
+            <column name="CICLISTAGANADOR" precision="22" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="tipoetapa" type="string">
+            <column name="TIPOETAPA" length="35" not-null="true" />
+        </property>
+        <property name="fechasalida" type="string">
+            <column name="FECHASALIDA" length="45" not-null="true" />
+        </property>
+        <property name="pobsalida" type="string">
+            <column name="POBSALIDA" length="65" not-null="true" />
+        </property>
+        <property name="pobllegada" type="string">
+            <column name="POBLLEGADA" length="65" not-null="true" />
+        </property>
+        <property name="km" type="big_decimal">
+            <column name="KM" precision="6" not-null="true" />
+        </property>
+        <set name="llevas" table="LLEVA" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="NUMETAPA" precision="22" scale="0" not-null="true" />
+            </key>
+            <one-to-many class="datos.Lleva" />
+        </set>
+        <set name="tramospuertoses" table="TRAMOSPUERTOS" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="NUMETAPA" precision="22" scale="0" not-null="true" />
+            </key>
+            <one-to-many class="datos.Tramospuertos" />
+        </set>
+    </class>
+</hibernate-mapping>

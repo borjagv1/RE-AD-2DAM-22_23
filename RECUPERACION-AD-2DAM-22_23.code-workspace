@@ -1,0 +1,17 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"java.project.sourcePaths": [
+			"Unidad 3 Herramientas de Mapeo  Objeto-Relacional (ORM)/RA3_CENTROS_ORACLE"
+		],
+		"cSpell.words": [
+			"conexion"
+		],
+		"java.dependency.packagePresentation": "hierarchical",
+		"java.configuration.updateBuildConfiguration": "interactive"
+	}
+}

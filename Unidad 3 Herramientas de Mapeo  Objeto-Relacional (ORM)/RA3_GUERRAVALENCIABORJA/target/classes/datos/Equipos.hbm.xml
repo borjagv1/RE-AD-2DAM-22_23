@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 28 dic 2022 19:02:11 by Hibernate Tools 4.3.6.Final -->
+<hibernate-mapping>
+    <class name="datos.Equipos" table="EQUIPOS" optimistic-lock="version">
+        <id name="codigoequipo" type="big_integer">
+            <column name="CODIGOEQUIPO" precision="22" scale="0" />
+            <generator class="assigned" />
+        </id>
+        <property name="nombreequipo" type="string">
+            <column name="NOMBREEQUIPO" length="35" not-null="true" />
+        </property>
+        <property name="director" type="string">
+            <column name="DIRECTOR" length="40" not-null="true" />
+        </property>
+        <property name="pais" type="string">
+            <column name="PAIS" length="3" not-null="true" />
+        </property>
+        <set name="resumenCamisetases" table="RESUMEN_CAMISETAS" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="CODIGOEQUIPO" precision="22" scale="0" not-null="true" />
+            </key>
+            <one-to-many class="datos.ResumenCamisetas" />
+        </set>
+        <set name="ciclistases" table="CICLISTAS" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="CODIGOEQUIPO" precision="22" scale="0" not-null="true" />
+            </key>
+            <one-to-many class="datos.Ciclistas" />
+        </set>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 12 dic 2022 1:26:44 by Hibernate Tools 4.3.6.Final -->
+<hibernate-mapping>
+    <class name="datos.TAccesos" table="T_ACCESOS" optimistic-lock="version">
+        <id name="codAcceso" type="int">
+            <column name="COD_ACCESO" precision="5" scale="0" />
+            <generator class="assigned" />
+        </id>
+        <property name="descripcion" type="string">
+            <column name="DESCRIPCION" length="50" not-null="true" />
+        </property>
+        <property name="codEstacion" type="int">
+            <column name="COD_ESTACION" precision="5" scale="0" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

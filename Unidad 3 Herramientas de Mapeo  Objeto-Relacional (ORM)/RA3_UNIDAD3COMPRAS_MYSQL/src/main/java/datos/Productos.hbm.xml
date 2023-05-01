@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 15 nov 2022 19:49:34 by Hibernate Tools 4.3.6.Final -->
+<hibernate-mapping>
+    <class name="datos.Productos" table="productos" optimistic-lock="version">
+        <id name="codproducto" type="int">
+            <column name="CODPRODUCTO" />
+            <generator class="assigned" />
+        </id>
+        <property name="denominacion" type="string">
+            <column name="DENOMINACION" length="20" />
+        </property>
+        <property name="tipo" type="string">
+            <column name="TIPO" length="1" />
+        </property>
+        <property name="pvp" type="java.lang.Float">
+            <column name="PVP" precision="12" scale="0" />
+        </property>
+        <property name="stock" type="java.lang.Integer">
+            <column name="STOCK" />
+        </property>
+        <set name="detcomprases" table="detcompras" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="CODPRODUCTO" not-null="true" />
+            </key>
+            <one-to-many class="datos.Detcompras" />
+        </set>
+    </class>
+</hibernate-mapping>

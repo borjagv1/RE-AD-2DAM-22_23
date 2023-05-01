@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 17 nov 2022 11:20:23 by Hibernate Tools 4.3.6.Final -->
+<hibernate-mapping>
+    <class name="datos.Doscampos" table="doscampos" optimistic-lock="version">
+        <composite-id name="id" class="datos.DoscamposId">
+            <key-property name="deptNo" type="byte">
+                <column name="dept_no" />
+            </key-property>
+            <key-property name="empNo" type="short">
+                <column name="emp_no" />
+            </key-property>
+        </composite-id>
+        <many-to-one name="departamentos" class="datos.Departamentos" update="false" insert="false" fetch="select">
+            <column name="dept_no" not-null="true" />
+        </many-to-one>
+        <many-to-one name="empleados" class="datos.Empleados" update="false" insert="false" fetch="select">
+            <column name="emp_no" not-null="true" />
+        </many-to-one>
+        <property name="cad" type="string">
+            <column name="cad" length="20" />
+        </property>
+    </class>
+</hibernate-mapping>

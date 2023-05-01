@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 22 nov 2022 12:25:43 by Hibernate Tools 4.3.6.Final -->
+<hibernate-mapping>
+    <class name="datos.Tclientes" table="TCLIENTES" optimistic-lock="version">
+        <id name="idcliente" type="string">
+            <column name="IDCLIENTE" length="4" />
+            <generator class="assigned" />
+        </id>
+        <property name="nombre" type="string">
+            <column name="NOMBRE" length="50" />
+        </property>
+        <property name="direccion" type="string">
+            <column name="DIRECCION" length="50" />
+        </property>
+        <property name="poblacion" type="string">
+            <column name="POBLACION" length="50" />
+        </property>
+        <property name="codpostal" type="string">
+            <column name="CODPOSTAL" length="5" />
+        </property>
+        <property name="provincia" type="string">
+            <column name="PROVINCIA" length="40" />
+        </property>
+        <property name="nif" type="string">
+            <column name="NIF" length="9" unique="true" />
+        </property>
+        <property name="telefono1" type="string">
+            <column name="TELEFONO1" length="15" />
+        </property>
+        <property name="telefono2" type="string">
+            <column name="TELEFONO2" length="15" />
+        </property>
+        <property name="telefono3" type="string">
+            <column name="TELEFONO3" length="15" />
+        </property>
+        <set name="tventases" table="TVENTAS" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="IDCLIENTE" length="4" not-null="true" />
+            </key>
+            <one-to-many class="datos.Tventas" />
+        </set>
+    </class>
+</hibernate-mapping>

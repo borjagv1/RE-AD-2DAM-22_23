@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 17 nov 2022 11:20:23 by Hibernate Tools 4.3.6.Final -->
+<hibernate-mapping>
+    <class name="datos.Totales" table="totales" optimistic-lock="version">
+        <composite-id name="id" class="datos.TotalesId">
+            <key-property name="dep" type="byte">
+                <column name="dep" />
+            </key-property>
+            <key-property name="dnombre" type="string">
+                <column name="dnombre" length="15" />
+            </key-property>
+            <key-property name="nemp" type="long">
+                <column name="nemp" />
+            </key-property>
+            <key-property name="media" type="java.lang.Double">
+                <column name="media" precision="10" scale="6" />
+            </key-property>
+        </composite-id>
+    </class>
+</hibernate-mapping>

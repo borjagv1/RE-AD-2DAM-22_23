@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 23 nov 2022 13:48:30 by Hibernate Tools 4.3.6.Final -->
+<hibernate-mapping>
+    <class name="datos.Estadisticas" table="ESTADISTICAS" optimistic-lock="version">
+        <composite-id name="id" class="datos.EstadisticasId">
+            <key-property name="temporada" type="string">
+                <column name="TEMPORADA" length="5" />
+            </key-property>
+            <key-property name="jugador" type="big_integer">
+                <column name="JUGADOR" precision="22" scale="0" />
+            </key-property>
+        </composite-id>
+        <many-to-one name="jugadores" class="datos.Jugadores" update="false" insert="false" fetch="select">
+            <column name="JUGADOR" precision="22" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="puntosPorPartido" type="big_decimal">
+            <column name="PUNTOS_POR_PARTIDO" precision="5" />
+        </property>
+        <property name="asistenciasPorPartido" type="big_decimal">
+            <column name="ASISTENCIAS_POR_PARTIDO" precision="5" />
+        </property>
+        <property name="taponesPorPartido" type="big_decimal">
+            <column name="TAPONES_POR_PARTIDO" precision="5" />
+        </property>
+        <property name="rebotesPorPartido" type="big_decimal">
+            <column name="REBOTES_POR_PARTIDO" precision="5" />
+        </property>
+    </class>
+</hibernate-mapping>

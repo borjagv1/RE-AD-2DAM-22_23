@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 17 nov 2022 11:04:19 by Hibernate Tools 4.3.6.Final -->
+<hibernate-mapping>
+    <class name="datos.Ventas" table="ventas" optimistic-lock="version">
+        <id name="idventa" type="short">
+            <column name="IDVENTA" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="clientes" class="datos.Clientes" fetch="select">
+            <column name="IDCLIENTE" not-null="true" />
+        </many-to-one>
+        <many-to-one name="productos" class="datos.Productos" fetch="select">
+            <column name="IDPRODUCTO" not-null="true" />
+        </many-to-one>
+        <property name="fechaventa" type="date">
+            <column name="FECHAVENTA" length="10" not-null="true" />
+        </property>
+        <property name="cantidad" type="byte">
+            <column name="CANTIDAD" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

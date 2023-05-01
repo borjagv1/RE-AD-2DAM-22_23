@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 15 nov 2022 12:59:08 by Hibernate Tools 4.3.6.Final -->
+<hibernate-mapping>
+    <class name="datos.Jugadores" table="JUGADORES" optimistic-lock="version">
+        <id name="codigo" type="big_integer">
+            <column name="CODIGO" precision="22" scale="0" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="equipos" class="datos.Equipos" fetch="select">
+            <column name="NOMBRE_EQUIPO" length="20" />
+        </many-to-one>
+        <property name="nombre" type="string">
+            <column name="NOMBRE" length="30" />
+        </property>
+        <property name="procedencia" type="string">
+            <column name="PROCEDENCIA" length="20" />
+        </property>
+        <property name="altura" type="string">
+            <column name="ALTURA" length="4" />
+        </property>
+        <property name="peso" type="big_integer">
+            <column name="PESO" precision="22" scale="0" />
+        </property>
+        <property name="posicion" type="string">
+            <column name="POSICION" length="12" />
+        </property>
+        <set name="estadisticases" table="ESTADISTICAS" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="JUGADOR" precision="22" scale="0" not-null="true" />
+            </key>
+            <one-to-many class="datos.Estadisticas" />
+        </set>
+    </class>
+</hibernate-mapping>
