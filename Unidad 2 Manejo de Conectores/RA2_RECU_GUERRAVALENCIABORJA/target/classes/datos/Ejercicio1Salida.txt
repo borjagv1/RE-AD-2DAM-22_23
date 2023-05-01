@@ -1,0 +1,90 @@
+-------------------------------------------------------------------------------------------
+CATEGORIA: 1, Pasta
+PLATOS ID  NOMBRE                  PVP ALERGENOS
+       === ==================== ====== =========================================================
+       1   Espaguetis            12,00 (Leche y productos lácteos, Cacahuetes, Semillas y granos) 
+       2   Macarrones            11,00 (Huevos, Soja) 
+       3   Tortellinis           15,00 (Frutos secos, Trigo y otros cereales) 
+       4   Pasta de colores      12,00 (Pescados y mariscos, Mostaza) 
+       5   Raviolis              10,00 (Leche y productos lácteos, Huevos, Frutas y verduras) 
+       6   Lasaña                11,00 (Frutos secos) 
+
+MENUS  ID  NOMBRE                          ORDEN  PLATO
+       === =============================== =====  ==========================
+       39  Especial de la semana (45,00 €)     1  Tortellinis 
+                                               2  Ternera 
+                                               3  Higado encebollado 
+--------------------------------------------------------------------------------------------
+CATEGORIA: 2, Pescados
+PLATOS ID  NOMBRE                  PVP ALERGENOS
+       === ==================== ====== =========================================================
+       7   Salmón                15,00 (Cacahuetes, Soja) 
+       8   Merluza               16,00 (Trigo y otros cereales, Pescados y mariscos) 
+       9   Sardinas              18,00 (Mostaza, Semillas y granos) 
+       10  Calamares             10,00 (Leche y productos lácteos, Huevos, Frutas y verduras) 
+       11  Boquerones             9,00 (Frutos secos, Cacahuetes, Soja) 
+       12  Trucha                11,00 (Trigo y otros cereales) 
+
+MENUS  ID  NOMBRE                          ORDEN  PLATO
+       === =============================== =====  ==========================
+       38  La Primavera (35,00 €)              1  Macarrones 
+                                               2  Filete de Buey 
+                                               3  Pechuga de pollo 
+--------------------------------------------------------------------------------------------
+CATEGORIA: 3, Carnes
+PLATOS ID  NOMBRE                  PVP ALERGENOS
+       === ==================== ====== =========================================================
+       13  Ternera               15,00 (Pescados y mariscos, Mostaza, Semillas y granos) 
+       14  Filete de Buey        16,00 (Leche y productos lácteos, Frutas y verduras) 
+       15  Muslos de Pollo       12,00 (Huevos, Frutos secos) 
+       16  Pechuga de pollo      11,00 (Cacahuetes) 
+       17  Carrilleras           15,00 (Soja, Trigo y otros cereales, Pescados y mariscos) 
+       18  Higado encebollado    12,00 (Mostaza, Semillas y granos) 
+
+MENUS  ID  NOMBRE                          ORDEN  PLATO
+       === =============================== =====  ==========================
+       37  La Alcarria (25,00 €)               1  Espaguetis 
+                                               2  Salmón 
+                                               3  Churros 
+--------------------------------------------------------------------------------------------
+CATEGORIA: 4, Desayunos
+PLATOS ID  NOMBRE                  PVP ALERGENOS
+       === ==================== ====== =========================================================
+       19  Churros               10,00 (Frutas y verduras) 
+       20  Pan con Tomate        11,00 (Leche y productos lácteos) 
+       21  Tostadas               9,00 (Huevos, Frutos secos) 
+       22  Pincho Tortilla       14,00 (Cacahuetes) 
+       23  Croissants            15,00 (Soja) 
+       24  Madalenas             11,00 (Leche y productos lácteos, Trigo y otros cereales) 
+
+	<<NO EXISTEN MENÚS EN LA CATEGORIA>>
+--------------------------------------------------------------------------------------------
+CATEGORIA: 5, Postres
+PLATOS ID  NOMBRE                  PVP ALERGENOS
+       === ==================== ====== =========================================================
+       25  Flan con helado       12,00 (Leche y productos lácteos, Huevos) 
+       26  Fruta variada          9,00 (Frutas y verduras) 
+       27  Tarta al wisky        14,00 (Trigo y otros cereales) 
+       28  Helado                14,00 (Leche y productos lácteos) 
+       29  Tarta de queso        12,00 (Leche y productos lácteos, Trigo y otros cereales) 
+       30  Tarta San Marcos      15,00 (Leche y productos lácteos, Trigo y otros cereales) 
+
+	<<NO EXISTEN MENÚS EN LA CATEGORIA>>
+--------------------------------------------------------------------------------------------
+CATEGORIA: 6, Bebidas
+PLATOS ID  NOMBRE                  PVP ALERGENOS
+       === ==================== ====== =========================================================
+       31  Agua                   5,00 () 
+       32  Vino tinto             6,00 () 
+       33  Vino Blanco            6,00 () 
+       34  Vino Rosado            6,00 () 
+       35  Refresco               7,00 () 
+       36  Agua con gas           6,00 () 
+
+	<<NO EXISTEN MENÚS EN LA CATEGORIA>>
+--------------------------------------------------------------------------------------------
+CATEGORIA: 7, Chuches
+	<<NO EXISTEN PLATOS EN LA CATEGORIA>>
+
+	<<NO EXISTEN MENÚS EN LA CATEGORIA>>
+============================================================================

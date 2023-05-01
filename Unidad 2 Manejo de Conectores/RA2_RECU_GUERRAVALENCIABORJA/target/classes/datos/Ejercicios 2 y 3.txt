@@ -1,0 +1,66 @@
+===========================================================================================================
+EJERCICIO 2:
+
+public class ejercicio2ApellidosNombre  {
+
+	static Connection conexion;
+
+	public static void main(String[] args) throws ClassNotFoundException, SQLException {
+
+		// Cargar el driver
+		Class.forName("oracle.jdbc.driver.OracleDriver");
+
+		// Establecemos la conexion con la BD ORA
+		conexion = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE", "CAFETERIA", "CAFETERIA");
+
+		CrearFuncion();//crear procedimientos y funciones
+		ejercicio2(22);
+		ejercicio2(1);		
+		ejercicio2(2);		
+		ejercicio2(3);
+		
+	}// fin de main
+
+	private static void ejercicio2(int id) throws SQLException {
+            //A DESARROLLAR POR EL ALUMNO
+        }
+}
+
+
+=======================================================================================================
+EJERCICIO 3:
+
+public class ejercicio3ApellidosNombre {
+
+	static Connection conexion;
+
+	public static void main(String[] args) throws ClassNotFoundException, SQLException {
+
+		// Cargar el driver
+		Class.forName("oracle.jdbc.driver.OracleDriver");
+
+		// Establecemos la conexion con la BD ORA
+		conexion = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE", "CAFETERIA", "CAFETERIA");
+
+		int[] idproducto1 = { 1, 5, 7 };
+		int[] cantidad1 = { 1, 2, 1 };
+		ejercicio3(idproducto1, cantidad1);
+
+		int[] idproducto2 = { 3, 4 };
+		int[] cantidad2 = { 2, 3 };
+		ejercicio3(idproducto2, cantidad2);
+
+		int[] idproducto3 = { 8, 100, 9, 7, 11 };
+		int[] cantidad3 = { 1, 1, 2, 2, 3 };
+		ejercicio3(idproducto3, cantidad3);
+
+		conexion.close(); // Cerrar conexion
+
+	}// fin de main
+
+	private static void ejercicio3(int[] idproducto, int[] cantidad) throws SQLException {
+              //A DESARROLLAR POR EL ALUMNO
+        }
+}
+
+/***************************************************************************************/
