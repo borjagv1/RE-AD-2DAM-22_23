@@ -347,6 +347,65 @@ public class Main2_RA3_bgv {
 
 	}
 
+	private static void ejercicio1BGV() {
+
+		String hql = "FROM NuevasCamisetas";
+		Query<NuevasCamisetas> q = session.createQuery(hql, NuevasCamisetas.class);
+		List<NuevasCamisetas> lNuevasCamisetas = q.list();
+
+		// Crear una sola instancia de Camisetas al principio
+		Camisetas camisetas = new Camisetas();
+		System.out.println("Ejercicio 1 - Insertar Nuevas camisetas");
+		System.out.println("=======================================");
+
+		// Iniciar una transacción
+		Transaction tx = session.beginTransaction();
+
+		for (NuevasCamisetas nuevasCamisetas : lNuevasCamisetas) {
+			Camisetas c = (Camisetas) session.get(Camisetas.class, (BigInteger) nuevasCamisetas.getCodigocamiseta());
+			if (c == null) {
+				// Asignar los valores de cada nueva camiseta a las propiedades del objeto
+				// Camisetas
+				camisetas = new Camisetas();
+				camisetas.setCodigocamiseta(nuevasCamisetas.getCodigocamiseta());
+				camisetas.setTipo(nuevasCamisetas.getTipo());
+				camisetas.setColor(nuevasCamisetas.getColor());
+				camisetas.setImportepremio(nuevasCamisetas.getImportepremio());
+				System.out.println("LA CAMISETA no existe,  se inserta ");
+				System.out.println(
+						"CAMISETA: " + camisetas.getCodigocamiseta() + ", " + camisetas.getColor() + " AÑADIDA");
+
+				// Guardar el objeto Camisetas en la base de datos
+				try {
+					// Guardar el objeto Camisetas en la base de datos
+					session.save(camisetas);
+				} catch (javax.persistence.PersistenceException ex) {
+					if (ex.getMessage().contains("ConstraintViolationException")) {
+						System.out.println("ERROR: Los datos ya existen en la base de datos.");
+					} else {
+						System.out.printf("HA OCURRIDO UN ERROR. MENSAJE: %s%n", ex.getMessage());
+					}
+				}
+			} else {
+				System.out.println("Camiseta: " + c.getCodigocamiseta() + ", " + c.getColor() + " YA EXISTE");
+
+			}
+
+		}
+		try {
+			// Confirmar la transacción
+			tx.commit();
+		} catch (javax.persistence.PersistenceException ex) {
+			if (ex.getMessage().contains("ConstraintViolationException")) {
+				System.out.println(
+						"Error: Violación de restricción. Alguna de las camisetas ya existe en la base de datos.");
+			} else {
+				System.out.printf("HA OCURRIDO UN ERROR. MENSAJE: %s%n", ex.getMessage());
+			}
+		}
+		System.out.println();
+	}
+
 	private static void InserciónTrasComprobarTodo(Transaction tx, BigInteger codCamiseta, BigInteger codCiclista,
 			BigInteger codEtapa) {
 		// Carga el objeto Ciclistas con el código del ciclista
@@ -494,63 +553,5 @@ public class Main2_RA3_bgv {
 		return existe;
 	}
 
-	private static void ejercicio1BGV() {
-
-		String hql = "FROM NuevasCamisetas";
-		Query<NuevasCamisetas> q = session.createQuery(hql, NuevasCamisetas.class);
-		List<NuevasCamisetas> lNuevasCamisetas = q.list();
-
-		// Crear una sola instancia de Camisetas al principio
-		Camisetas camisetas = new Camisetas();
-		System.out.println("Ejercicio 1 - Insertar Nuevas camisetas");
-		System.out.println("=======================================");
-
-		// Iniciar una transacción
-		Transaction tx = session.beginTransaction();
-
-		for (NuevasCamisetas nuevasCamisetas : lNuevasCamisetas) {
-			Camisetas c = (Camisetas) session.get(Camisetas.class, (BigInteger) nuevasCamisetas.getCodigocamiseta());
-			if (c == null) {
-				// Asignar los valores de cada nueva camiseta a las propiedades del objeto
-				// Camisetas
-				camisetas = new Camisetas();
-				camisetas.setCodigocamiseta(nuevasCamisetas.getCodigocamiseta());
-				camisetas.setTipo(nuevasCamisetas.getTipo());
-				camisetas.setColor(nuevasCamisetas.getColor());
-				camisetas.setImportepremio(nuevasCamisetas.getImportepremio());
-				System.out.println("LA CAMISETA no existe,  se inserta ");
-				System.out.println(
-						"CAMISETA: " + camisetas.getCodigocamiseta() + ", " + camisetas.getColor() + " AÑADIDA");
-
-				// Guardar el objeto Camisetas en la base de datos
-				try {
-					// Guardar el objeto Camisetas en la base de datos
-					session.save(camisetas);
-				} catch (javax.persistence.PersistenceException ex) {
-					if (ex.getMessage().contains("ConstraintViolationException")) {
-						System.out.println("ERROR: Los datos ya existen en la base de datos.");
-					} else {
-						System.out.printf("HA OCURRIDO UN ERROR. MENSAJE: %s%n", ex.getMessage());
-					}
-				}
-			} else {
-				System.out.println("Camiseta: " + c.getCodigocamiseta() + ", " + c.getColor() + " YA EXISTE");
-
-			}
-
-		}
-		try {
-			// Confirmar la transacción
-			tx.commit();
-		} catch (javax.persistence.PersistenceException ex) {
-			if (ex.getMessage().contains("ConstraintViolationException")) {
-				System.out.println(
-						"Error: Violación de restricción. Alguna de las camisetas ya existe en la base de datos.");
-			} else {
-				System.out.printf("HA OCURRIDO UN ERROR. MENSAJE: %s%n", ex.getMessage());
-			}
-		}
-		System.out.println();
-	}
-
+	
 }

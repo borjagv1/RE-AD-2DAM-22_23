@@ -26,21 +26,22 @@ public class Ejercicios_METRO_pg199 {
 
 		// ejercicio1_METRO();
 
-//		  EJERCICIO 2
+		// EJERCICIO 2
 
-		 // ejercicio2_METRO();
+		// ejercicio2_METRO();
 
-// 		  EJERCICIO 3
+		// EJERCICIO 3
 
-//		List<TEstaciones> estaciones = session.createQuery("from TEstaciones").list();
-//		for (TEstaciones estacion : estaciones) {
-//			ejercicio3_METRO(estacion.getCodEstacion());
-//		}
+		// List<TEstaciones> estaciones = session.createQuery("from
+		// TEstaciones").list();
+		// for (TEstaciones estacion : estaciones) {
+		// ejercicio3_METRO(estacion.getCodEstacion());
+		// }
 
 		// EJERCICIO 4
 
-		 ejercicio4_METRO();
-		
+		ejercicio4_METRO();
+
 	}// MAIN
 
 	private static void ejercicio1_METRO() {
@@ -62,7 +63,7 @@ public class Ejercicios_METRO_pg199 {
 		sesion = HibernateUtil.getSessionFactory();
 		Session session = sesion.openSession();
 		Transaction tx = session.beginTransaction();
-		
+
 		// VARIABLES
 		int codLin = 5;
 		int codEst = 16;
