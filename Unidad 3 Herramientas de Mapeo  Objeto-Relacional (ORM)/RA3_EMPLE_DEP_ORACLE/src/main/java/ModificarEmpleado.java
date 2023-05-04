@@ -27,7 +27,8 @@ public class ModificarEmpleado {
 			float NuevoSalario = em.getSalario().floatValue() + 1000;
 			BigDecimal bd = new BigDecimal(NuevoSalario);
 			em.setSalario(bd);
-
+			// Departamentos dep = new Departamentos();
+			// dep.setDeptNo((byte) 30);
 			Departamentos dep = (Departamentos) session.get(Departamentos.class, (byte) 30);
 			if (dep == null) {
 				System.out.println("El departamento NO existe");
@@ -38,7 +39,7 @@ public class ModificarEmpleado {
 				tx.commit();
 				
 				System.out.printf("Salario nuevo: %.2f%n", em.getSalario());
-				System.out.printf("Departamento nuevo: %d%n", em.getDepartamentos().getDnombre());
+				System.out.printf("Departamento nuevo: %d%n", em.getDepartamentos().getDeptNo());
 			}
 
 		} catch (ObjectNotFoundException o) {
