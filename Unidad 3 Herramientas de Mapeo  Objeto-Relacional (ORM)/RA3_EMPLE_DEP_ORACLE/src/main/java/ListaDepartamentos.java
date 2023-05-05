@@ -14,15 +14,17 @@ public class ListaDepartamentos {
 		SessionFactory sesion = HibernateUtil.getSessionFactory();
 		Session session = sesion.openSession();
 
-		Query q = session.createQuery("from Departamentos");
-		List<Departamentos> lista = q.list();
+		//Query q = session.createQuery("from Departamentos");
+		//List<Departamentos> lista = q.list();
+
+		List<Departamentos> lista = session.createQuery("from Departamentos", Departamentos.class).list();
 		
 		System.out.printf("Número de registros: %d%n", lista.size());
 		
 		//solo usando for-each
 		
-		for (Departamentos depar : lista) {
-			System.out.printf("%d, %s%n", depar.getDeptNo(), depar.getDnombre());
+		for (Departamentos departamentos : lista) {
+			System.out.printf("%d, %s%n", departamentos.getDeptNo(), departamentos.getDnombre());
 		}
 
 		// Utilizamos una expresión lambda y el método forEach para recorrer la lista

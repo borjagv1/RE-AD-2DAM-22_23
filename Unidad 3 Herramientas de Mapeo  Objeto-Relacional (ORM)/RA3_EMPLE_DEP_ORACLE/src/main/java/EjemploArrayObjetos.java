@@ -18,12 +18,10 @@ public class EjemploArrayObjetos {
 				+ " from Empleados as e right join  e.departamentos as d " // o " where e.departamentos = d "
 		        + " group by  d.deptNo, d.dnombre ";
 
-		Query cons = session.createQuery(hql);
-
-		List<Object[]> filas = cons.list(); // Todas las filas
+		List<Object[]> filas = session.createQuery(hql, Object[].class).list();
 		
 		for (Object[] filaActual : filas) {
-			System.out.printf("Numero Dep: %d, Nombre: %s, Salario medio: %.2f, N� emple: %d%n", filaActual[0],
+			System.out.printf("Numero Dep: %d, Nombre: %s, Salario medio: %.2f, Nº emple: %d%n", filaActual[0],
 					filaActual[3], filaActual[2], filaActual[1]);
 		}
 //		for (int i = 0; i < filas.size(); i++) {

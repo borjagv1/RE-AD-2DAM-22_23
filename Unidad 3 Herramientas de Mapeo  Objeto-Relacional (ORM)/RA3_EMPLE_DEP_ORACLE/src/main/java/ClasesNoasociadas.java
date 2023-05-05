@@ -28,6 +28,7 @@ public class ClasesNoasociadas {
 				System.out.printf("%s, %.2f, %s, %s %n", em.getApellido(), em.getSalario(), de.getDnombre(),
 						de.getLoc());
 			}
+			
 			System.out.println("===============================================");
 ////////////////////////////////////////CON FOR - EACH///////////////////////////////////////////////////////////////////////
 
