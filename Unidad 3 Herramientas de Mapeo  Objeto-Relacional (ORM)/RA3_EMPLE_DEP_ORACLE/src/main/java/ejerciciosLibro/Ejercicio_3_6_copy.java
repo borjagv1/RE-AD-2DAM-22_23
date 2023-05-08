@@ -7,6 +7,7 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.TransientPropertyValueException;
 import org.hibernate.exception.ConstraintViolationException;
 import datos.Departamentos;
 import datos.Empleados;
@@ -61,9 +62,19 @@ public class Ejercicio_3_6_copy {
 				}
 
 			}
+
+			
+		// } catch (javax.persistence.PersistenceException e) { // Ya controlada por constraint más abajo
+		// 	// Manejar la excepción por violación de restricciones
+		// 	System.err.println("Error al actualizar los empleados: " + e.getMessage() + " DUPLICADO");
+		// 	tx.rollback();
+		} catch (TransientPropertyValueException e) {
+			// Manejar la excepción por violación de restricciones
+			System.err.println("Error al actualizar los empleados: " + e.getMessage() + " NO EXISTE");
+			tx.rollback();
 		} catch (ConstraintViolationException cve) {
 			// Manejar la excepción por violación de restricciones
-			System.err.println("Error al actualizar los empleados: " + cve.getMessage());
+			System.err.println("Error al actualizar los empleados: " + cve.getMessage() + " DUPLICADO");
 			tx.rollback();
 		} catch (HibernateException he) {
 			// Manejar cualquier otra excepción de Hibernate
