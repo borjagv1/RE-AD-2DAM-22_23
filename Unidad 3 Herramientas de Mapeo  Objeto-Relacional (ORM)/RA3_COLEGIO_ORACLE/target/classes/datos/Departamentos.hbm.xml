@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 9 may 2023 17:23:53 by Hibernate Tools 4.3.6.Final -->
+<hibernate-mapping>
+    <class name="datos.Departamentos" table="DEPARTAMENTOS" optimistic-lock="version">
+        <id name="codDepar" type="big_integer">
+            <column name="COD_DEPAR" precision="22" scale="0" />
+            <generator class="assigned" />
+        </id>
+        <property name="nombreDepar" type="string">
+            <column name="NOMBRE_DEPAR" length="25" />
+        </property>
+        <property name="numAsig" type="big_integer">
+            <column name="NUM_ASIG" precision="22" scale="0" />
+        </property>
+        <set name="asignaturases" table="ASIGNATURAS" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="COD_DEPAR" precision="22" scale="0" />
+            </key>
+            <one-to-many class="datos.Asignaturas" />
+        </set>
+    </class>
+</hibernate-mapping>

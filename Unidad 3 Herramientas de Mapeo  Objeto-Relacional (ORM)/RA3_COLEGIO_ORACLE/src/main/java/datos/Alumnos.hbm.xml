@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 9 may 2023 17:23:53 by Hibernate Tools 4.3.6.Final -->
+<hibernate-mapping>
+    <class name="datos.Alumnos" table="ALUMNOS" optimistic-lock="version">
+        <id name="numAlumno" type="big_integer">
+            <column name="NUM_ALUMNO" precision="22" scale="0" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="cursos" class="datos.Cursos" fetch="select">
+            <column name="COD_CURSO" precision="22" scale="0" />
+        </many-to-one>
+        <property name="nombre" type="string">
+            <column name="NOMBRE" length="25" />
+        </property>
+        <property name="direccion" type="string">
+            <column name="DIRECCION" length="25" />
+        </property>
+        <property name="tlf" type="string">
+            <column name="TLF" length="10" />
+        </property>
+        <property name="notaMedia" type="big_decimal">
+            <column name="NOTA_MEDIA" precision="3" scale="1" />
+        </property>
+        <set name="evaluacioneses" table="EVALUACIONES" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="NUM_ALUMNO" precision="22" scale="0" not-null="true" />
+            </key>
+            <one-to-many class="datos.Evaluaciones" />
+        </set>
+    </class>
+</hibernate-mapping>

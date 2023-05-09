@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 9 may 2023 17:23:53 by Hibernate Tools 4.3.6.Final -->
+<hibernate-mapping>
+    <class name="datos.Centros" table="CENTROS" optimistic-lock="version">
+        <id name="codCentro" type="big_integer">
+            <column name="COD_CENTRO" precision="22" scale="0" />
+            <generator class="assigned" />
+        </id>
+        <property name="nombre" type="string">
+            <column name="NOMBRE" length="25" />
+        </property>
+        <property name="localidad" type="string">
+            <column name="LOCALIDAD" length="20" />
+        </property>
+        <property name="tlf" type="string">
+            <column name="TLF" length="10" />
+        </property>
+        <property name="numAlumnos" type="big_integer">
+            <column name="NUM_ALUMNOS" precision="22" scale="0" />
+        </property>
+        <property name="numCursos" type="big_integer">
+            <column name="NUM_CURSOS" precision="22" scale="0" />
+        </property>
+        <property name="presupuesto" type="big_integer">
+            <column name="PRESUPUESTO" precision="22" scale="0" />
+        </property>
+        <set name="cursoses" table="CURSOS" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="COD_CENTRO" precision="22" scale="0" />
+            </key>
+            <one-to-many class="datos.Cursos" />
+        </set>
+    </class>
+</hibernate-mapping>

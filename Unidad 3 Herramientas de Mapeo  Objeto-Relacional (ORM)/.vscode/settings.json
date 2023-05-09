@@ -4,5 +4,6 @@
         "fechaventa",
         "nombrecliente",
         "numventas"
-    ]
+    ],
+    "java.configuration.updateBuildConfiguration": "interactive"
 }
