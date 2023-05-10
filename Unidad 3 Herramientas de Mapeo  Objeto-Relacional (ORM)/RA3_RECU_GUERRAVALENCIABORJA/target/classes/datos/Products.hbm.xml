@@ -1,0 +1,75 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 10 may 2023 10:54:00 by Hibernate Tools 4.3.6.Final -->
+<hibernate-mapping>
+    <class name="datos.Products" table="PRODUCTS" optimistic-lock="version">
+        <id name="id" type="big_integer">
+            <column name="ID" precision="24" scale="0" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="categories" class="datos.Categories" fetch="select">
+            <column name="CATEGORY_ID" precision="24" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="createdAt" type="date">
+            <column name="CREATED_AT" length="7" />
+        </property>
+        <property name="description" type="string">
+            <column name="DESCRIPTION" length="200" not-null="true" />
+        </property>
+        <property name="forsale" type="short">
+            <column name="FORSALE" precision="3" scale="0" not-null="true" />
+        </property>
+        <property name="image" type="blob">
+            <column name="IMAGE" />
+        </property>
+        <property name="name" type="string">
+            <column name="NAME" length="100" not-null="true" />
+        </property>
+        <property name="price" type="double">
+            <column name="PRICE" precision="126" scale="0" not-null="true" />
+        </property>
+        <property name="type" type="string">
+            <column name="TYPE" length="10" not-null="true" />
+        </property>
+        <property name="updatedAt" type="date">
+            <column name="UPDATED_AT" length="7" />
+        </property>
+        <set name="ordersProductses" table="ORDERS_PRODUCTS" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="PRODUCT_ID" precision="24" scale="0" not-null="true" />
+            </key>
+            <one-to-many class="datos.OrdersProducts" />
+        </set>
+        <set name="dishesMenusesForDishId" table="DISHES_MENUS" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="DISH_ID" precision="24" scale="0" not-null="true" />
+            </key>
+            <one-to-many class="datos.DishesMenus" />
+        </set>
+        <set name="resumenMenusesForIdMenu" table="RESUMEN_MENUS" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="ID_MENU" precision="22" scale="0" not-null="true" />
+            </key>
+            <one-to-many class="datos.ResumenMenus" />
+        </set>
+        <set name="allergensProductses" table="ALLERGENS_PRODUCTS" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="PRODUCT_ID" precision="24" scale="0" not-null="true" />
+            </key>
+            <one-to-many class="datos.AllergensProducts" />
+        </set>
+        <set name="resumenMenusesForIdPlato" table="RESUMEN_MENUS" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="ID_PLATO" precision="22" scale="0" not-null="true" />
+            </key>
+            <one-to-many class="datos.ResumenMenus" />
+        </set>
+        <set name="dishesMenusesForMenuId" table="DISHES_MENUS" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="MENU_ID" precision="24" scale="0" not-null="true" />
+            </key>
+            <one-to-many class="datos.DishesMenus" />
+        </set>
+    </class>
+</hibernate-mapping>

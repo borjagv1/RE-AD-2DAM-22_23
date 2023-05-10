@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 10 may 2023 10:54:00 by Hibernate Tools 4.3.6.Final -->
+<hibernate-mapping>
+    <class name="datos.ResumenMenus" table="RESUMEN_MENUS" optimistic-lock="version">
+        <composite-id name="id" class="datos.ResumenMenusId">
+            <key-property name="idMenu" type="big_integer">
+                <column name="ID_MENU" precision="22" scale="0" />
+            </key-property>
+            <key-property name="idPlato" type="big_integer">
+                <column name="ID_PLATO" precision="22" scale="0" />
+            </key-property>
+        </composite-id>
+        <many-to-one name="productsByIdMenu" class="datos.Products" update="false" insert="false" fetch="select">
+            <column name="ID_MENU" precision="22" scale="0" not-null="true" />
+        </many-to-one>
+        <many-to-one name="productsByIdPlato" class="datos.Products" update="false" insert="false" fetch="select">
+            <column name="ID_PLATO" precision="22" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="nombreMenu" type="string">
+            <column name="NOMBRE_MENU" length="100" not-null="true" />
+        </property>
+        <property name="orden" type="big_integer">
+            <column name="ORDEN" precision="22" scale="0" not-null="true" />
+        </property>
+        <property name="nombrePlato" type="string">
+            <column name="NOMBRE_PLATO" length="100" not-null="true" />
+        </property>
+        <property name="alergenos" type="string">
+            <column name="ALERGENOS" length="200" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

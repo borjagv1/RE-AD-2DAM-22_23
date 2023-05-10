@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.org/dtd/hibernate-reverse-engineering-3.0.dtd" >
+
+<hibernate-reverse-engineering>
+  <table-filter match-name="ALLERGENS"/>
+  <table-filter match-name="ALLERGENS_PRODUCTS"/>
+  <table-filter match-name="BOOKINGS"/>
+  <table-filter match-name="CATEGORIES"/>
+  <table-filter match-name="DISHES_MENUS"/>
+  <table-filter match-name="ORDERS"/>
+  <table-filter match-name="ORDERS_PRODUCTS"/>
+  <table-filter match-name="PRODUCTS"/>
+  <table-filter match-name="RESUMEN_MENUS"/>
+  <table-filter match-name="TABLES"/>
+  <table-filter match-name="TURNS"/>
+  <table-filter match-name="USERS"/>
+</hibernate-reverse-engineering>

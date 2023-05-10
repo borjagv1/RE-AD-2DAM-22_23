@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 10 may 2023 10:54:00 by Hibernate Tools 4.3.6.Final -->
+<hibernate-mapping>
+    <class name="datos.AllergensProducts" table="ALLERGENS_PRODUCTS" optimistic-lock="version">
+        <composite-id name="id" class="datos.AllergensProductsId">
+            <key-property name="productId" type="big_integer">
+                <column name="PRODUCT_ID" precision="24" scale="0" />
+            </key-property>
+            <key-property name="allergenId" type="big_integer">
+                <column name="ALLERGEN_ID" precision="24" scale="0" />
+            </key-property>
+        </composite-id>
+        <many-to-one name="allergens" class="datos.Allergens" update="false" insert="false" fetch="select">
+            <column name="ALLERGEN_ID" precision="24" scale="0" not-null="true" />
+        </many-to-one>
+        <many-to-one name="products" class="datos.Products" update="false" insert="false" fetch="select">
+            <column name="PRODUCT_ID" precision="24" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="createdAt" type="date">
+            <column name="CREATED_AT" length="7" />
+        </property>
+        <property name="updatedAt" type="date">
+            <column name="UPDATED_AT" length="7" />
+        </property>
+    </class>
+</hibernate-mapping>
