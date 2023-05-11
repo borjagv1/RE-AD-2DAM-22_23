@@ -2,8 +2,10 @@
     "cSpell.words": [
         "dnombre",
         "fechaventa",
+        "Menuses",
         "nombrecliente",
-        "numventas"
+        "numventas",
+        "Productses"
     ],
     "java.configuration.updateBuildConfiguration": "interactive"
 }
