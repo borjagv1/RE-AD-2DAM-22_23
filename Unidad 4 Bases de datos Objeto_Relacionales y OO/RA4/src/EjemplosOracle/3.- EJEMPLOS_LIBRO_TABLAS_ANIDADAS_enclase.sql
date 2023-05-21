@@ -7,14 +7,16 @@ CREATE TABLE EJEMPLO_TABLA_ANIDADA
  APELLIDOS VARCHAR2(35),
  DIREC  TABLA_ANIDADA
 )
-NESTED TABLE DIREC STORE AS DIREC_ANIDADA;  //se define un almacenamiento
-
+NESTED TABLE DIREC STORE AS DIREC_ANIDADA;  -- se define un almacenamiento
+/
 desc direc_anidada;
+/
 desc direccion;
+/
 desc tabla_anidada;
-
-
+/
 desc EJEMPLO_TABLA_ANIDADA ;
+/
 --INSERTAR DATOS
 
 INSERT INTO EJEMPLO_TABLA_ANIDADA VALUES 
@@ -22,19 +24,19 @@ INSERT INTO EJEMPLO_TABLA_ANIDADA VALUES
   TABLA_ANIDADA (
     DIRECCION ('C/Los manantiales 5', 'GUADALAJARA', 19004),
     DIRECCION ('C/Los manantiales 10', 'GUADALAJARA', 19004),
-    DIRECCION ('C/Av de Paris 25', 'CÁCERES', 10005),
+    DIRECCION ('C/Av de Paris 25', 'Cï¿½CERES', 10005),
     DIRECCION ('C/Segovia 23-3A', 'TOLEDO', 45005)
   )
 );
 
-INSERT INTO EJEMPLO_TABLA_ANIDADA VALUES (2, 'MARTÍN', 
+INSERT INTO EJEMPLO_TABLA_ANIDADA VALUES (2, 'MARTï¿½N', 
   TABLA_ANIDADA (
-    DIRECCION ('C/Huesca 5', 'ALCALÁ DE H', 28804),
-    DIRECCION ('C/Madrid 20', 'ALCORCÓN', 28921)
+    DIRECCION ('C/Huesca 5', 'ALCALï¿½ DE H', 28804),
+    DIRECCION ('C/Madrid 20', 'ALCORCï¿½N', 28921)
   )
 );
 
---Se inserta el id, el nombre y la tabla anidada vacía:
+--Se inserta el id, el nombre y la tabla anidada vacï¿½a:
 
 insert into EJEMPLO_TABLA_ANIDADA 
     values (5, 'PEREZ', TABLA_ANIDADA());
@@ -81,12 +83,12 @@ SELECT ID, APELLIDOS, count(*)
 FROM EJEMPLO_TABLA_ANIDADA T, TABLE(T.DIREC)
 GROUP BY ID, APELLIDOS;
 
-//NUMERO DE CALLES DE TODOS ORDENADO POR CANTIDAD DE CALLES
+--NUMERO DE CALLES DE TODOS ORDENADO POR CANTIDAD DE CALLES
 SELECT ID, APELLIDOS, count(T.CALLE)
 FROM EJEMPLO_TABLA_ANIDADA , TABLE(DIREC)(+) T
 GROUP BY ID, APELLIDOS ORDER BY 3 DESC;
 
-----Si queremos seleccionar el número 
+----Si queremos seleccionar el nï¿½mero 
 --de direcciones de cada persona DE LA CIUDAD DE GUADALAJARA
 SELECT ID, APELLIDOS, CURSOR (
                       SELECT count(*) 
@@ -116,7 +118,7 @@ FROM EJEMPLO_TABLA_ANIDADA
 --
 
 --Utilizando la tabla anidada en la consulta, 
---la consulta resulta más sencilla:
+--la consulta resulta mï¿½s sencilla:
 SELECT ID, APELLIDOS, count(*)
 FROM EJEMPLO_TABLA_ANIDADA T, table(T.DIREC) tt
     where tt.ciudad ='GUADALAJARA' 
@@ -185,7 +187,7 @@ Update EJEMPLO_TABLA_ANIDADA
 set direc =
   TABLA_ANIDADA (DIRECCION ('C/Madrid 5', 'OROPESA', 45560))
 Where ID = 6 ;
---añado otra direccion
+--aï¿½ado otra direccion
 INSERT INTO TABLE 
   (SELECT DIREC FROM EJEMPLO_TABLA_ANIDADA WHERE ID = 6) 
 VALUES (DIRECCION
@@ -278,7 +280,7 @@ BEGIN
             AND UPPER(CIUDAD) = UPPER('TOLEDO') 
             AND CODIGO_POST= 45005;
             
-  RETURN ('LA DIRECCIÓN : '||PCALLE || '*' ||PCIU
+  RETURN ('LA DIRECCIï¿½N : '||PCALLE || '*' ||PCIU
               || '*' || CP  || 'YA EXISTE PARA ESE ID: '||IDEN);   
 EXCEPTION
 WHEN NO_DATA_FOUND THEN  
@@ -294,7 +296,17 @@ BEGIN
   DBMS_OUTPUT.PUT_LINE(EXISTE_DIREC(5,'C/Los manantiales 5', 'GUADALAJARA', 19004));  
 END;
 /
-
+-- CONSULTA PARA OBTENER EL NÂº DE DIRECCIONES QUE TIENE EN CADA CIUDAD EL IDENTIFICADOR 1
+SELECT ID, APELLIDOS, CURSOR (
+                      SELECT count(*) 
+                      FROM  TABLE(DIREC) DIRECCIONES 
+                      WHERE DIRECCIONES.CIUDAD = DIRECCIONES.CIUDAD ) FROM EJEMPLO_TABLA_ANIDADA WHERE ID=1;
+-- misma consulta sin usar cursor
+SELECT ID, APELLIDOS, tt.count(*)
+FROM EJEMPLO_TABLA_ANIDADA T, table(T.DIREC) tt
+    where tt.ciudad = tt.ciudad
+ group by ID, APELLIDOS
+  order by 3 desc;
 --ACTIVIDAD 7--
 
 ---------------------FIN--------------------------------
@@ -309,7 +321,10 @@ GROUP BY CIUDAD ORDER BY 1;
 ==========================================================
 SELECT CIUDAD,COUNT(*) "NUMERO DE CIUDAD"  FROM THE 
     ( SELECT DIREC 
-      FROM EJEMPLO_TABLA_ANIDADA where ID=1 )GROUP BY CIUDAD HAVING COUNT(*) = (SELECT MAX(COUNT(*)) FROM THE (SELECT DIREC FROM ejemplo_tabla_anidada WHERE ID = 1)  GROUP BY CIUDAD)
+      FROM EJEMPLO_TABLA_ANIDADA where ID=1 
+      )
+      GROUP BY CIUDAD 
+      HAVING COUNT(*) = (SELECT MAX(COUNT(*)) FROM THE (SELECT DIREC FROM ejemplo_tabla_anidada WHERE ID = 1)  GROUP BY CIUDAD)
  ORDER BY 1;
 /
 ==========================================================
