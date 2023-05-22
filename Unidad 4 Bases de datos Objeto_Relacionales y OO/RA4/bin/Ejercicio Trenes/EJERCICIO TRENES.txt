@@ -1,0 +1,32 @@
+EJERCICIO TRENES
+
+
+PARTIMOS DEL MODELO DE DATOS  RELACIONAL DE LA PAGINA 198.
+ SE DESEA CREAR UNA NUEVA TABLA TABLA_TRENES QUE CONTENGA POR CADA TREN SUS DATOS BÁSICOS Y LOS DATOS DE TODAS LAS LINEAS POR LAS QUE PASA, además cada línea tendrá información de todas las estaciones que tiene.
+
+ CREA UN TIPO DE DATO DE NOMBRE TIPO_TRENES CON LOS SIGUIENTES CAMPOS (campos similares a la tabla T_TRENES)
+
+COD_TREN, NOMBRE, TIPO
+
+TABLA ANIDADA LINEAS  (líneas por las que pasa el tren)
+
+REF A COCHERA (referencia a la tabla T_COCHERAS).     
+
+TABLA_ANIDADA_LINEAS
+
+              COD_LINEA
+
+              NOMBRE
+
+              TABLA ANIDADA DE LINEA_STACION (estaciones por las que pasa la línea)
+
+
+
+            TABLA ANIDADA DE LINEA_STACION contendrá cod_estacion, nombre Y ORDEN
+
+ 
+
+
+ 
+
+ Hacer una consulta que muestra para un determinado tren información por las líneas que pasa.
