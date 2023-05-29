@@ -28,10 +28,13 @@ public class listarColeccionLibros {
 			Document amig = consulta.get(i);
 			System.out.println("  " + amig.getDouble("codigo") + " - " + amig.get("nombre") + " - " + amig.get("pvp") + " - "
 					+ amig.get("editorial") + " - " + amig.get("temas"));
-
+			
 			if (amig.get("temas") != null) {
 				String coma = "";
+
+				@SuppressWarnings("unchecked")
 				ArrayList<String> temas = (ArrayList<String>) amig.get("temas");
+				
 				System.out.print("\t" + temas.size() + " Temas: ");
 				for (String na : temas) {
 					System.out.print(coma + na);

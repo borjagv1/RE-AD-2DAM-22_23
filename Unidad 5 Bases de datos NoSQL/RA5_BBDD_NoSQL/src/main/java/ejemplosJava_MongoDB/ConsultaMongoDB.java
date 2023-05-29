@@ -1,14 +1,10 @@
 package ejemplosJava_MongoDB;
 
-import com.mongodb.*;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
-import com.mongodb.client.model.Filters;
-import com.mongodb.client.model.Sorts;
-import java.util.Arrays;
 import java.util.Iterator;
 import org.bson.Document;
 
@@ -21,12 +17,10 @@ public class ConsultaMongoDB {
           MongoCollection<Document> coleccion = baseDatos.getCollection("amigos");
          //Obtener un objecto iterable de tipo cursor
           FindIterable<Document> iterDoc = coleccion.find(new Document("nombre", "Ana"));
-           int i = 1;
            //Iniciamos el iterador
-           Iterator it = iterDoc.iterator();
+           Iterator<Document> it = iterDoc.iterator();
            while (it.hasNext()) {
-               System.out.println(it.next());
-               i++;}
+               System.out.println(it.next());}
         clienteMongo.close();
       }
 }

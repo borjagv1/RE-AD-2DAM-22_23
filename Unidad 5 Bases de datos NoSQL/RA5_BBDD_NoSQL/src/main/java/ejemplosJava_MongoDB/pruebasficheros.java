@@ -43,6 +43,7 @@ public class pruebasficheros {
 				Document docu = new Document(org.bson.Document.parse(cadenajson));
 				coleccion.insertOne(docu);
 			}
+			bf.close();
 
 		} catch (FileNotFoundException e) {
 			

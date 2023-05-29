@@ -25,7 +25,6 @@ import java.util.List;
 
 
 import org.bson.Document; // mongo-java-driver-322
-import org.bson.conversions.Bson;
 
 public class EjemplosLibroAD {
 
@@ -179,7 +178,7 @@ public class EjemplosLibroAD {
 		// Listar las colecciones de la BD
 		System.out.println("Listado de colecciones: ");
 		MongoIterable<String> colecciones = db.listCollectionNames();
-		Iterator col = colecciones.iterator();
+		Iterator<String> col = colecciones.iterator();
 		while (col.hasNext())
 			System.out.println(col.next());
 
