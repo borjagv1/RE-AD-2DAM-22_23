@@ -1,1 +1,32 @@
 Unidad 5 Bases de datos NoSQL/RA5_BBDD_NoSQL/src/main/java/EXAMEN 2021-2022 + RECU/EXAMEN RA5 2021-2022/Solución Examen 2021 -  de Mario/target/classes/META-INF/maven/es.dominio/Practica_Mondongo/pom.properties
+Unidad 5 Bases de datos NoSQL/RA5_BBDD_NoSQL/src/main/java/EXAMEN 2021-2022 + RECU/RA5 RECU 2021/Solución Examen RECU RA5 2021- 2022 - de Mario/Practica_MongoRecu/target/classes/datos2022/Productos.class
+Unidad 5 Bases de datos NoSQL/RA5_BBDD_NoSQL/src/main/java/EXAMEN 2021-2022 + RECU/EXAMEN RA5 2021-2022/Solución Examen 2021 -  de Mario/target/classes/META-INF/maven/es.dominio/Practica_Mondongo/pom.xml
+.gitignore
+Unidad 5 Bases de datos NoSQL/RA5_BBDD_NoSQL/src/main/java/EXAMEN 2021-2022 + RECU/RA5 RECU 2021/Solución Examen RECU RA5 2021- 2022 - de Mario/Practica_MongoRecu/src/main/java/creacionbasededatos/CrearBDMongo2022.java
+Unidad 5 Bases de datos NoSQL/RA5_BBDD_NoSQL/src/main/java/EXAMEN 2021-2022 + RECU/RA5 RECU 2021/Solución Examen RECU RA5 2021- 2022 - de Mario/Practica_MongoRecu/src/main/java/creacionbasededatos/CrearFichObjetos2022.java
+Unidad 5 Bases de datos NoSQL/RA5_BBDD_NoSQL/src/main/java/EXAMEN 2021-2022 + RECU/RA5 RECU 2021/Solución Examen RECU RA5 2021- 2022 - de Mario/Practica_MongoRecu/src/main/java/datos2022/Oficinas.java
+Unidad 5 Bases de datos NoSQL/RA5_BBDD_NoSQL/src/main/java/EXAMEN 2021-2022 + RECU/RA5 RECU 2021/Solución Examen RECU RA5 2021- 2022 - de Mario/Practica_MongoRecu/src/main/java/datos2022/Productos.java
+Unidad 5 Bases de datos NoSQL/RA5_BBDD_NoSQL/src/main/java/EXAMEN 2021-2022 + RECU/RA5 RECU 2021/Solución Examen RECU RA5 2021- 2022 - de Mario/Practica_MongoRecu/src/main/java/datos2022/RepVentas.java
+Unidad 5 Bases de datos NoSQL/RA5_BBDD_NoSQL/src/main/java/EXAMEN 2021-2022 + RECU/RA5 RECU 2021/Solución Examen RECU RA5 2021- 2022 - de Mario/Practica_MongoRecu/src/main/java/datos2022/Ventas.java
+Unidad 5 Bases de datos NoSQL/RA5_BBDD_NoSQL/src/main/java/EXAMEN 2021-2022 + RECU/RA5 RECU 2021/Solución Examen RECU RA5 2021- 2022 - de Mario/Practica_MongoRecu/src/main/java/ejercicios/ActualizacionesMongo.java
+Unidad 5 Bases de datos NoSQL/RA5_BBDD_NoSQL/src/main/java/EXAMEN 2021-2022 + RECU/RA5 RECU 2021/Solución Examen RECU RA5 2021- 2022 - de Mario/Practica_MongoRecu/src/main/java/ejercicios/ListadoMongo.java
+Unidad 5 Bases de datos NoSQL/RA5_BBDD_NoSQL/src/main/java/EXAMEN 2021-2022 + RECU/RA5 RECU 2021/Solución Examen RECU RA5 2021- 2022 - de Mario/Practica_MongoRecu/target/classes/creacionbasededatos/CrearBDMongo2022.class
+Unidad 5 Bases de datos NoSQL/RA5_BBDD_NoSQL/src/main/java/EXAMEN 2021-2022 + RECU/RA5 RECU 2021/Solución Examen RECU RA5 2021- 2022 - de Mario/Practica_MongoRecu/target/classes/creacionbasededatos/CrearFichObjetos2022.class
+Unidad 5 Bases de datos NoSQL/RA5_BBDD_NoSQL/src/main/java/EXAMEN 2021-2022 + RECU/RA5 RECU 2021/Solución Examen RECU RA5 2021- 2022 - de Mario/Practica_MongoRecu/target/classes/datos2022/Oficinas.class
+Unidad 5 Bases de datos NoSQL/RA5_BBDD_NoSQL/src/main/java/EXAMEN 2021-2022 + RECU/RA5 RECU 2021/Solución Examen RECU RA5 2021- 2022 - de Mario/Practica_MongoRecu/target/classes/datos2022/RepVentas.class
+Unidad 5 Bases de datos NoSQL/RA5_BBDD_NoSQL/src/main/java/EXAMEN 2021-2022 + RECU/RA5 RECU 2021/Solución Examen RECU RA5 2021- 2022 - de Mario/Practica_MongoRecu/target/classes/datos2022/Ventas.class
+Unidad 5 Bases de datos NoSQL/RA5_BBDD_NoSQL/src/main/java/EXAMEN 2021-2022 + RECU/RA5 RECU 2021/Solución Examen RECU RA5 2021- 2022 - de Mario/Practica_MongoRecu/target/classes/ejercicios/ActualizacionesMongo.class
+Unidad 5 Bases de datos NoSQL/RA5_BBDD_NoSQL/src/main/java/EXAMEN 2021-2022 + RECU/RA5 RECU 2021/Solución Examen RECU RA5 2021- 2022 - de Mario/Practica_MongoRecu/target/classes/ejercicios/ListadoMongo.class
+Unidad 5 Bases de datos NoSQL/RA5_BBDD_NoSQL/src/main/java/EXAMEN 2021-2022 + RECU/RA5 RECU 2021/Solución Examen RECU RA5 2021- 2022 - de Mario/Practica_MongoRecu/target/classes/META-INF/MANIFEST.MF
+.gitignore
+Unidad 5 Bases de datos NoSQL/RA5_BBDD_NoSQL/target/classes/EXAMEN 2021-2022 + RECU/EXAMEN RA5 2021-2022/Solución Examen 2021 -  de Mario/target/classes/META-INF/maven/es.dominio/Practica_Mondongo/pom.properties
+Unidad 5 Bases de datos NoSQL/RA5_BBDD_NoSQL/target/classes/EXAMEN 2021-2022 + RECU/EXAMEN RA5 2021-2022/Solución Examen 2021 -  de Mario/target/classes/META-INF/maven/es.dominio/Practica_Mondongo/pom.xml
+.gitignore
+.gitignore
+Unidad 5 Bases de datos NoSQL/RA5_BBDD_NoSQL/target/classes/EXAMEN 2021-2022 + RECU/RA5 RECU 2021/Solución Examen RECU RA5 2021- 2022 - de Mario/Practica_MongoRecu/src/main/java/creacionbasededatos/CrearBDMongo2022.class
+Unidad 5 Bases de datos NoSQL/RA5_BBDD_NoSQL/target/classes/EXAMEN 2021-2022 + RECU/RA5 RECU 2021/Solución Examen RECU RA5 2021- 2022 - de Mario/Practica_MongoRecu/src/main/java/creacionbasededatos/CrearFichObjetos2022.class
+Unidad 5 Bases de datos NoSQL/RA5_BBDD_NoSQL/target/classes/EXAMEN 2021-2022 + RECU/RA5 RECU 2021/Solución Examen RECU RA5 2021- 2022 - de Mario/Practica_MongoRecu/src/main/java/datos2022/Oficinas.class
+Unidad 5 Bases de datos NoSQL/RA5_BBDD_NoSQL/target/classes/EXAMEN 2021-2022 + RECU/RA5 RECU 2021/Solución Examen RECU RA5 2021- 2022 - de Mario/Practica_MongoRecu/src/main/java/datos2022/Productos.class
+Unidad 5 Bases de datos NoSQL/RA5_BBDD_NoSQL/target/classes/EXAMEN 2021-2022 + RECU/RA5 RECU 2021/Solución Examen RECU RA5 2021- 2022 - de Mario/Practica_MongoRecu/src/main/java/datos2022/RepVentas.class
+Unidad 5 Bases de datos NoSQL/RA5_BBDD_NoSQL/target/classes/EXAMEN 2021-2022 + RECU/RA5 RECU 2021/Solución Examen RECU RA5 2021- 2022 - de Mario/Practica_MongoRecu/src/main/java/ejercicios/ActualizacionesMongo.class
+Unidad 5 Bases de datos NoSQL/RA5_BBDD_NoSQL/target/classes/EXAMEN 2021-2022 + RECU/RA5 RECU 2021/Solución Examen RECU RA5 2021- 2022 - de Mario/Practica_MongoRecu/src/main/java/ejercicios/ListadoMongo.class

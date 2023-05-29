@@ -1,0 +1,8 @@
+digraph "es.dominio:RA5_BBDD_NoSQL:jar:0.0.1-SNAPSHOT" { 
+	"es.dominio:RA5_BBDD_NoSQL:jar:0.0.1-SNAPSHOT" -> "org.mongodb:bson:jar:4.1.1:compile" ; 
+	"es.dominio:RA5_BBDD_NoSQL:jar:0.0.1-SNAPSHOT" -> "org.mongodb:mongodb-driver-core:jar:4.1.1:compile" ; 
+	"es.dominio:RA5_BBDD_NoSQL:jar:0.0.1-SNAPSHOT" -> "org.mongodb:mongodb-driver-legacy:jar:4.1.1:compile" ; 
+	"es.dominio:RA5_BBDD_NoSQL:jar:0.0.1-SNAPSHOT" -> "org.mongodb:mongodb-driver-sync:jar:4.1.1:compile" ; 
+	"es.dominio:RA5_BBDD_NoSQL:jar:0.0.1-SNAPSHOT" -> "org.slf4j:slf4j-api:jar:1.7.30:compile" ; 
+	"es.dominio:RA5_BBDD_NoSQL:jar:0.0.1-SNAPSHOT" -> "org.slf4j:slf4j-nop:jar:1.7.30:compile" ; 
+ } 
