@@ -1,0 +1,15 @@
+// Ejercicio 5_15
+
+// Libros de editorial Garceta con pvp > 25 y tengan el tema UML o Neodatis
+db.libros.find({editorial:"Garceta", pvp:{$gt:25}, $or:[{temas:"UML"},{temas:"Neodatis"}]});
+
+// Libros con editorial Garceta y pvp entre 20 y 25 y tema SOCKET
+    > db.libros.find({editorial:"Garceta", pvp:{$gte:20, $lte:25}, temas:"SOCKET"});
+    { "_id" : ObjectId("64770c04b585203d3b7c3d6b"), "codigo" : 3, "nombre" : "Programación de Servicios", "pvp" : 25, "editorial" : "Garceta", "temas" : [ "SOCKET", "Multihilo" ] }
+
+// Agregar tema SOCKET a los libros que no lo tengan
+> db.libros.update({temas:{$exists:true}}, {$addToSet:{temas:"SOCKET"}}, {multi:true});
+WriteResult({ "nMatched" : 3, "nUpserted" : 0, "nModified" : 2 })
+
+// Baja a 5 el precio de los libros de la editorial Garceta
+> db.libros.update({editorial:"Garceta"}, {$set:{pvp:5}}, {multi:true})

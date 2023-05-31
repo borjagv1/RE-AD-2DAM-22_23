@@ -1,0 +1,70 @@
+{
+    "universidad": {
+        "departamento": [
+            {
+                "@telefono": "112233",
+                "@tipo": "A",
+                "codigo": "IFC1",
+                "nombre": "Informática",
+                "empleado": [
+                    {
+                        "@salario": "2000",
+                        "puesto": "Asociado",
+                        "nombre": "Juan Parra"
+                    },
+                    {
+                        "@salario": "2300",
+                        "puesto": "Profesor",
+                        "nombre": "Alicia Martín"
+                    }
+                ]
+            },
+            {
+                "@telefono": "990033",
+                "@tipo": "A",
+                "codigo": "MAT1",
+                "nombre": "Matemáticas",
+                "empleado": [
+                    {
+                        "@salario": "1900",
+                        "puesto": "Técnico",
+                        "nombre": "Juan Parra"
+                    },
+                    {
+                        "@salario": "2100",
+                        "puesto": "Profesor",
+                        "nombre": "Mª Jesús Ramos"
+                    },
+                    {
+                        "@salario": "2300",
+                        "puesto": "Profesor",
+                        "nombre": "Pedro Paniagua"
+                    },
+                    {
+                        "@salario": "2500",
+                        "puesto": "Tutor",
+                        "nombre": "Antonia González"
+                    }
+                ]
+            },
+            {
+                "@telefono": "880833",
+                "@tipo": "B",
+                "codigo": "MAT2",
+                "nombre": "Análisis",
+                "empleado": [
+                    {
+                        "@salario": "1900",
+                        "puesto": "Asociado",
+                        "nombre": "Laura Ruiz"
+                    },
+                    {
+                        "@salario": "2200",
+                        "puesto": "Asociado",
+                        "nombre": "Mario García"
+                    }
+                ]
+            }
+        ]
+    }
+}

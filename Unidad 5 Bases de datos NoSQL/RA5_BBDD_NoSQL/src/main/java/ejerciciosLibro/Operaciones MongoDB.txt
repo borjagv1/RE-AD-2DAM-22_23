@@ -1,0 +1,120 @@
+> use mibasedatos;
+switched to db mibasedatos
+> Amigo1={nombre:'Ana', teléfono:123456789, curso:'1DAM', nota:7};
+{ "nombre" : "Ana", "teléfono" : 123456789, "curso" : "1DAM", "nota" : 7 }
+> db.amigos.save(Amigo1);
+WriteResult({ "nInserted" : 1 })
+> show collections
+amigos
+> db.amigos.insert({nombre:'Juanito', teléfono:123456788, curso:'2DAM', nota:6});
+WriteResult({ "nInserted" : 1 })
+db.amigos.find();
+> db.amigos.find();
+{ "_id" : ObjectId("6475c96a0c6e44fad9220253"), "nombre" : "Ana", "teléfono" : 123456789, "curso" : "1DAM", "nota" : 7 }
+{ "_id" : ObjectId("6475c9ba0c6e44fad9220254"), "nombre" : "Juanito", "teléfono" : 123456788, "curso" : "2DAM", "nota" : 6 }
+> db.amigos.find({nombre: "Marleni"},{telefono:1});
+> db.amigos.find({nombre: "Ana"},{telefono:1});
+{ "_id" : ObjectId("6475c96a0c6e44fad9220253") }
+> db.amigos.find({nombre: "Ana"},{teléfono:1});
+{ "_id" : ObjectId("6475c96a0c6e44fad9220253"), "teléfono" : 123456789 }
+> db.amigos.find({nombre: "Ana"},{teléfono:1, nombre:1, curso:1});
+{ "_id" : ObjectId("6475c96a0c6e44fad9220253"), "nombre" : "Ana", "teléfono" : 123456789, "curso" : "1DAM" }
+> db.amigos.find({nombre: "Ana"},{teléfono:1, nombre:1, curso:1}).count();
+1
+> db.amigos.find({telefono:{$gt:1} });
+> db.amigos.find({teléfono:{$gt:1} });
+{ "_id" : ObjectId("6475c96a0c6e44fad9220253"), "nombre" : "Ana", "teléfono" : 123456789, "curso" : "1DAM", "nota" : 7 }
+{ "_id" : ObjectId("6475c9ba0c6e44fad9220254"), "nombre" : "Juanito", "teléfono" : 123456788, "curso" : "2DAM", "nota" : 6 }
+------------------------------------------------------------
+De búsqueda de comparación:
+------------------------------------------------------------
+$eq igual
+ejemplo: {teléfono:{$eq:1} }
+$gt mayor que
+ejemplo: {teléfono:{$gt:1} }
+$gte mayor o igual que
+ejemplo: {teléfono:{$gte:7, $lte:4} }
+$lt menor que
+ejemplo: {teléfono:{$lt:1} }
+$lte menor o igual que
+ejemplo: {teléfono:{$lte:1} }
+$ne no igual
+ejemplo: {teléfono:{$ne:1} }
+$in igual a cualquiera de los valores de un array
+ejemplo: {teléfono:{$in:[1,2,3]} }
+$nin no igual a cualquiera de los valores de un array
+ejemplo: {teléfono:{$nin:[1,2,3]} }
+> db.amigos.find({teléfono:{$gt:1} });
+{ "_id" : ObjectId("6475c96a0c6e44fad9220253"), "nombre" : "Ana", "teléfono" : 123456789, "curso" : "1DAM", "nota" : 7 }
+{ "_id" : ObjectId("6475c9ba0c6e44fad9220254"), "nombre" : "Juanito", "teléfono" : 123456788, "curso" : "2DAM", "nota" : 6 }
+____________________________________________________________
+De búsqueda lógicos:
+------------------------------------------------------------
+$and
+ejemplo: db.amigos.find({$and:[{teléfono:{$gt:1}},{nombre:"Ana"}]});
+$or
+ejemplo: db.amigos.find({$or:[{teléfono:{$gt:1}},{nombre:"Ana"}]});
+$not
+ejemplo: db.amigos.find({nota:{$not:{$gt:6}}});
+$nor
+ejemplo: db.amigos.find({$nor:[{teléfono:{$gt:1}},{nombre:"Ana"}]});
+$exists
+ejemplo: db.amigos.find({nombre:{$exists:true}});
+> db.amigos.find({$and:[{teléfono:{$gt:1}},{nombre:"Ana"}]});
+{ "_id" : ObjectId("6475c96a0c6e44fad9220253"), "nombre" : "Ana", "teléfono" : 123456789, "curso" : "1DAM", "nota" : 7 }
+------------------------------------------------------------
+Actualización de registros:
+------------------------------------------------------------
+db.amigos.update({nombre:"Ana"},{nombre:"cuca", teléfono:123456789, curso:"1DAM", nota:7, sexo:"F"});
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+upsert // si no existe lo crea
+ejemplo: db.amigos.update({nombre:"Ana"},{nombre:"cuca", teléfono:123456789, curso:"1DAM", nota:7, sexo:"F"},{upsert:true});
+multi // actualiza todos los registros que cumplan la condición
+ejemplo: db.amigos.update({nombre:"Ana"},{nombre:"cuca", teléfono:123456789, curso:"1DAM", nota:7, sexo:"F"},{multi:true});   
+ejemplo: a todos los registros con curso 1DAM se le añade la poblacion Talavera
+db.amigos.update({curso:"1DAM"},{$set:{poblacion:"Talavera"}},{multi:true});
+$set //actualiza el campo
+ejemplo: db.amigos.update({nombre:"Ana"},{$set:{nombre:"cuca", teléfono:123456789, curso:"1DAM", nota:7, sexo:"F"}});
+$unset //elimina el campo
+ejemplo: db.amigos.update({nombre:"Ana"},{$unset:{nombre:"cuca", teléfono:123456789, curso:"1DAM", nota:7, sexo:"F"}});
+$inc //incrementa el valor del campo
+ejemplo: db.amigos.update({nombre:"Ana"},{$inc:{nota:1}});
+$push //añade un elemento a un array
+ejemplo: db.amigos.update({nombre:"Ana"},{$push:{amigos:"Juanito"}});
+$rename //renombra un campo
+ejemplo: db.amigos.update({nombre:"Ana"},{$rename:{edad:"age"}});
+
+------------------------------------------------------------
+//Ejemplo libros pg 331
+//Inserto la coleccion libros con tres libros y un array de temas:
+//Colección libros:
+db.libros.drop();
+db.libros.insert({codigo:1,nombre:"Acceso a datos", pvp: 35, editorial:"Garceta", temas:["Base de datos", "Hibernate","Neodatis"]})
+db.libros.insert({codigo:2,nombre:"Entornos de desarrollo", pvp: 27, editorial:"Garceta", temas:["UML", "Subversión", "ERMaster"]})
+db.libros.insert({codigo:3,nombre:"Programación de Servicios", pvp: 25,  editorial:"Garceta", temas:["SOCKET", "Multihilo"]})
+db.libros.find().sort({codigo:1});
+
+// libros que contengan el tema UML
+db.libros.find({temas:"UML"});
+
+// libros que contengan el tema UML y Subversión
+db.libros.find({$or:[{temas:"UML"},{temas:"Subversión"}]});
+
+// borro un array del codigo 3
+> db.libros.update({codigo:3}, {$unset:{temas:""}});
+
+// lo creo de nuevo añadiendo el tema SOCKET y multihilo
+// si uso $set me lo añade al array pero sustituye el segundo elemento (multihilo)
+> db.libros.update({codigo:3}, {$set:{temas:["SOCKET", "PIPELINE"]}});
+
+// si uso $addToSet me lo añade al array sin sustituir el segundo elemento
+> db.libros.update({codigo:3}, {$addToSet:{temas:{$each:["SOCKET", "Multihilo"]}}});
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+
+//si ahora quiero eliminar el tema PIPELINE
+> db.libros.update({codigo:3}, 
+                    {$pull:
+                    {temas:
+                    {$in: ["PIPELINE"]}}})
+
+

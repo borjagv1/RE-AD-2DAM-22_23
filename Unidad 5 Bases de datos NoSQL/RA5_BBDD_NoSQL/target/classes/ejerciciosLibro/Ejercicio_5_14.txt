@@ -1,0 +1,45 @@
+// Ejercicio 5.14 pg 331
+// crear la coleccion empleados dentro de la base de datos mibasedatos ejercicio 5.14
+> db.empleados.insert({Emp_no:1,nombre:"Juan",dep:10, salario:1000, fechaalta:"10/10/1999"});
+WriteResult({ "nInserted" : 1 })
+> db.empleados.insert({Emp_no:2,nombre:"Alicia",dep:10, salario:1400, fechaalta:"07/08/2000", oficio: "Profesora"});
+WriteResult({ "nInserted" : 1 })
+> db.empleados.insert({Emp_no:3,nombre:"María Jesús",dep:20, salario:1500, fechaalta: "05/01/2005", oficio: "Analista", comisión:100});
+WriteResult({ "nInserted" : 1 })
+> db.empleados.insert({Emp_no:4,nombre:"Alberto",dep:20, salario:1100, fechaalta:"15/11/2001"});
+WriteResult({ "nInserted" : 1 })
+> db.empleados.insert({Emp_no:5,nombre:"Fernando",dep:30, salario:1400, fechaalta: "20/11/1999", comisión:200, oficio: "Analista"});
+WriteResult({ "nInserted" : 1 })
+
+> db.empleados.find();
+
+{ "_id" : ObjectId("6475e1470c6e44fad9220255"), "Emp_no" : 1, "nombre" : "Juan", "dep" : 10, "salario" : 1000, "fechaalta" : "10/10/1999" }
+{ "_id" : ObjectId("6475e1740c6e44fad9220256"), "Emp_no" : 2, "nombre" : "Alicia", "dep" : 10, "salario" : 1400, "fechaalta" : "07/08/2000", "oficio" : "Profesora" }
+{ "_id" : ObjectId("6475e1a80c6e44fad9220257"), "Emp_no" : 3, "nombre" : "María Jesús", "dep" : 20, "salario" : 1500, "fechaalta" : "05/01/2005", "oficio" : "Analista", "comisión" : 100 }
+{ "_id" : ObjectId("6475e1cd0c6e44fad9220258"), "Emp_no" : 4, "nombre" : "Alberto", "dep" : 20, "salario" : 1100, "fechaalta" : "15/11/2001" }
+{ "_id" : ObjectId("6475e1dd0c6e44fad9220259"), "Emp_no" : 5, "nombre" : "Fernando", "dep" : 30, "salario" : 1400, "fechaalta" : "20/11/1999", "comisión" : 200, "oficio" : "Analista" }
+
+// Visualiza los empleados que pertenecen al departamento 10
+> db.empleados.find({dep:10});
+
+{ "_id" : ObjectId("6475e1470c6e44fad9220255"), "Emp_no" : 1, "nombre" : "Juan", "dep" : 10, "salario" : 1000, "fechaalta" : "10/10/1999" }
+{ "_id" : ObjectId("6475e1740c6e44fad9220256"), "Emp_no" : 2, "nombre" : "Alicia", "dep" : 10, "salario" : 1400, "fechaalta" : "07/08/2000", "oficio" : "Profesora" }
+
+// Visualiza los empleados que pertenecen al departamento 10 y 20
+> db.empleados.find({ $or: [{dep:10},{dep:20}]});
+
+{ "_id" : ObjectId("6475e1470c6e44fad9220255"), "Emp_no" : 1, "nombre" : "Juan", "dep" : 10, "salario" : 1000, "fechaalta" : "10/10/1999" }
+{ "_id" : ObjectId("6475e1740c6e44fad9220256"), "Emp_no" : 2, "nombre" : "Alicia", "dep" : 10, "salario" : 1400, "fechaalta" : "07/08/2000", "oficio" : "Profesora" }
+{ "_id" : ObjectId("6475e1a80c6e44fad9220257"), "Emp_no" : 3, "nombre" : "María Jesús", "dep" : 20, "salario" : 1500, "fechaalta" : "05/01/2005", "oficio" : "Analista", "comisión" : 100 }
+{ "_id" : ObjectId("6475e1cd0c6e44fad9220258"), "Emp_no" : 4, "nombre" : "Alberto", "dep" : 20, "salario" : 1100, "fechaalta" : "15/11/2001" }
+
+// obtén los empleados con salario mayor que 1300 Y oficio profesora
+> db.empleados.find({$and:[{salario:{$gt:1300}},{oficio:"Profesora"}]});
+
+{ "_id" : ObjectId("6475e1740c6e44fad9220256"), "Emp_no" : 2, "nombre" : "Alicia", "dep" : 10, "salario" : 1400, "fechaalta" : "07/08/2000", "oficio" : "Profesora" }
+
+// Sube el salario a los analistas en 100 euros a todos los analistas
+db.empleados.update({oficio:"Analista"}, {$inc: {salario:100}}, {multi:true});
+
+//decremento la comisión en 20€ solo a los que tengan comisión
+db.empleados.update({comisión:{$exists:true}}, {$inc: {comisión:-20}}, {multi:true});

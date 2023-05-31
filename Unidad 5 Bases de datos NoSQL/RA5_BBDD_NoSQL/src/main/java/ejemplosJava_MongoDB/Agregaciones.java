@@ -8,7 +8,7 @@ import com.mongodb.client.MongoDatabase;
 import static com.mongodb.client.model.Aggregates.*;
 import static com.mongodb.client.model.Accumulators.*;
 
-import static com.mongodb.client.model.Filters.eq;
+import static com.mongodb.client.model.Filters.*;
 
 import java.util.Arrays;
 
