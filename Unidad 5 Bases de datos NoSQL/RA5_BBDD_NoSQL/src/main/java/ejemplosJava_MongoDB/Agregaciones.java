@@ -37,8 +37,15 @@ public class Agregaciones {
 		MongoCursor<Document> docs4 = coleccion.aggregate(Arrays.asList(match(eq("curso", curso)))).iterator();
 		while (docs4.hasNext()) {
 			Document docu = docs4.next();
-			System.out.println("\tNombre: " + docu.get("nombre") + ", Telefono: " + docu.get("teléfono"));
+			System.out.println("\tNombre: " + docu.get("nombre") + ", Telefono: " + docu.get("telefono"));
 		}
+		// con for each
+		MongoCursor<Document> docs5 = coleccion.aggregate(Arrays.asList(match(eq("curso", curso)))).iterator();
+		docs5.forEachRemaining(
+				docu -> System.out.println(docu.toJson()));
+
+		
+		docs5.close();
 		docs4.close();
 
 	}
