@@ -1,3 +1,25 @@
 {
-    "java.configuration.updateBuildConfiguration": "interactive"
+    "java.configuration.updateBuildConfiguration": "interactive",
+    "cSpell.words": [
+        "Ampliacion",
+        "ARTCULOS",
+        "articulos",
+        "Articulos",
+        "ARTICULOS",
+        "codart",
+        "CODART",
+        "codarticulo",
+        "codcliente",
+        "denominacion",
+        "DENOMINACION",
+        "fechastr",
+        "Juán",
+        "Limpiafondos",
+        "multiacción",
+        "numventa",
+        "NUMVENTA",
+        "RESULTSETMETADATA",
+        "sysdate",
+        "trunc"
+    ]
 }
