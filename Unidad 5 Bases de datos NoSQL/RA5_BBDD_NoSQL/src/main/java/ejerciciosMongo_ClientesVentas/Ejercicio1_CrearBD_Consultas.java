@@ -53,13 +53,14 @@ INSERT INTO ventas values('VE8','CL3','AR2',trunc(sysdate)-15,1);INSERT INTO ven
 
 INSERT INTO ventas values('VE12','CL4','AR4',trunc(sysdate)-5,2);INSERT INTO ventas values('VE13','CL4','AR2',trunc(sysdate)-3,1);
  */
-public class Ejercicio_Ampliacion {
+public class Ejercicio1_CrearBD_Consultas {
 
     public static void main(String[] args) throws ParseException {
         com.mongodb.client.MongoClient cliente = MongoClients.create();
         MongoDatabase db = cliente.getDatabase("mibasedatos");
+        //MongoCollection<Document> coleccionClientes = db.getCollection("clientes");
 
-        System.out.println("Ejercicio de ampliación");
+        System.out.println("Ejercicio 1");
         // NOS CONECTAMOS A BBDD MYSQL Y AÑADIMOS LOS DATOS A MONGODB:
         // 1. Creo la conexión:
         try {

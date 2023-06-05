@@ -69,7 +69,7 @@ public class EjemplosLibroAD {
 		
 
 		// insertar varios documentos de una lista
-		List<Document> listadocs = new ArrayList<Document>();
+		List< Document> listadocs = new ArrayList<Document>();
 		for (int i = 0; i < 4; i++) {
 			listadocs.add(new Document("Valor de i", i));
 		}
