@@ -11,19 +11,27 @@
         "CODARTI",
         "codarticulo",
         "codcliente",
+        "colecci",
         "denominacion",
         "DENOMINACION",
         "fechastr",
         "FECHAVENTA",
+        "importeventa",
         "IMPORTEVENTA",
         "Juán",
         "Limpiafondos",
+        "MANCHUELA",
         "multiacción",
+        "nombrezona",
         "numventa",
         "NUMVENTA",
         "NUMVENTAS",
+        "nventas",
+        "PILUCA",
         "RESULTSETMETADATA",
+        "SERRANIA",
         "sysdate",
-        "trunc"
+        "trunc",
+        "UELO"
     ]
 }
