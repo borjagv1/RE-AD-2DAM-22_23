@@ -6,6 +6,8 @@
         "articulos",
         "Articulos",
         "ARTICULOS",
+        "asig",
+        "ASIG",
         "codart",
         "CODART",
         "CODARTI",
@@ -14,7 +16,9 @@
         "colecci",
         "denominacion",
         "DENOMINACION",
+        "direccion",
         "escríbelo",
+        "evaluacion",
         "fechastr",
         "FECHAVENTA",
         "IMPORTETOTAL",
@@ -24,6 +28,7 @@
         "Limpiafondos",
         "MANCHUELA",
         "multiacción",
+        "nombreasig",
         "nombrezona",
         "numventa",
         "NUMVENTA",
@@ -34,6 +39,8 @@
         "SERRANIA",
         "sysdate",
         "trunc",
-        "UELO"
+        "UELO",
+        "vacia",
+        "vacio"
     ]
 }
