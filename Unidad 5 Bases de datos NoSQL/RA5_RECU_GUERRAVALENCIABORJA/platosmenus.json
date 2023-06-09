@@ -1,0 +1,64 @@
+[{
+  "_id": {
+    "$oid": "646b48d4bd80ef149db2ce1f"
+  },
+  "id_menu": 37,
+  "id_plato": 1,
+  "orden": 1
+},{
+  "_id": {
+    "$oid": "646b48d4bd80ef149db2ce20"
+  },
+  "id_menu": 37,
+  "id_plato": 7,
+  "orden": 2
+},{
+  "_id": {
+    "$oid": "646b48d4bd80ef149db2ce21"
+  },
+  "id_menu": 37,
+  "id_plato": 19,
+  "orden": 3
+},{
+  "_id": {
+    "$oid": "646b48d4bd80ef149db2ce22"
+  },
+  "id_menu": 38,
+  "id_plato": 2,
+  "orden": 1
+},{
+  "_id": {
+    "$oid": "646b48d4bd80ef149db2ce23"
+  },
+  "id_menu": 38,
+  "id_plato": 14,
+  "orden": 2
+},{
+  "_id": {
+    "$oid": "646b48d4bd80ef149db2ce24"
+  },
+  "id_menu": 38,
+  "id_plato": 16,
+  "orden": 3
+},{
+  "_id": {
+    "$oid": "646b48d4bd80ef149db2ce25"
+  },
+  "id_menu": 39,
+  "id_plato": 3,
+  "orden": 1
+},{
+  "_id": {
+    "$oid": "646b48d4bd80ef149db2ce26"
+  },
+  "id_menu": 39,
+  "id_plato": 13,
+  "orden": 2
+},{
+  "_id": {
+    "$oid": "646b48d4bd80ef149db2ce27"
+  },
+  "id_menu": 39,
+  "id_plato": 18,
+  "orden": 3
+}]

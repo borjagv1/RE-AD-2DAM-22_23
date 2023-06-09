@@ -1,0 +1,51 @@
+[{
+  "_id": 1,
+  "nombre": "Leche y productos lácteos",
+  "numproductos": 0,
+  "nombreproductos": ""
+},{
+  "_id": 2,
+  "nombre": "Huevos",
+  "numproductos": 0,
+  "nombreproductos": ""
+},{
+  "_id": 3,
+  "nombre": "Frutos secos",
+  "numproductos": 0,
+  "nombreproductos": ""
+},{
+  "_id": 4,
+  "nombre": "Cacahuetes",
+  "numproductos": 0,
+  "nombreproductos": ""
+},{
+  "_id": 5,
+  "nombre": "Soja",
+  "numproductos": 0,
+  "nombreproductos": ""
+},{
+  "_id": 6,
+  "nombre": "Trigo y otros cereales",
+  "numproductos": 0,
+  "nombreproductos": ""
+},{
+  "_id": 7,
+  "nombre": "Pescados y mariscos",
+  "numproductos": 0,
+  "nombreproductos": ""
+},{
+  "_id": 8,
+  "nombre": "Mostaza",
+  "numproductos": 0,
+  "nombreproductos": ""
+},{
+  "_id": 9,
+  "nombre": "Semillas y granos",
+  "numproductos": 0,
+  "nombreproductos": ""
+},{
+  "_id": 10,
+  "nombre": "Frutas y verduras",
+  "numproductos": 0,
+  "nombreproductos": ""
+}]

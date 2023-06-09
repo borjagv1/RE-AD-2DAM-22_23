@@ -1,0 +1,313 @@
+[{
+  "_id": 1,
+  "nombre": "Espaguetis",
+  "pvp": 12.0,
+  "tipo": "plato",
+  "idcategoria": 1,
+  "numalergenos": 0,
+  "nombrealergenos": ""
+},{
+  "_id": 2,
+  "nombre": "Macarrones",
+  "pvp": 11.0,
+  "tipo": "plato",
+  "idcategoria": 1,
+  "numalergenos": 0,
+  "nombrealergenos": ""
+},{
+  "_id": 3,
+  "nombre": "Tortellinis",
+  "pvp": 15.0,
+  "tipo": "plato",
+  "idcategoria": 1,
+  "numalergenos": 0,
+  "nombrealergenos": ""
+},{
+  "_id": 4,
+  "nombre": "Pasta de colores",
+  "pvp": 12.0,
+  "tipo": "plato",
+  "idcategoria": 1,
+  "numalergenos": 0,
+  "nombrealergenos": ""
+},{
+  "_id": 5,
+  "nombre": "Raviolis",
+  "pvp": 10.0,
+  "tipo": "plato",
+  "idcategoria": 1,
+  "numalergenos": 0,
+  "nombrealergenos": ""
+},{
+  "_id": 6,
+  "nombre": "Lasaña",
+  "pvp": 11.0,
+  "tipo": "plato",
+  "idcategoria": 1,
+  "numalergenos": 0,
+  "nombrealergenos": ""
+},{
+  "_id": 7,
+  "nombre": "Salmón",
+  "pvp": 15.0,
+  "tipo": "plato",
+  "idcategoria": 2,
+  "numalergenos": 0,
+  "nombrealergenos": ""
+},{
+  "_id": 8,
+  "nombre": "Merluza",
+  "pvp": 16.0,
+  "tipo": "plato",
+  "idcategoria": 2,
+  "numalergenos": 0,
+  "nombrealergenos": ""
+},{
+  "_id": 9,
+  "nombre": "Sardinas",
+  "pvp": 18.0,
+  "tipo": "plato",
+  "idcategoria": 2,
+  "numalergenos": 0,
+  "nombrealergenos": ""
+},{
+  "_id": 10,
+  "nombre": "Calamares",
+  "pvp": 10.0,
+  "tipo": "plato",
+  "idcategoria": 2,
+  "numalergenos": 0,
+  "nombrealergenos": ""
+},{
+  "_id": 11,
+  "nombre": "Boquerones",
+  "pvp": 9.0,
+  "tipo": "plato",
+  "idcategoria": 2,
+  "numalergenos": 0,
+  "nombrealergenos": ""
+},{
+  "_id": 12,
+  "nombre": "Trucha",
+  "pvp": 11.0,
+  "tipo": "plato",
+  "idcategoria": 2,
+  "numalergenos": 0,
+  "nombrealergenos": ""
+},{
+  "_id": 13,
+  "nombre": "Ternera",
+  "pvp": 15.0,
+  "tipo": "plato",
+  "idcategoria": 3,
+  "numalergenos": 0,
+  "nombrealergenos": ""
+},{
+  "_id": 14,
+  "nombre": "Filete de Buey",
+  "pvp": 16.0,
+  "tipo": "plato",
+  "idcategoria": 3,
+  "numalergenos": 0,
+  "nombrealergenos": ""
+},{
+  "_id": 15,
+  "nombre": "Muslos de Pollo",
+  "pvp": 12.0,
+  "tipo": "plato",
+  "idcategoria": 3,
+  "numalergenos": 0,
+  "nombrealergenos": ""
+},{
+  "_id": 16,
+  "nombre": "Pechuga de pollo",
+  "pvp": 11.0,
+  "tipo": "plato",
+  "idcategoria": 3,
+  "numalergenos": 0,
+  "nombrealergenos": ""
+},{
+  "_id": 17,
+  "nombre": "Carrilleras",
+  "pvp": 15.0,
+  "tipo": "plato",
+  "idcategoria": 3,
+  "numalergenos": 0,
+  "nombrealergenos": ""
+},{
+  "_id": 18,
+  "nombre": "Higado encebollado",
+  "pvp": 12.0,
+  "tipo": "plato",
+  "idcategoria": 3,
+  "numalergenos": 0,
+  "nombrealergenos": ""
+},{
+  "_id": 19,
+  "nombre": "Churros",
+  "pvp": 10.0,
+  "tipo": "plato",
+  "idcategoria": 4,
+  "numalergenos": 0,
+  "nombrealergenos": ""
+},{
+  "_id": 20,
+  "nombre": "Pan con Tomate",
+  "pvp": 11.0,
+  "tipo": "plato",
+  "idcategoria": 4,
+  "numalergenos": 0,
+  "nombrealergenos": ""
+},{
+  "_id": 21,
+  "nombre": "Tostadas",
+  "pvp": 9.0,
+  "tipo": "plato",
+  "idcategoria": 4,
+  "numalergenos": 0,
+  "nombrealergenos": ""
+},{
+  "_id": 22,
+  "nombre": "Pincho Tortilla",
+  "pvp": 14.0,
+  "tipo": "plato",
+  "idcategoria": 4,
+  "numalergenos": 0,
+  "nombrealergenos": ""
+},{
+  "_id": 23,
+  "nombre": "Croissants",
+  "pvp": 15.0,
+  "tipo": "plato",
+  "idcategoria": 4,
+  "numalergenos": 0,
+  "nombrealergenos": ""
+},{
+  "_id": 24,
+  "nombre": "Madalenas",
+  "pvp": 11.0,
+  "tipo": "plato",
+  "idcategoria": 4,
+  "numalergenos": 0,
+  "nombrealergenos": ""
+},{
+  "_id": 25,
+  "nombre": "Flan con helado",
+  "pvp": 12.0,
+  "tipo": "plato",
+  "idcategoria": 5,
+  "numalergenos": 0,
+  "nombrealergenos": ""
+},{
+  "_id": 26,
+  "nombre": "Fruta variada",
+  "pvp": 9.0,
+  "tipo": "plato",
+  "idcategoria": 5,
+  "numalergenos": 0,
+  "nombrealergenos": ""
+},{
+  "_id": 27,
+  "nombre": "Tarta al wisky",
+  "pvp": 14.0,
+  "tipo": "plato",
+  "idcategoria": 5,
+  "numalergenos": 0,
+  "nombrealergenos": ""
+},{
+  "_id": 28,
+  "nombre": "Helado",
+  "pvp": 14.0,
+  "tipo": "plato",
+  "idcategoria": 5,
+  "numalergenos": 0,
+  "nombrealergenos": ""
+},{
+  "_id": 29,
+  "nombre": "Tarta de queso",
+  "pvp": 12.0,
+  "tipo": "plato",
+  "idcategoria": 5,
+  "numalergenos": 0,
+  "nombrealergenos": ""
+},{
+  "_id": 30,
+  "nombre": "Tarta San Marcos",
+  "pvp": 15.0,
+  "tipo": "plato",
+  "idcategoria": 5,
+  "numalergenos": 0,
+  "nombrealergenos": ""
+},{
+  "_id": 31,
+  "nombre": "Agua",
+  "pvp": 5.0,
+  "tipo": "plato",
+  "idcategoria": 6,
+  "numalergenos": 0,
+  "nombrealergenos": ""
+},{
+  "_id": 32,
+  "nombre": "Vino tinto",
+  "pvp": 6.0,
+  "tipo": "plato",
+  "idcategoria": 6,
+  "numalergenos": 0,
+  "nombrealergenos": ""
+},{
+  "_id": 33,
+  "nombre": "Vino Blanco",
+  "pvp": 6.0,
+  "tipo": "plato",
+  "idcategoria": 6,
+  "numalergenos": 0,
+  "nombrealergenos": ""
+},{
+  "_id": 34,
+  "nombre": "Vino Rosado",
+  "pvp": 6.0,
+  "tipo": "plato",
+  "idcategoria": 6,
+  "numalergenos": 0,
+  "nombrealergenos": ""
+},{
+  "_id": 35,
+  "nombre": "Refresco",
+  "pvp": 7.0,
+  "tipo": "plato",
+  "idcategoria": 6,
+  "numalergenos": 0,
+  "nombrealergenos": ""
+},{
+  "_id": 36,
+  "nombre": "Agua con gas",
+  "pvp": 6.0,
+  "tipo": "plato",
+  "idcategoria": 6,
+  "numalergenos": 0,
+  "nombrealergenos": ""
+},{
+  "_id": 37,
+  "nombre": "La Alcarria",
+  "pvp": 0.0,
+  "tipo": "menu",
+  "idcategoria": 3,
+  "numalergenos": 0,
+  "nombrealergenos": ""
+},{
+  "_id": 38,
+  "nombre": "La Primavera",
+  "pvp": 0.0,
+  "tipo": "menu",
+  "idcategoria": 2,
+  "numalergenos": 0,
+  "nombrealergenos": ""
+},{
+  "_id": 39,
+  "nombre": "Especial de la semana",
+  "pvp": 0.0,
+  "tipo": "menu",
+  "idcategoria": 1,
+  "numalergenos": 0,
+  "nombrealergenos": ""
+}]
