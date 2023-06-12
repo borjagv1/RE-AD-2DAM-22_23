@@ -1,10 +1,15 @@
 {
     "cSpell.words": [
+        "bbdd",
         "borja",
         "deptno",
         "Deptno",
         "dnombre",
-        "Dnombre"
+        "Dnombre",
+        "Metodo",
+        "neodatis",
+        "Neodatis",
+        "URLDB"
     ],
     "java.configuration.updateBuildConfiguration": "interactive"
 }
