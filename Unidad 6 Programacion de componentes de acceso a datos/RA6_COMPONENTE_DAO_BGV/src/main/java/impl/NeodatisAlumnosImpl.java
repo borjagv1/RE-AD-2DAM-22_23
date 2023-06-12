@@ -1,10 +1,47 @@
 package impl;
 
-public class NeodatisAlumnosImpl {
+import java.util.ArrayList;
 
-	public static void main(String[] args) {
+import dao.AlumnosDAO;
+import datos.Alumnos;
+
+public class NeodatisAlumnosImpl implements AlumnosDAO{
+
+	@Override
+	public int InsertarAlumno(Alumnos alum) {
 		// TODO Auto-generated method stub
-
+		throw new UnsupportedOperationException("Unimplemented method 'InsertarAlumno'");
 	}
+
+	@Override
+	public int EliminarAlumno(int codigo) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'EliminarAlumno'");
+	}
+
+	@Override
+	public int ModificarAlumno(int codigo, Alumnos nuevo) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'ModificarAlumno'");
+	}
+
+	@Override
+	public boolean ActualizarDatos() {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'ActualizarDatos'");
+	}
+
+	@Override
+	public Alumnos ConsultarAlumno(int codigo) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'ConsultarAlumno'");
+	}
+
+	@Override
+	public ArrayList<Alumnos> TodosLosAlumnos() {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'TodosLosAlumnos'");
+	}
+
 
 }
