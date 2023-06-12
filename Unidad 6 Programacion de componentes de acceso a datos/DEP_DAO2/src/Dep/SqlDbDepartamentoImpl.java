@@ -11,9 +11,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -129,7 +126,7 @@ public class SqlDbDepartamentoImpl implements DepartamentoDAO {
 
     @Override
     public ArrayList<Departamento> TodosDepartamentos() {
-        ArrayList lista = new ArrayList();
+        ArrayList<Departamento> lista = new ArrayList<Departamento>();
         Statement sentencia;
         try {
             sentencia = conexion.createStatement();

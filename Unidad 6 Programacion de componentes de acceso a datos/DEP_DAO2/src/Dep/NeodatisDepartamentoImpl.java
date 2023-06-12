@@ -88,7 +88,7 @@ public class NeodatisDepartamentoImpl implements DepartamentoDAO {
 
     @Override
     public ArrayList<Departamento> TodosDepartamentos() {
-         ArrayList lista = new ArrayList();
+         ArrayList<Departamento> lista = new ArrayList<Departamento>();
         Objects<Departamento> d = bd.getObjects(Departamento.class);
 
         while (d.hasNext()) {

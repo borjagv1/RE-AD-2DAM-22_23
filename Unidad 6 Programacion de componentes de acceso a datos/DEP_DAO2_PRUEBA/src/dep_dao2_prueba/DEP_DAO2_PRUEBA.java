@@ -39,6 +39,7 @@ public class DEP_DAO2_PRUEBA {
             System.out.printf("Dep: %d, Nombre: %s, Loc: %s %n", dep.getDeptno(),
                     dep.getDnombre(), dep.getLoc());
         }
+        sc.close();
     }
 
     public static void pruebamysql() {
@@ -59,6 +60,7 @@ public class DEP_DAO2_PRUEBA {
             System.out.printf("Dep: %d, Nombre: %s, Loc: %s %n", dep.getDeptno(),
                     dep.getDnombre(), dep.getLoc());
         }
+        sc.close();
     }
 
 }

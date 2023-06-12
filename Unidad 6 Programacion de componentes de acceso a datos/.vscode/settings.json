@@ -6,9 +6,14 @@
         "Deptno",
         "dnombre",
         "Dnombre",
+        "Excepcion",
+        "leidos",
         "Metodo",
+        "mjesus",
         "neodatis",
         "Neodatis",
+        "pruebamysql",
+        "pruebaneodatis",
         "URLDB"
     ],
     "java.configuration.updateBuildConfiguration": "interactive"
