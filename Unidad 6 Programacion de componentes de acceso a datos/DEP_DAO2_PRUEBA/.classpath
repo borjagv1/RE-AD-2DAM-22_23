@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="lib" path="dist/DEP_DAO2_PRUEBA.jar"/>
+	<classpathentry kind="lib" path="dist/lib/DEP_DAO2.jar"/>
+	<classpathentry kind="lib" path="dist/lib/mysql-connector-java-5.1.48.jar"/>
+	<classpathentry kind="lib" path="dist/lib/neodatis-odb-1.9.30.689.jar"/>
+	<classpathentry kind="lib" path="lib/CopyLibs/org-netbeans-modules-java-j2seproject-copylibstask.jar"/>
+	<classpathentry kind="lib" path="lib/DEP_DAO2.jar"/>
+	<classpathentry kind="lib" path="lib/mysql-connector-java-5.1.48.jar"/>
+	<classpathentry kind="lib" path="lib/neodatis-odb-1.9.30.689.jar"/>
+	<classpathentry kind="output" path="build/classes"/>
+</classpath>

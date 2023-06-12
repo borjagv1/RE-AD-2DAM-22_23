@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="lib" path="conectores/ConectoresBD.jar"/>
+	<classpathentry kind="lib" path="conectores/DEP_DAO4.jar"/>
+	<classpathentry kind="lib" path="dist/DEP_DAO4_PRUEBA.jar"/>
+	<classpathentry kind="lib" path="dist/lib/ConectoresBD.jar"/>
+	<classpathentry kind="lib" path="dist/lib/DEP_DAO4.jar"/>
+	<classpathentry kind="output" path="build/classes"/>
+</classpath>
