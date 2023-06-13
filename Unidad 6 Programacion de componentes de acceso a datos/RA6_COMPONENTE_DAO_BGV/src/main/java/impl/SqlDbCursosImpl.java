@@ -82,7 +82,7 @@ public class SqlDbCursosImpl implements CursosDAO {
 			// Ejecutar la consulta
 			java.sql.ResultSet rs = sentencia.executeQuery();
 
-			// Si existe el curso, comprobar que no tiene notas
+			// Si existe el curso, comprobar que no tiene alumnos
 			if (rs.next()) {
 				// Si tiene alumnos, devolver 2
 				if (rs.getInt("num_alumnos") > 0) {
@@ -150,7 +150,6 @@ public class SqlDbCursosImpl implements CursosDAO {
 
 	@Override
 	public boolean ActualizarDatos() {
-		// COMPROBAR CONSULTAS
 		/*
 		 * private int num_alumno;
 		 * private int cod_curso ;
@@ -191,7 +190,7 @@ public class SqlDbCursosImpl implements CursosDAO {
 				}
 			}
 			// Obtengo los datos de nota_media en los cursos a partir de la tabla evaluaciones
-			sql = "SELECT num_alumno, avg(nota) as nota_media FROM evaluaciones GROUP BY num_alumno";
+			sql = "SELECT cod_curso, AVG(nota) AS nota_media FROM evaluaciones INNER JOIN alumnos ON evaluaciones.num_alumno = alumnos.num_alumno GROUP BY cod_curso";
 			sentencia = conexion.prepareStatement(sql);
 			// Ejecutar la consulta
 			rs = sentencia.executeQuery();
@@ -233,8 +232,8 @@ public class SqlDbCursosImpl implements CursosDAO {
 				curso.setNum_alumnos(rs.getInt("num_alumnos"));
 				curso.setNota_media(rs.getDouble("nota_media"));
 			} else {
-				// Si no existe, devolver null
-				curso = null;
+				// Si no existe, devolver un mensaje
+				System.out.println("No existe el curso" + codigo);
 			}
 			sentencia.close();
 		} catch (java.sql.SQLException e) {
