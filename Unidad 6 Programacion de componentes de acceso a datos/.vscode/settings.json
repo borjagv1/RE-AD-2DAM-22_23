@@ -2,7 +2,9 @@
     "cSpell.words": [
         "asig",
         "bbdd",
+        "BDSQL",
         "borja",
+        "Categorias",
         "denominacion",
         "deptno",
         "Deptno",
@@ -20,6 +22,7 @@
         "nombrecurso",
         "pruebamysql",
         "pruebaneodatis",
+        "recu",
         "URLDB"
     ],
     "java.configuration.updateBuildConfiguration": "interactive"
