@@ -12,7 +12,6 @@ public class SqlDbAlumnosImpl implements AlumnosDAO {
 	/*
 	 * private int num_alumno;
 	 * private int cod_curso ;
-	 * private String nombrecurso;
 	 * private String nombre ;
 	 * private String direccion;
 	 * private String tlf ;
@@ -52,18 +51,18 @@ public class SqlDbAlumnosImpl implements AlumnosDAO {
 			// Si existe el alumno, devolver 1
 			if (rs.next()) {
 				resultado = 1;
+				System.out.println("El alumno ya existe: " + alum.getNum_alumno());
 			} else {
 				// Si no existe, insertar el alumno (implícitamente si no existe no es igual a
 				// otro alumno)
-				sql = "INSERT INTO alumnos (num_alumno, cod_curso, nombrecurso, nombre, direccion, tlf, nota_media) VALUES (?, ?, ?, ?, ?, ?, ?)";
+				sql = "INSERT INTO alumnos (num_alumno, cod_curso, nombre, direccion, tlf, nota_media) VALUES (?, ?, ?, ?, ?, ?)";
 				sentencia = conexion.prepareStatement(sql);
 				sentencia.setInt(1, alum.getNum_alumno());
 				sentencia.setInt(2, alum.getCod_curso());
-				sentencia.setString(3, alum.getNombrecurso());
-				sentencia.setString(4, alum.getNombre());
-				sentencia.setString(5, alum.getDireccion());
-				sentencia.setString(6, alum.getTlf());
-				sentencia.setDouble(7, alum.getNota_media());
+				sentencia.setString(3, alum.getNombre());
+				sentencia.setString(4, alum.getDireccion());
+				sentencia.setString(5, alum.getTlf());
+				sentencia.setDouble(6, alum.getNota_media());
 				int filas = sentencia.executeUpdate();
 				if (filas > 0) {
 					resultado = 0;
@@ -94,8 +93,9 @@ public class SqlDbAlumnosImpl implements AlumnosDAO {
 			if (rs.next()) {
 
 				// Si tiene notas, devolver 2
-				if (rs.getDouble("nota_media") > 0) {
+				if (rs.getDouble("nota_media") != 0) {
 					resultado = 2;
+					System.out.println("El alumno tiene notas: " + codigo);
 				} else {
 					// Si no tiene notas, eliminar el alumno
 					sql = "DELETE FROM alumnos WHERE num_alumno = ?";
@@ -133,15 +133,14 @@ public class SqlDbAlumnosImpl implements AlumnosDAO {
 
 			// Si existe el alumno, modificarlo
 			if (rs.next()) {
-				sql = "UPDATE alumnos SET cod_curso = ?, nombrecurso = ?, nombre = ?, direccion = ?, tlf = ?, nota_media = ? WHERE num_alumno = ?";
+				sql = "UPDATE alumnos SET cod_curso = ?, nombre = ?, direccion = ?, tlf = ?, nota_media = ? WHERE num_alumno = ?";
 				sentencia = conexion.prepareStatement(sql);
 				sentencia.setInt(1, nuevo.getCod_curso());
-				sentencia.setString(2, nuevo.getNombrecurso());
-				sentencia.setString(3, nuevo.getNombre());
-				sentencia.setString(4, nuevo.getDireccion());
-				sentencia.setString(5, nuevo.getTlf());
-				sentencia.setDouble(6, nuevo.getNota_media());
-				sentencia.setInt(7, codigo);
+				sentencia.setString(2, nuevo.getNombre());
+				sentencia.setString(3, nuevo.getDireccion());
+				sentencia.setString(4, nuevo.getTlf());
+				sentencia.setDouble(5, nuevo.getNota_media());
+				sentencia.setInt(6, codigo);
 				int filas = sentencia.executeUpdate();
 				if (filas > 0) {
 					resultado = 0;
@@ -151,6 +150,7 @@ public class SqlDbAlumnosImpl implements AlumnosDAO {
 			} else {
 				// Si no existe, devolver 1
 				resultado = 1;
+				System.out.println("El alumno no existe: " + codigo);
 			}
 			sentencia.close();
 		} catch (java.sql.SQLException e) {
@@ -204,7 +204,6 @@ public class SqlDbAlumnosImpl implements AlumnosDAO {
 			if (rs.next()) {
 				alumno.setNum_alumno(rs.getInt("num_alumno"));
 				alumno.setCod_curso(rs.getInt("cod_curso"));
-				alumno.setNombrecurso(rs.getString("nombrecurso"));
 				alumno.setNombre(rs.getString("nombre"));
 				alumno.setDireccion(rs.getString("direccion"));
 				alumno.setTlf(rs.getString("tlf"));
@@ -232,7 +231,6 @@ public class SqlDbAlumnosImpl implements AlumnosDAO {
 				Alumnos alumno = new Alumnos();
 				alumno.setNum_alumno(rs.getInt("num_alumno"));
 				alumno.setCod_curso(rs.getInt("cod_curso"));
-				alumno.setNombrecurso(rs.getString("nombrecurso"));
 				alumno.setNombre(rs.getString("nombre"));
 				alumno.setDireccion(rs.getString("direccion"));
 				alumno.setTlf(rs.getString("tlf"));
