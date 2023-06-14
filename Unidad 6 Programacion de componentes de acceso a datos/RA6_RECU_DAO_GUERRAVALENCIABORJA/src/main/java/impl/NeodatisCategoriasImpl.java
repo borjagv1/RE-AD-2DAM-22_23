@@ -2,11 +2,18 @@ package impl;
 
 import java.util.ArrayList;
 
+import org.neodatis.odb.ODB;
+
 import dao.CategoriasDAO;
 import datos.Categorias;
+import factory.NeodatisDAOFactory;
 
 public class NeodatisCategoriasImpl implements CategoriasDAO{
+     static ODB bd = null;
 
+	public NeodatisCategoriasImpl() {
+		bd = NeodatisDAOFactory.crearConexion();
+	}
     @Override
     public int InsertarCategoria(Categorias c) {
         // TODO Auto-generated method stub

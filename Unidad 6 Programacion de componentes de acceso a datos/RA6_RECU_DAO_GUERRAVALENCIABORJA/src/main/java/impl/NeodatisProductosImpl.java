@@ -2,12 +2,19 @@ package impl;
 
 import java.util.ArrayList;
 
+import org.neodatis.odb.ODB;
+
 import dao.ProductoDAO;
 import datos.PlatosMenus;
 import datos.Productos;
+import factory.NeodatisDAOFactory;
 
 public class NeodatisProductosImpl implements ProductoDAO{
+     static ODB bd = null;
 
+	public NeodatisProductosImpl() {
+		bd = NeodatisDAOFactory.crearConexion();
+	}
     @Override
     public int InsertarProducto(Productos p) {
         // TODO Auto-generated method stub
