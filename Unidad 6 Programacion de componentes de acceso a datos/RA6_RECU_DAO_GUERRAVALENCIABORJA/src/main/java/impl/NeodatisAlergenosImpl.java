@@ -101,7 +101,7 @@ public class NeodatisAlergenosImpl implements AlergenosDAO {
                 Objects<AlergenosProductos> objects2 = bd
                         .getObjects(new org.neodatis.odb.impl.core.query.criteria.CriteriaQuery(
                                 AlergenosProductos.class,
-                                org.neodatis.odb.core.query.criteria.Where.equal("id_alergeno", alergenoid)));
+                                org.neodatis.odb.core.query.criteria.Where.equal("idalergeno", alergenoid)));
 
                 alergeno.setNumproductos(objects2.size());
 
@@ -114,7 +114,7 @@ public class NeodatisAlergenosImpl implements AlergenosDAO {
                     Objects<Productos> objects3 = bd
                             .getObjects(new org.neodatis.odb.impl.core.query.criteria.CriteriaQuery(
                                     Productos.class,
-                                    org.neodatis.odb.core.query.criteria.Where.equal("_id", idproducto)));
+                                    org.neodatis.odb.core.query.criteria.Where.equal("id", idproducto)));
                     Productos producto = objects3.getFirst();
                     String nombreproducto = producto.getNombre();
                     sb.append(nombreproducto).append(",");
@@ -156,8 +156,8 @@ public class NeodatisAlergenosImpl implements AlergenosDAO {
         Objects<AlergenosProductos> objects3 = bd
                 .getObjects(new org.neodatis.odb.impl.core.query.criteria.CriteriaQuery(
                         AlergenosProductos.class, org.neodatis.odb.core.query.criteria.Where.and()
-                                .add(org.neodatis.odb.core.query.criteria.Where.equal("id_alergeno", idalergeno))
-                                .add(org.neodatis.odb.core.query.criteria.Where.equal("id_product", idproducto))));
+                                .add(org.neodatis.odb.core.query.criteria.Where.equal("idalergeno", idalergeno))
+                                .add(org.neodatis.odb.core.query.criteria.Where.equal("idproduct", idproducto))));
 
         // si todo es correcto, insertamos el registro en la TABLA ALERGENOSPRODUCTOS
         if (objects.size() > 0 && objects2.size() > 0 && objects3.size() == 0) {

@@ -240,4 +240,16 @@ public class MongoDbProductosImpl implements ProductoDAO {
         return productos;
     }
 
+	@Override
+	public boolean EliminarPlatoMenu(int id_menu, int id_plato) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean EliminarProductoCascada(int id) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }

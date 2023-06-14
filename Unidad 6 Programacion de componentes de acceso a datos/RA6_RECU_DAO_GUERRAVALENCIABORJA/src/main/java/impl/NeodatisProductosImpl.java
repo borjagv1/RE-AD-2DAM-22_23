@@ -85,7 +85,7 @@ public class NeodatisProductosImpl implements ProductoDAO {
             int numalergenos = producto.getNumalergenos();
             String nombrealergenos = "";
             if (numalergenos > 0) {
-                IQuery alergenosQuery = new CriteriaQuery(AlergenosProductos.class, Where.equal("id_product", id));
+                IQuery alergenosQuery = new CriteriaQuery(AlergenosProductos.class, Where.equal("idproduct", id));
                 Objects<AlergenosProductos> alergenosProductos = bd.getObjects(alergenosQuery);
                 for (AlergenosProductos alergenoProducto : alergenosProductos) {
                     int idalergeno = alergenoProducto.getIdalergeno();
@@ -113,12 +113,12 @@ public class NeodatisProductosImpl implements ProductoDAO {
             int id = producto.getId();
             double pvp = 0;
 
-            IQuery platosMenusQuery = new CriteriaQuery(PlatosMenus.class, Where.equal("id_menu", id));
+            IQuery platosMenusQuery = new CriteriaQuery(PlatosMenus.class, Where.equal("idmenu", id));
             Objects<PlatosMenus> platosMenus = bd.getObjects(platosMenusQuery);
             for (PlatosMenus platoMenu : platosMenus) {
                 int idplato = platoMenu.getIdplato();
 
-                IQuery platoQuery = new CriteriaQuery(Productos.class, Where.equal("_id", idplato));
+                IQuery platoQuery = new CriteriaQuery(Productos.class, Where.equal("id", idplato));
                 Objects<Productos> platos = bd.getObjects(platoQuery);
                 if (!platos.isEmpty()) {
                     double pvpplato = platos.getFirst().getPvp();
@@ -161,7 +161,7 @@ public class NeodatisProductosImpl implements ProductoDAO {
                 if (platosMenusResult.isEmpty() && platosMenusResult2.isEmpty()) {
                     // Insertar el plato en el menú
                     // el orden debe empieza en 1 y se suma 1 para los platos de un menú
-                    IQuery ordenQuery = new CriteriaQuery(PlatosMenus.class, Where.equal("id_menu", id_menu));
+                    IQuery ordenQuery = new CriteriaQuery(PlatosMenus.class, Where.equal("idmenu", id_menu));
                     int orden = bd.getObjects(ordenQuery).size() + 1;
 
                     PlatosMenus nuevoPlatoMenu = new PlatosMenus();
@@ -229,5 +229,17 @@ public class NeodatisProductosImpl implements ProductoDAO {
         }
         return productos;
     }
+
+	@Override
+	public boolean EliminarPlatoMenu(int id_menu, int id_plato) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean EliminarProductoCascada(int id) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 
 }

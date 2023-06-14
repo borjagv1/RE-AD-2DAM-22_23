@@ -74,7 +74,7 @@ public class SqlDbDAOFactory extends DAOFactory {
         return new SqlDbCategoriasImpl();}
 
     @Override
-    public ProductoDAO getProductosDAO() {
+    public ProductoDAO getProductoDAO() {
         return new SqlDbProductosImpl();}
 
 

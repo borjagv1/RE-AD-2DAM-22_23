@@ -17,7 +17,7 @@ public class pruebaMONGODB {
 
     public static void main(String[] args) {
         // MONGODB
-        DAOFactory bd = DAOFactory.getDAOFactory(DAOFactory.MONGODB);
+        DAOFactory bd = DAOFactory.getDAOFactory(DAOFactory.MONGO);
         Alergenos(bd);
         Categorias(bd);
         Productos(bd);
@@ -26,7 +26,7 @@ public class pruebaMONGODB {
 
     private static void Productos(DAOFactory bd) {
         // Productos
-        proDAO = bd.getProductosDAO();
+        proDAO = bd.getProductoDAO();
         // INSERTAR PRODUCTO (no debe dejar, ya existe)
         /*
          * private int id;

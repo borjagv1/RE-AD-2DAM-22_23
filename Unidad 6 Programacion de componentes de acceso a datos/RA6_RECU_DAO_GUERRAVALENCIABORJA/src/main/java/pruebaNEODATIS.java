@@ -25,7 +25,7 @@ public class pruebaNEODATIS {
 
    private static void Productos(DAOFactory bd) {
         // Productos
-        proDAO = bd.getProductosDAO();
+        proDAO = bd.getProductoDAO();
         // INSERTAR PRODUCTO (no debe dejar, ya existe)
         /*
          * private int id;

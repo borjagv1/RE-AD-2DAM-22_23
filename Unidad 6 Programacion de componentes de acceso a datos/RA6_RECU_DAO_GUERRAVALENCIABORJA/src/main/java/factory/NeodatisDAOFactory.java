@@ -39,7 +39,7 @@ public class NeodatisDAOFactory extends DAOFactory {
     }
 
     @Override
-    public ProductoDAO getProductosDAO() {
+    public ProductoDAO getProductoDAO() {
         return new NeodatisProductosImpl();
     }
 
