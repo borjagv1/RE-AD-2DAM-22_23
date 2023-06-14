@@ -108,7 +108,9 @@ public class MongoDbProductosImpl implements ProductoDAO {
                     sb.append(nombrealergeno).append(",");
                 }
                 nombreAlergenos = sb.toString();
-                nombreAlergenos = nombreAlergenos.substring(0, nombreAlergenos.length() - 1);
+                if (nombreAlergenos.length() > 0) {
+                    nombreAlergenos = nombreAlergenos.substring(0, nombreAlergenos.length() - 1);
+                }
             }
             coleccionProductos.updateOne(eq("_id", idproducto), set("nombrealergenos", nombreAlergenos));
         }

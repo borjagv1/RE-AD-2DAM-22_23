@@ -25,7 +25,7 @@ public class NeodatisCategoriasImpl implements CategoriasDAO {
         int resultado = 0;
 
         // Comprobar si existe la categoría
-        IQuery consulta = new CriteriaQuery(Categorias.class, Where.equal("_id", c.getId()));
+        IQuery consulta = new CriteriaQuery(Categorias.class, Where.equal("id", c.getId()));
         Objects<Categorias> resultados = bd.getObjects(consulta);
         if (resultados.hasNext()) {
             System.out.println("Ya existe una categoría con ese id: " + c.getId() + ". No se insertará...");
@@ -47,28 +47,32 @@ public class NeodatisCategoriasImpl implements CategoriasDAO {
     @Override
     public int EliminarCategoria(int id) {
         int resultado = 0;
-
         // Compruebo si existe la categoría
-        IQuery consultaCategoria = new CriteriaQuery(Categorias.class, Where.equal("_id", id));
-        Objects<Categorias> resultadosCategoria = bd.getObjects(consultaCategoria);
-        if (resultadosCategoria.hasNext()) {
+        IQuery consulta = new CriteriaQuery(Categorias.class, Where.equal("id", id));
+        Objects<Categorias> resultados = bd.getObjects(consulta);
+        if (resultados.hasNext()) {
+            Categorias categoria = resultados.next();
             // Compruebo si tiene productos asociados
             IQuery consultaProductos = new CriteriaQuery(Productos.class, Where.equal("idcategoria", id));
             Objects<Productos> resultadosProductos = bd.getObjects(consultaProductos);
-            if (resultadosProductos.hasNext()) {
-                System.out.println("La categoría con id: " + id + " tiene productos asociados. No se eliminará...");
+            if (resultadosProductos.size() > 0) {
+                System.out.println("La categoría: " + id + " tiene productos asociados. No se eliminará...");
                 resultado = 1;
             } else {
-                // Elimino la categoría
-                IQuery eliminacionCategoria = new CriteriaQuery(Categorias.class, Where.equal("_id", id));
-                bd.delete(eliminacionCategoria);
-                bd.commit();
-                System.out.println("Categoría: " + id + " eliminada correctamente");
+                try {
+                    bd.delete(categoria);
+                    bd.commit();
+                    System.out.println("Categoría: " + id + " eliminada correctamente");
+                } catch (Exception e) {
+                    System.out.println("Error al eliminar la categoría con id: " + id);
+                    resultado = 1;
+                }
             }
         } else {
             System.out.println("No existe una categoría con ese id: " + id + ". No se eliminará...");
             resultado = 1;
         }
+        
 
         return resultado;
     }
@@ -104,7 +108,7 @@ public class NeodatisCategoriasImpl implements CategoriasDAO {
     public Categorias ConsultarCategoria(int id) {
         Categorias categoria = null;
 
-        IQuery consulta = new CriteriaQuery(Categorias.class, Where.equal("_id", id));
+        IQuery consulta = new CriteriaQuery(Categorias.class, Where.equal("id", id));
         Objects<Categorias> resultados = bd.getObjects(consulta);
 
         if (resultados.hasNext()) {

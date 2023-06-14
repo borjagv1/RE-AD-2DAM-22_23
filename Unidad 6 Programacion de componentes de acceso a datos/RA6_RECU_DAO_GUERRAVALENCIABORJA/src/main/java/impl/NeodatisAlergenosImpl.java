@@ -1,15 +1,18 @@
 package impl;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.neodatis.odb.ODB;
 import org.neodatis.odb.Objects;
+import org.neodatis.odb.core.query.IQuery;
 import org.neodatis.odb.core.query.criteria.*;
 import org.neodatis.odb.impl.core.query.criteria.CriteriaQuery;
 
 import com.mysql.cj.x.protobuf.MysqlxDatatypes.Array;
 
 import org.neodatis.odb.Objects;
+import org.neodatis.odb.core.query.IQuery;
 
 import dao.AlergenosDAO;
 import datos.Alergenos;
@@ -27,19 +30,26 @@ public class NeodatisAlergenosImpl implements AlergenosDAO {
     @Override
     public int InsertarAlergeno(Alergenos c) {
         int resultado = 0;
+
         // Comprueba si el alérgeno ya existe en la base de datos
-        Objects<Alergenos> objects = bd.getObjects(new org.neodatis.odb.impl.core.query.criteria.CriteriaQuery(
-                Alergenos.class, org.neodatis.odb.core.query.criteria.Where.equal("_id", c.getId())));
-        if (objects.size() > 0) {
+        IQuery query = new CriteriaQuery(Alergenos.class, Where.equal("id", c.getId()));
+        Objects<Alergenos> alergenosExistentes = bd.getObjects(query);
+
+        if (!alergenosExistentes.isEmpty()) {
             System.out.println("Ya existe el alérgeno con id: " + c.getId() + ". No se insertará.");
             resultado = 1;
         } else {
-            // Inserta el alérgeno
-            bd.store(c);
-            bd.commit();
-            System.out.println("Alérgeno insertado correctamente.");
-            resultado = 0;
+            // Inserta el alérgeno en la base de datos.
+            try {
+                bd.store(c);
+                System.out.println("Se ha insertado el alérgeno con id: " + c.getId());
+                resultado = 0;
+            } catch (Exception e) {
+                System.out.println("No se ha podido insertar el alérgeno con id: " + c.getId());
+                resultado = 1;
+            }
         }
+
         return resultado;
     }
 
@@ -48,7 +58,7 @@ public class NeodatisAlergenosImpl implements AlergenosDAO {
         int resultado = 0;
         // Comprueba si el alérgeno existe en la TABLA ALERGENOS
         Objects<Alergenos> objects = bd.getObjects(new org.neodatis.odb.impl.core.query.criteria.CriteriaQuery(
-                Alergenos.class, org.neodatis.odb.core.query.criteria.Where.equal("_id", id)));
+                Alergenos.class, org.neodatis.odb.core.query.criteria.Where.equal("id", id)));
         // Comprobamos si el alérgeno existe.
         // Si no existe, resultado = 1.
         // Si existe, comprobamos si tiene productos.
@@ -94,7 +104,7 @@ public class NeodatisAlergenosImpl implements AlergenosDAO {
                                 org.neodatis.odb.core.query.criteria.Where.equal("id_alergeno", alergenoid)));
 
                 alergeno.setNumproductos(objects2.size());
-                
+
                 // actualiza el campo nombreproductos
                 String nombreproductos = "";
                 StringBuilder sb = new StringBuilder();
@@ -103,19 +113,23 @@ public class NeodatisAlergenosImpl implements AlergenosDAO {
                     int idproducto = alergenoproducto.getIdproduct();
                     Objects<Productos> objects3 = bd
                             .getObjects(new org.neodatis.odb.impl.core.query.criteria.CriteriaQuery(
-                                    Productos.class, org.neodatis.odb.core.query.criteria.Where.equal("_id", idproducto)));
+                                    Productos.class,
+                                    org.neodatis.odb.core.query.criteria.Where.equal("_id", idproducto)));
                     Productos producto = objects3.getFirst();
                     String nombreproducto = producto.getNombre();
                     sb.append(nombreproducto).append(",");
                 }
                 // for (Productos producto : objects2) {
-                //     // añado el nombre del producto a la cadena separado por comas
-                //     String nombreproducto = producto.getNombre();
-                //     sb.append(nombreproducto).append(",");
+                // // añado el nombre del producto a la cadena separado por comas
+                // String nombreproducto = producto.getNombre();
+                // sb.append(nombreproducto).append(",");
                 // }
                 nombreproductos = sb.toString();
-                nombreproductos = nombreproductos.substring(0, nombreproductos.length() - 1);
-                alergeno.setNombreproductos(nombreproductos);
+                if (nombreproductos.length() > 0) {
+                    nombreproductos = nombreproductos.substring(0, nombreproductos.length() - 1);
+                    alergeno.setNombreproductos(nombreproductos);
+
+                }
 
                 bd.store(alergeno);
                 bd.commit();
@@ -134,10 +148,10 @@ public class NeodatisAlergenosImpl implements AlergenosDAO {
         boolean resultado = false;
         // Comprueba si el alérgeno existe en la TABLA ALERGENOS
         Objects<Alergenos> objects = bd.getObjects(new org.neodatis.odb.impl.core.query.criteria.CriteriaQuery(
-                Alergenos.class, org.neodatis.odb.core.query.criteria.Where.equal("_id", idalergeno)));
+                Alergenos.class, org.neodatis.odb.core.query.criteria.Where.equal("id", idalergeno)));
         // Comprobamos si el producto existe en la TABLA PRODUCTOS
         Objects<Productos> objects2 = bd.getObjects(new org.neodatis.odb.impl.core.query.criteria.CriteriaQuery(
-                Productos.class, org.neodatis.odb.core.query.criteria.Where.equal("_id", idproducto)));
+                Productos.class, org.neodatis.odb.core.query.criteria.Where.equal("id", idproducto)));
         // Comprobamos si existe el registro alergeno en la TABLA ALERGENOSPRODUCTOS
         Objects<AlergenosProductos> objects3 = bd
                 .getObjects(new org.neodatis.odb.impl.core.query.criteria.CriteriaQuery(
@@ -163,7 +177,7 @@ public class NeodatisAlergenosImpl implements AlergenosDAO {
     @Override
     public Alergenos ConsultarAlergeno(int id) {
         Objects<Alergenos> objects = bd.getObjects(new org.neodatis.odb.impl.core.query.criteria.CriteriaQuery(
-                Alergenos.class, org.neodatis.odb.core.query.criteria.Where.equal("_id", id)));
+                Alergenos.class, org.neodatis.odb.core.query.criteria.Where.equal("id", id)));
         if (objects.size() > 0) {
             return objects.getFirst();
         } else {

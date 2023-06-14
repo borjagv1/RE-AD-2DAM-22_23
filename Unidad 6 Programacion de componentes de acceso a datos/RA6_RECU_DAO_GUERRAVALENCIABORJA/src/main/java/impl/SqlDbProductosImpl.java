@@ -104,11 +104,13 @@ public class SqlDbProductosImpl implements ProductoDAO {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 int id = rs.getInt("id");
-                String nombrealergenos = rs.getString("nombrealergenos");
                 int numalergenos = 0;
-                if (nombrealergenos.length() > 0) {
-                    String[] alergenos = nombrealergenos.split(",");
-                    numalergenos = alergenos.length;
+                sql = "SELECT * FROM alergenosproductos WHERE idproducto = ?";
+                ps = conexion.prepareStatement(sql);
+                ps.setInt(1, id);
+                ResultSet rs2 = ps.executeQuery();
+                while (rs2.next()) {
+                    numalergenos++;
                 }
                 sql = "UPDATE productos SET numalergenos = ? WHERE id = ?";
                 ps = conexion.prepareStatement(sql);

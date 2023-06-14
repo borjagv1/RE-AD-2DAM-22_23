@@ -20,7 +20,7 @@ public class pruebaMySQL {
     public static void main(String[] args) {
         // MYSQL
         DAOFactory bd = DAOFactory.getDAOFactory(DAOFactory.MYSQL);
-        Alergenos(bd);
+         Alergenos(bd);
         Categorias(bd);
         Productos(bd);
 

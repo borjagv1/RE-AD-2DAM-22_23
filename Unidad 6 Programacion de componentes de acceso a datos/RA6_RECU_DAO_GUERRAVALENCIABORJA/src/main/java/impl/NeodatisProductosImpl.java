@@ -30,14 +30,14 @@ public class NeodatisProductosImpl implements ProductoDAO {
         int resultado = 0;
 
         // Comprobar si existe el producto en NEODATIS
-        IQuery query = new CriteriaQuery(Productos.class, Where.equal("_id", p.getId()));
+        IQuery query = new CriteriaQuery(Productos.class, Where.equal("id", p.getId()));
         Objects<Productos> productos = bd.getObjects(query);
         if (!productos.isEmpty()) {
             System.out.println("Ya existe un producto con ese id: " + p.getId() + " No se insertará...");
             resultado = 1;
         } else {
             // Comprobar si existe la categoría
-            query = new CriteriaQuery(Categorias.class, Where.equal("_id", p.getIdcategoria()));
+            query = new CriteriaQuery(Categorias.class, Where.equal("id", p.getIdcategoria()));
             Objects<Categorias> categorias = bd.getObjects(query);
             if (categorias.isEmpty()) {
                 System.out.println("No existe una categoría con ese id: " + p.getIdcategoria() + " No se insertará...");
@@ -144,17 +144,17 @@ public class NeodatisProductosImpl implements ProductoDAO {
         boolean resultado = false;
 
         // Comprobar si existe el menú
-        IQuery menuQuery = new CriteriaQuery(Productos.class, Where.equal("_id", id_menu));
+        IQuery menuQuery = new CriteriaQuery(Productos.class, Where.equal("id", id_menu));
         Objects<Productos> menuResult = bd.getObjects(menuQuery);
         if (!menuResult.isEmpty()) {
             // Comprobar si existe el plato
-            IQuery platoQuery = new CriteriaQuery(Productos.class, Where.equal("_id", id_plato));
+            IQuery platoQuery = new CriteriaQuery(Productos.class, Where.equal("id", id_plato));
             Objects<Productos> platoResult = bd.getObjects(platoQuery);
             if (!platoResult.isEmpty()) {
                 // Comprobar si existe el plato en el menú haciendo dos consultas
                 // Una para comprobar si existe el menú y otra para comprobar si existe el plato
-                IQuery platosMenusQuery = new CriteriaQuery(PlatosMenus.class, Where.equal("id_menu", id_menu));
-                IQuery platosMenusQuery2 = new CriteriaQuery(PlatosMenus.class, Where.equal("id_plato", id_plato));
+                IQuery platosMenusQuery = new CriteriaQuery(PlatosMenus.class, Where.equal("idmenu", id_menu));
+                IQuery platosMenusQuery2 = new CriteriaQuery(PlatosMenus.class, Where.equal("idplato", id_plato));
 
                 Objects<PlatosMenus> platosMenusResult = bd.getObjects(platosMenusQuery);
                 Objects<PlatosMenus> platosMenusResult2 = bd.getObjects(platosMenusQuery2);
@@ -193,7 +193,7 @@ public class NeodatisProductosImpl implements ProductoDAO {
     @Override
     public ArrayList<PlatosMenus> ConsultarMenu(int id_menu) {
         ArrayList<PlatosMenus> platos = new ArrayList<PlatosMenus>();
-        IQuery consulta = new CriteriaQuery(PlatosMenus.class, Where.equal("id_menu", id_menu));
+        IQuery consulta = new CriteriaQuery(PlatosMenus.class, Where.equal("idmenu", id_menu));
         Objects<PlatosMenus> resultados = bd.getObjects(consulta);
         while (resultados.hasNext()) {
             PlatosMenus plato = resultados.next();
@@ -205,7 +205,7 @@ public class NeodatisProductosImpl implements ProductoDAO {
     @Override
     public Productos ConsultarProducto(int id) {
         Productos producto = null;
-        IQuery consulta = new CriteriaQuery(Productos.class, Where.equal("_id", id));
+        IQuery consulta = new CriteriaQuery(Productos.class, Where.equal("id", id));
         Objects<Productos> resultados = bd.getObjects(consulta);
         if (resultados.hasNext()) {
             producto = resultados.next();
