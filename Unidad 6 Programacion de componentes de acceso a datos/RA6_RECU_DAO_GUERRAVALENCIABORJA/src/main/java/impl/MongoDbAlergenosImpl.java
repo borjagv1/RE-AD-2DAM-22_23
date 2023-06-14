@@ -32,12 +32,7 @@ public class MongoDbAlergenosImpl implements AlergenosDAO {
 
     @Override
     public int InsertarAlergeno(Alergenos c) {
-        /*
-         * private int id;
-         * private String nombre;
-         * private int numproductos; // inicialmente 0
-         * private String nombreproductos; // inicialmente vacío
-         */
+
         /*
          * Devuelven 0 => Si la operación se realizó correctamente.
          * Devuelven 1 => Si la operación no se pudo realizar.
@@ -49,10 +44,7 @@ public class MongoDbAlergenosImpl implements AlergenosDAO {
          */
         // Método que inserta un alérgeno en la base de datos MongoDB.
         int resultado = 0;
-        // Insertar el alérgeno en la base de datos.
-        // Si no se pudo insertar, resultado = 1.
-        // Compruebo si el alérgeno ya existe en la base de datos.
-        // Si existe, resultado = 1.
+   
 
         // Busco si existe el alérgeno así no repito el id.
         boolean existeAlergeno = coleccionAlergenos.find(eq("_id", c.getId())).first() != null;
@@ -85,11 +77,7 @@ public class MongoDbAlergenosImpl implements AlergenosDAO {
          */
         // Método que elimina un alérgeno de la base de datos MongoDB.
         int resultado = 0;
-        // Comprobamos si el alérgeno existe.
-        // Si no existe, resultado = 1.
-        // Si existe, comprobamos si tiene productos.
-        // Si tiene productos, resultado = 1.
-        // Si no tiene productos, eliminamos el alérgeno.
+    
         boolean existeAlergeno = coleccionAlergenos.find(eq("_id", id)).first() != null;
         if (!existeAlergeno) {
             System.out.println("NO SE PUDO ELIMINAR, ALÉRGENO " + id + ", NO EXISTE...");
@@ -162,13 +150,7 @@ public class MongoDbAlergenosImpl implements AlergenosDAO {
 
     @Override
     public boolean InsertarAlergenoProducto(int idalergeno, int idproducto) {
-        /*
-         * AlergenosProductos
-         * 
-         * "id_alergeno": 1,
-         * "id_product": 1
-         * }
-         */
+    
         // Método que inserta un nuevo registro en la tabla alergenosproductos.
         // Devuelve true si se ha insertado correctamente.
         // Devuelve false si no se ha podido insertar.

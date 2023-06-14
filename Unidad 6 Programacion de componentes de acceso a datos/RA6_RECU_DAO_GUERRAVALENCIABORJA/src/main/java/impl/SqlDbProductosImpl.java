@@ -6,8 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import com.mysql.cj.x.protobuf.MysqlxDatatypes.Array;
-
 import dao.ProductoDAO;
 import datos.PlatosMenus;
 import datos.Productos;
@@ -23,15 +21,7 @@ public class SqlDbProductosImpl implements ProductoDAO {
 
     @Override
     public int InsertarProducto(Productos p) {
-        /*
-         * private int id;
-         * private String nombre;
-         * private Double pvp;
-         * private String tipo;
-         * private int idcategoria;
-         * private int numalergenos;
-         * private String nombrealergenos;
-         */
+
         /*
          * En Productos:
          * • No se pueden insertar productos con el mismo id.
@@ -372,16 +362,237 @@ public class SqlDbProductosImpl implements ProductoDAO {
         return productos;
     }
 
-	@Override
-	public boolean EliminarPlatoMenu(int id_menu, int id_plato) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+    @Override
+    public boolean EliminarPlatoMenu(int id_menu, int id_plato) {
+        boolean resultado = false;
+        String sql = "SELECT * FROM platosmenus WHERE idmenu = ? AND idplato = ?";
+        try {
+            PreparedStatement ps = conexion.prepareStatement(sql);
+            ps.setInt(1, id_menu);
+            ps.setInt(2, id_plato);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                // Eliminar el plato del menú
+                sql = "DELETE FROM platosmenus WHERE idmenu = ? AND idplato = ?";
+                ps = conexion.prepareStatement(sql);
+                ps.setInt(1, id_menu);
+                ps.setInt(2, id_plato);
+                int filas = ps.executeUpdate();
+                if (filas > 0) {
+                    System.out.println("Plato: " + id_plato + " eliminado correctamente del menú: " + id_menu);
+                    resultado = true;
+                } else {
+                    System.out.println("Error al eliminar el plato: " + id_plato + " del menú: " + id_menu);
+                    resultado = false;
+                }
 
-	@Override
-	public boolean EliminarProductoCascada(int id) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+                sql = "SELECT * FROM platosmenus WHERE idmenu = ?";
+                ps = conexion.prepareStatement(sql);
+                ps.setInt(1, id_menu);
+                rs = ps.executeQuery();
+                int orden = 1;
+                double pvp = 0;
+                while (rs.next()) {
+                    int idplato = rs.getInt("idplato");
+                    sql = "UPDATE platosmenus SET orden = ? WHERE idmenu = ? AND idplato = ?";
+                    ps = conexion.prepareStatement(sql);
+                    ps.setInt(1, orden);
+                    ps.setInt(2, id_menu);
+                    ps.setInt(3, idplato);
+                    filas = ps.executeUpdate();
+                    if (filas > 0) {
+                        System.out.println(
+                                "Plato: " + idplato + " del menú: " + id_menu + " actualizado ORDEN correctamente");
+                        resultado = true;
+                    } else {
+                        System.out.println("Error al actualizar el plato: " + idplato + " del menú: " + id_menu);
+                        resultado = false;
+                    }
+                    // Se debe calcular el nuevo PVP del menu
+                    sql = "SELECT * FROM productos WHERE id = ?";
+                    ps = conexion.prepareStatement(sql);
+                    ps.setInt(1, idplato);
+                    ResultSet rs2 = ps.executeQuery();
+                    if (rs2.next()) {
+                        double pvpplato = rs2.getDouble("pvp");
+                        pvp = pvp + pvpplato;
+                        // ACTUALIZAR EL PVP DEL MENU (TABLA PRODUCTOS) CON EL NUEVO PVP
+                        sql = "UPDATE productos SET pvp = ? WHERE id = ?";
+                        ps = conexion.prepareStatement(sql);
+                        ps.setDouble(1, pvp);
+                        ps.setInt(2, id_menu);
+                        filas = ps.executeUpdate();
+                        if (filas > 0) {
+                            System.out.println("PVP del menú: " + id_menu + " actualizado correctamente");
+                            resultado = true;
+                        } else {
+                            System.out.println("Error al actualizar el PVP del menú: " + id_menu);
+                            resultado = false;
+                        }
 
+                    } else {
+                        System.out.println("El plato: " + idplato + " no existe");
+                        resultado = false;
+                    }
+                    orden++;
+                }
+            } else {
+                System.out.println(
+                        "El plato: " + id_plato + " no existe en el menú: " + id_menu + " y no se puede eliminar");
+                resultado = false;
+            }
+        } catch (SQLException e) {
+            System.out.println("Error al eliminar el plato del menú");
+            resultado = false;
+        }
+        return resultado;
+    }
+
+    @Override
+    public boolean EliminarProductoCascada(int id) {
+        boolean resultado = false;
+        //Método que recibe un id de producto y lo elimina de la base de datos, así como todas las referencias del producto. Devuelve true si la operación se ha realizado correctamente y false si no.
+        // Comprobar que id del producto existe, si no existe mostrar mensaje de error y devolver false
+        // Si es plato, hay que eliminar en todos los menus ese plato (actualizar el orden de los platos en platosmenus y el pvp del menu en el que se elimina ese plato)
+        // Hay que eliminar los registros que tengan ese plato en AlergenosProductos, mostrar los alergenos que se han eliminado o el número de alergenos que se han eliminado
+        // Si es menú hay que eliminar todos los registros que tienen ese idmenu en platosmenus. mostrar el id de los platos de ese menú que se han eliminado o el numero de platos que se han eliminado
+        // Si se elimina el producto hay qeu actualizar de nuevo tabla alergenos y tabla categorias
+        // Mostrar mensajes de lo que va ocurriendo:
+        // Compruebo que existe el id del producto
+        String sql = "SELECT * FROM productos WHERE id = ?";
+        try {
+            PreparedStatement ps;
+            ps = conexion.prepareStatement(sql);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                // Compruebo si es un plato o un menú
+                String tipo = rs.getString("tipo");
+                if (tipo.equals("plato")) {
+                    double pvp = rs.getDouble("pvp");
+                    // Es un plato
+                    // Eliminar en todos los menus ese plato (actualizar el orden de los platos en platosmenus y el pvp del menu en el que se elimina ese plato)
+                    sql = "SELECT * FROM platosmenus WHERE idplato = ?";
+                    ps = conexion.prepareStatement(sql);
+                    ps.setInt(1, id);
+                    rs = ps.executeQuery();
+                    while (rs.next()) {
+                        int idmenu = rs.getInt("idmenu");
+                        int orden = rs.getInt("orden");
+                        // Eliminar el plato del menú
+                        sql = "DELETE FROM platosmenus WHERE idmenu = ? AND idplato = ?";
+                        ps = conexion.prepareStatement(sql);
+                        ps.setInt(1, idmenu);
+                        ps.setInt(2, id);
+                        int filas = ps.executeUpdate();
+                        if (filas > 0) {
+                            System.out.println("Plato: " + id + " eliminado correctamente del menú: " + idmenu);
+                            resultado = true;
+                        } else {
+                            System.out.println(
+                                    "Error al eliminar el plato: " + id + " del menú: " + idmenu
+                                            + " y no se puede eliminar");
+                            resultado = false;
+                        }
+                        // Actualizar el orden de los platos en platosmenus
+                        sql = "SELECT * FROM platosmenus WHERE idmenu = ?";
+                        ps = conexion.prepareStatement(sql);
+                        ps.setInt(1, idmenu);
+                        rs = ps.executeQuery();
+                        int orden2 = 1;
+                        while (rs.next()) {
+                            int idplato = rs.getInt("idplato");
+                            sql = "UPDATE platosmenus SET orden = ? WHERE idmenu = ? AND idplato = ?";
+                            ps = conexion.prepareStatement(sql);
+                            ps.setInt(1, orden2);
+                            ps.setInt(2, idmenu);
+                            ps.setInt(3, idplato);
+                            filas = ps.executeUpdate();
+                            if (filas > 0) {
+                                System.out.println("Plato: " + idplato + " del menú: " + idmenu
+                                        + " actualizado ORDEN correctamente");
+                                resultado = true;
+                            } else {
+                                System.out.println("Error al actualizar el plato: " + idplato + " del menú: " + idmenu);
+                                resultado = false;
+                            }
+                            // Se debe calcular el nuevo PVP del menu
+                            sql = "SELECT * FROM productos WHERE id = ?";
+                            ps = conexion.prepareStatement(sql);
+                            ps.setInt(1, idplato);
+                            ResultSet rs2 = ps.executeQuery();
+                            if (rs2.next()) {
+                                double pvpplato = rs2.getDouble("pvp");
+                                pvp = pvp + pvpplato;
+                                // ACTUALIZAR EL PVP DEL MENU (TABLA PRODUCTOS) CON EL NUEVO PVP
+                                sql = "UPDATE productos SET pvp = ? WHERE id = ?";
+                                ps = conexion.prepareStatement(sql);
+                                ps.setDouble(1, pvp);
+                                ps.setInt(2, idmenu);
+                                filas = ps.executeUpdate();
+                                if (filas > 0) {
+                                    System.out.println("PVP del menú: " + idmenu + " actualizado correctamente");
+                                    resultado = true;
+                                } else {
+                                    System.out.println("Error al actualizar el PVP del menú: " + idmenu);
+                                    resultado = false;
+                                }
+
+                            } else {
+                                System.out.println("El plato: " + idplato + " no existe");
+                                resultado = false;
+                            }
+                            orden2++;
+                        }
+                    }
+                } else {
+                    // Es un menú
+                    // Eliminar todos los registros que tienen ese idmenu en platosmenus. mostrar el id de los platos de ese menú que se han eliminado o el numero de platos que se han eliminado
+                    sql = "SELECT * FROM platosmenus WHERE idmenu = ?";
+                    ps = conexion.prepareStatement(sql);
+                    ps.setInt(1, id);
+                    rs = ps.executeQuery();
+                    while (rs.next()) {
+                        int idplato = rs.getInt("idplato");
+                        sql = "DELETE FROM platosmenus WHERE idmenu = ? AND idplato = ?";
+                        ps = conexion.prepareStatement(sql);
+                        ps.setInt(1, id);
+                        ps.setInt(2, idplato);
+                        int filas = ps.executeUpdate();
+                        if (filas > 0) {
+                            System.out.println("Plato: " + idplato + " eliminado correctamente del menú: " + id);
+                            resultado = true;
+                        } else {
+                            System.out.println(
+                                    "Error al eliminar el plato: " + idplato + " del menú: " + id
+                                            + " y no se puede eliminar");
+                            resultado = false;
+                        }
+                    }
+                }
+                // Eliminar el producto
+                sql = "DELETE FROM productos WHERE id = ?";
+                ps = conexion.prepareStatement(sql);
+                ps.setInt(1, id);
+                int filas = ps.executeUpdate();
+                if (filas > 0) {
+                    System.out.println("Producto: " + id + " eliminado correctamente");
+                    resultado = true;
+                } else {
+                    System.out.println("Error al eliminar el producto: " + id);
+                    resultado = false;
+                }
+            } else {
+                System.out.println("El producto: " + id + " no existe");
+                resultado = false;
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error al eliminar el producto");
+            resultado = false;
+        }
+
+        return resultado;
+
+    }
 }

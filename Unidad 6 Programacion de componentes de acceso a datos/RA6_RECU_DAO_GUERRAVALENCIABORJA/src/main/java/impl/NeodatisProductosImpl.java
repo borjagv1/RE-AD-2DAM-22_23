@@ -1,8 +1,8 @@
 package impl;
 
 import java.util.ArrayList;
-
 import org.neodatis.odb.ODB;
+import org.neodatis.odb.ODBFactory;
 import org.neodatis.odb.Objects;
 import org.neodatis.odb.core.query.IQuery;
 import org.neodatis.odb.core.query.criteria.Where;
@@ -15,8 +15,6 @@ import datos.Categorias;
 import datos.PlatosMenus;
 import datos.Productos;
 import factory.NeodatisDAOFactory;
-//query
-import org.neodatis.odb.core.query.IQuery.*;
 
 public class NeodatisProductosImpl implements ProductoDAO {
     static ODB bd = null;
@@ -152,7 +150,6 @@ public class NeodatisProductosImpl implements ProductoDAO {
             Objects<Productos> platoResult = bd.getObjects(platoQuery);
             if (!platoResult.isEmpty()) {
                 // Comprobar si existe el plato en el menú haciendo dos consultas
-                // Una para comprobar si existe el menú y otra para comprobar si existe el plato
                 IQuery platosMenusQuery = new CriteriaQuery(PlatosMenus.class, Where.equal("idmenu", id_menu));
                 IQuery platosMenusQuery2 = new CriteriaQuery(PlatosMenus.class, Where.equal("idplato", id_plato));
 
@@ -160,7 +157,6 @@ public class NeodatisProductosImpl implements ProductoDAO {
                 Objects<PlatosMenus> platosMenusResult2 = bd.getObjects(platosMenusQuery2);
                 if (platosMenusResult.isEmpty() && platosMenusResult2.isEmpty()) {
                     // Insertar el plato en el menú
-                    // el orden debe empieza en 1 y se suma 1 para los platos de un menú
                     IQuery ordenQuery = new CriteriaQuery(PlatosMenus.class, Where.equal("idmenu", id_menu));
                     int orden = bd.getObjects(ordenQuery).size() + 1;
 
@@ -230,16 +226,85 @@ public class NeodatisProductosImpl implements ProductoDAO {
         return productos;
     }
 
-	@Override
-	public boolean EliminarPlatoMenu(int id_menu, int id_plato) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+    @Override
+    public boolean EliminarPlatoMenu(int id_menu, int id_plato) {
+        boolean resultado = false;
 
-	@Override
-	public boolean EliminarProductoCascada(int id) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+        ODB odb = null;
+        try {
+            odb = ODBFactory.open("database.db");
+
+            IQuery platosMenusQuery = new CriteriaQuery(PlatosMenus.class, Where.equal("idmenu", id_menu));
+            IQuery platosMenusQuery2 = new CriteriaQuery(PlatosMenus.class, Where.equal("idplato", id_plato));
+
+             Objects<PlatosMenus> platosMenusResult = bd.getObjects(platosMenusQuery);
+                Objects<PlatosMenus> platosMenusResult2 = bd.getObjects(platosMenusQuery2);
+                if (platosMenusResult.isEmpty() && platosMenusResult2.isEmpty()) {
+        
+                PlatosMenus platoMenu = platosMenusResult2.getFirst();
+                odb.delete(platoMenu);
+                System.out.println("Plato: " + id_plato + " eliminado correctamente del menú: " + id_menu);
+                resultado = true;
+
+                // Actualizar orden y PVP del menú
+                IQuery platosQuery = new CriteriaQuery(PlatosMenus.class, Where.equal("idMenu", id_menu));
+                Objects<PlatosMenus> platos = odb.getObjects(platosQuery);
+                int orden = 1;
+                double pvp = 0;
+                while (platos.hasNext()) {
+                    PlatosMenus plato = platos.next();
+                    plato.setOrden(orden++);
+                    pvp += obtenerPVPPlato(odb, plato.getIdplato());
+                    odb.store(plato);
+                }
+
+                actualizarPVPMenu(odb, id_menu, pvp);
+            } else {
+                System.out.println(
+                        "El plato: " + id_plato + " no existe en el menú: " + id_menu + " y no se puede eliminar");
+            }
+
+        } catch (Exception e) {
+            System.out.println("Error al eliminar el plato del menú: " + e.getMessage());
+            resultado = false;
+        } finally {
+            if (odb != null && !odb.isClosed()) {
+                odb.close();
+            }
+        }
+
+        return resultado;
+    }
+
+    // Método para obtener el PVP de un plato por su ID
+    private double obtenerPVPPlato(ODB odb, int id_plato) {
+        IQuery query = new CriteriaQuery(Productos.class, Where.equal("id", id_plato));
+        Objects<Productos> productos = odb.getObjects(query);
+        if (!productos.isEmpty()) {
+            Productos producto = productos.getFirst();
+            return producto.getPvp();
+        }
+        return 0;
+    }
+
+    // Método para actualizar el PVP de un menú
+    private void actualizarPVPMenu(ODB odb, int id_menu, double pvp) {
+        IQuery query = new CriteriaQuery(Productos.class, Where.equal("id", id_menu));
+        Objects<Productos> productos = odb.getObjects(query);
+        if (!productos.isEmpty()) {
+            Productos menu = productos.getFirst();
+            menu.setPvp(pvp);
+            odb.store(menu);
+            System.out.println("PVP del menú: " + id_menu + " actualizado correctamente");
+        } else {
+            System.out.println("Error al actualizar el PVP del menú: " + id_menu);
+        }
+    }
+
+    @Override
+    public boolean EliminarProductoCascada(int id) {
+        // TODO Auto-generated method stub
+        return false;
+    }
 
 }

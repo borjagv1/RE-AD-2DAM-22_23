@@ -1,18 +1,11 @@
 package impl;
 
 import java.util.ArrayList;
-import java.util.List;
-
 import org.neodatis.odb.ODB;
 import org.neodatis.odb.Objects;
 import org.neodatis.odb.core.query.IQuery;
 import org.neodatis.odb.core.query.criteria.*;
 import org.neodatis.odb.impl.core.query.criteria.CriteriaQuery;
-
-import com.mysql.cj.x.protobuf.MysqlxDatatypes.Array;
-
-import org.neodatis.odb.Objects;
-import org.neodatis.odb.core.query.IQuery;
 
 import dao.AlergenosDAO;
 import datos.Alergenos;
@@ -59,11 +52,7 @@ public class NeodatisAlergenosImpl implements AlergenosDAO {
         // Comprueba si el alérgeno existe en la TABLA ALERGENOS
         Objects<Alergenos> objects = bd.getObjects(new org.neodatis.odb.impl.core.query.criteria.CriteriaQuery(
                 Alergenos.class, org.neodatis.odb.core.query.criteria.Where.equal("id", id)));
-        // Comprobamos si el alérgeno existe.
-        // Si no existe, resultado = 1.
-        // Si existe, comprobamos si tiene productos.
-        // Si tiene productos, resultado = 1.
-        // Si no tiene productos, eliminamos el alérgeno.
+      
         if (objects.size() > 0) {
             Alergenos alergeno = objects.getFirst();
             if (alergeno.getNumproductos() > 0) {
@@ -85,18 +74,14 @@ public class NeodatisAlergenosImpl implements AlergenosDAO {
 
     @Override
     public boolean ActualizarDatos() {
-        // actualiza el campo numproductos y nombreproductos
-        // de la colección alergenos con los datos de la colección productos
-        // Devuelve true si se ha actualizado correctamente.
-        // Devuelve false si no se ha podido actualizar.
+      
         boolean resultado = false;
         Objects<Alergenos> objects = bd
                 .getObjects(new org.neodatis.odb.impl.core.query.criteria.CriteriaQuery(Alergenos.class));
         if (objects.size() > 0) {
             for (Alergenos alergeno : objects) {
                 // actualiza el campo numproductos
-                // cuento los id_products que coincidan con el id_alergeno en la TABLA
-                // ALERGENOSPRODUCTOS
+             
                 int alergenoid = alergeno.getId();
                 Objects<AlergenosProductos> objects2 = bd
                         .getObjects(new org.neodatis.odb.impl.core.query.criteria.CriteriaQuery(

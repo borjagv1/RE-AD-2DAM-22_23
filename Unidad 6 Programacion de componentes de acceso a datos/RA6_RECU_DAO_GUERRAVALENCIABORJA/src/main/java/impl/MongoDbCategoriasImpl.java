@@ -33,11 +33,7 @@ public class MongoDbCategoriasImpl implements CategoriasDAO {
 
     @Override
     public int InsertarCategoria(Categorias c) {
-        /*
-         * private int id;
-         * private String nombre;
-         * private int numproductos;
-         */
+       
         /*
          * Devuelven 0 => Si la operación se realizó correctamente.
          * Devuelven 1 => Si la operación no se pudo realizar.

@@ -34,15 +34,7 @@ public class MongoDbProductosImpl implements ProductoDAO {
 
     @Override
     public int InsertarProducto(Productos p) {
-        /*
-         * private int id;
-         * private String nombre;
-         * private Double pvp;
-         * private String tipo;
-         * private int idcategoria;
-         * private int numalergenos;
-         * private String nombrealergenos;
-         */
+        
         /*
          * En Productos:
          * • No se pueden insertar productos con el mismo id.
@@ -239,17 +231,62 @@ public class MongoDbProductosImpl implements ProductoDAO {
         }
         return productos;
     }
+@Override
+    public boolean EliminarPlatoMenu(int id_menu, int id_plato) {
+   
+    boolean resultado = false;
+    // Comprobar si existen el menu y el plato en la coleccion platosmenus
+    boolean existePlatoEnMenu = coleccionPlatosMenus
+            .find(and(eq("id_menu", id_menu), eq("id_plato", id_plato))).first() != null;
+    if (existePlatoEnMenu) {
+        // Eliminar el plato del menu
+        coleccionPlatosMenus.deleteOne(and(eq("id_menu", id_menu), eq("id_plato", id_plato)));
+        System.out.println("Plato: " + id_plato + " eliminado correctamente del menu: " + id_menu);
+        // Recalcular el orden de los platos del menu
+        int orden = 1;
+        for (Document platosmenus : coleccionPlatosMenus.find(eq("id_menu", id_menu))) {
+            int idplato = platosmenus.getInteger("id_plato");
+            // Modificar el orden del plato
+            coleccionPlatosMenus.updateOne(and(eq("id_menu", id_menu), eq("id_plato", idplato)),
+                    new Document("$set", new Document("orden", orden)));
+            orden++;
+        }
+        // Recalcular el PVP del menu
+        double pvp = 0;
+        for (Document platosmenus : coleccionPlatosMenus.find(eq("id_menu", id_menu))) {
+            int idplato = platosmenus.getInteger("id_plato");
+            // Obtener el precio del plato
+            double precio = coleccionProductos.find(eq("_id", idplato)).first().getDouble("pvp");
+            pvp = pvp + precio;
+        }
+        // Modificar el PVP del menu
+        coleccionProductos.updateOne(eq("_id", id_menu), new Document("$set", new Document("pvp", pvp)));
+        System.out.println("PVP del menu: " + id_menu + " actualizado correctamente");
+        resultado = true;
+    } else {
+        System.out.println("No existe el plato: " + id_plato + " en el menu: " + id_menu + " No se eliminará...");
+        resultado = false;
+    }
 
-	@Override
-	public boolean EliminarPlatoMenu(int id_menu, int id_plato) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+    
 
-	@Override
-	public boolean EliminarProductoCascada(int id) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+    return resultado;
+    }
+
+    @Override
+    public boolean EliminarProductoCascada(int id) {
+        boolean resultado = false;
+        //Método que recibe un id de producto y lo elimina de la base de datos, así como todas las referencias del producto. Devuelve true si la operación se ha realizado correctamente y false si no.
+        // Comprobar que id del producto existe, si no existe mostrar mensaje de error y devolver false
+        // Si es plato, hay que eliminar en todos los menus ese plato (actualizar el orden de los platos en platosmenus y el pvp del menu en el que se elimina ese plato)
+        // Hay que eliminar los registros que tengan ese plato en AlergenosProductos, mostrar los alergenos que se han eliminado o el número de alergenos que se han eliminado
+        // Si es menú hay que eliminar todos los registros que tienen ese idmenu en platosmenus. mostrar el id de los platos de ese menú que se han eliminado o el numero de platos que se han eliminado
+        // Si se elimina el producto hay qeu actualizar de nuevo tabla alergenos y tabla categorias
+        // Mostrar mensajes de lo que va ocurriendo:
+        // Compruebo que existe el id del producto
+        
+
+        return resultado;
+    }
 
 }
