@@ -276,15 +276,69 @@ public class MongoDbProductosImpl implements ProductoDAO {
     @Override
     public boolean EliminarProductoCascada(int id) {
         boolean resultado = false;
-        //Método que recibe un id de producto y lo elimina de la base de datos, así como todas las referencias del producto. Devuelve true si la operación se ha realizado correctamente y false si no.
-        // Comprobar que id del producto existe, si no existe mostrar mensaje de error y devolver false
-        // Si es plato, hay que eliminar en todos los menus ese plato (actualizar el orden de los platos en platosmenus y el pvp del menu en el que se elimina ese plato)
-        // Hay que eliminar los registros que tengan ese plato en AlergenosProductos, mostrar los alergenos que se han eliminado o el número de alergenos que se han eliminado
-        // Si es menú hay que eliminar todos los registros que tienen ese idmenu en platosmenus. mostrar el id de los platos de ese menú que se han eliminado o el numero de platos que se han eliminado
-        // Si se elimina el producto hay qeu actualizar de nuevo tabla alergenos y tabla categorias
-        // Mostrar mensajes de lo que va ocurriendo:
-        // Compruebo que existe el id del producto
-        
+        // Comprobar si existe el producto
+        boolean existeProducto = coleccionProductos.find(eq("_id", id)).first() != null;
+        if (existeProducto) {
+            // Obtener el tipo de producto
+            String tipo = coleccionProductos.find(eq("_id", id)).first().getString("tipo");
+            // Si es plato
+            if (tipo.equals("plato")) {
+                // Obtener el id del menu en el que está el plato
+                int id_menu = coleccionPlatosMenus.find(eq("id_plato", id)).first().getInteger("id_menu");
+                // Eliminar el plato del menu
+                coleccionPlatosMenus.deleteOne(and(eq("id_menu", id_menu), eq("id_plato", id)));
+                System.out.println("Plato: " + id + " eliminado correctamente del menu: " + id_menu);
+                // establezco el orden de los platos del menu
+                int orden = 1;
+                for (Document platosmenus : coleccionPlatosMenus.find(eq("id_menu", id_menu))) {
+                    int idplato = platosmenus.getInteger("id_plato");
+                    // Modificar el orden del plato
+                    coleccionPlatosMenus.updateOne(and(eq("id_menu", id_menu), eq("id_plato", idplato)),
+                            new Document("$set", new Document("orden", orden)));
+                    orden++;
+                }
+                //  PVP del menu
+                double pvp = 0;
+                for (Document platosmenus : coleccionPlatosMenus.find(eq("id_menu", id_menu))) {
+                    int idplato = platosmenus.getInteger("id_plato");
+                    // Obtener el precio del plato
+                    double precio = coleccionProductos.find(eq("_id", idplato)).first().getDouble("pvp");
+                    pvp = pvp + precio;
+                }
+                // Modificar el PVP del menu
+                coleccionProductos.updateOne(eq("_id", id_menu), new Document("$set", new Document("pvp", pvp)));
+                System.out.println("PVP del menu: " + id_menu + " actualizado correctamente");
+                resultado = true;
+            }
+            // Si es menu
+            if (tipo.equals("menu")) {
+                // Eliminar todos los platos del menu
+                coleccionPlatosMenus.deleteMany(eq("id_menu", id));
+                System.out.println("Platos del menu: " + id + " eliminados correctamente");
+                resultado = true;
+            }
+            // Eliminar los registros que tengan ese plato en AlergenosProductos
+            // Mostrar mensajes según lo que vaya ocurriendo
+            int numAlergenosEliminados = 0;
+            for (Document alergenosproductos : coleccionAlergenosProductos.find(eq("id_producto", id))) {
+                int idalergeno = alergenosproductos.getInteger("id_alergeno");
+                // Eliminar el alergeno del producto
+                coleccionAlergenosProductos.deleteOne(and(eq("id_producto", id), eq("id_alergeno", idalergeno)));
+                System.out.println("Alergeno: " + idalergeno + " eliminado correctamente del producto: " + id);
+                numAlergenosEliminados++;
+            }
+            System.out.println("Numero de alergenos eliminados del producto: " + id + " = " + numAlergenosEliminados);
+            
+            // Eliminar el producto
+            coleccionProductos.deleteOne(eq("_id", id));
+            System.out.println("Producto: " + id + " eliminado correctamente");
+            resultado = true;
+        } else {
+            System.out.println("No existe el producto: " + id + " No se eliminará...");
+            resultado = false;
+        }
+
+
 
         return resultado;
     }

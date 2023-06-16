@@ -8,6 +8,7 @@ import org.neodatis.odb.core.query.IQuery;
 import org.neodatis.odb.core.query.criteria.Where;
 import org.neodatis.odb.impl.core.query.criteria.CriteriaQuery;
 
+
 import dao.ProductoDAO;
 import datos.Alergenos;
 import datos.AlergenosProductos;
@@ -237,10 +238,10 @@ public class NeodatisProductosImpl implements ProductoDAO {
             IQuery platosMenusQuery = new CriteriaQuery(PlatosMenus.class, Where.equal("idmenu", id_menu));
             IQuery platosMenusQuery2 = new CriteriaQuery(PlatosMenus.class, Where.equal("idplato", id_plato));
 
-             Objects<PlatosMenus> platosMenusResult = bd.getObjects(platosMenusQuery);
-                Objects<PlatosMenus> platosMenusResult2 = bd.getObjects(platosMenusQuery2);
-                if (platosMenusResult.isEmpty() && platosMenusResult2.isEmpty()) {
-        
+            Objects<PlatosMenus> platosMenusResult = bd.getObjects(platosMenusQuery);
+            Objects<PlatosMenus> platosMenusResult2 = bd.getObjects(platosMenusQuery2);
+            if (platosMenusResult.isEmpty() && platosMenusResult2.isEmpty()) {
+
                 PlatosMenus platoMenu = platosMenusResult2.getFirst();
                 odb.delete(platoMenu);
                 System.out.println("Plato: " + id_plato + " eliminado correctamente del menú: " + id_menu);
@@ -303,8 +304,11 @@ public class NeodatisProductosImpl implements ProductoDAO {
 
     @Override
     public boolean EliminarProductoCascada(int id) {
-        // TODO Auto-generated method stub
-        return false;
+        boolean resultado = false;
+        System.out.println("SIN DATOS NO ME DIO TIEMPO DE HACERLO");
+
+
+        return resultado;
     }
 
 }

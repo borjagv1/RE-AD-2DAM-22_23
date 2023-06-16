@@ -451,14 +451,7 @@ public class SqlDbProductosImpl implements ProductoDAO {
     @Override
     public boolean EliminarProductoCascada(int id) {
         boolean resultado = false;
-        //Método que recibe un id de producto y lo elimina de la base de datos, así como todas las referencias del producto. Devuelve true si la operación se ha realizado correctamente y false si no.
-        // Comprobar que id del producto existe, si no existe mostrar mensaje de error y devolver false
-        // Si es plato, hay que eliminar en todos los menus ese plato (actualizar el orden de los platos en platosmenus y el pvp del menu en el que se elimina ese plato)
-        // Hay que eliminar los registros que tengan ese plato en AlergenosProductos, mostrar los alergenos que se han eliminado o el número de alergenos que se han eliminado
-        // Si es menú hay que eliminar todos los registros que tienen ese idmenu en platosmenus. mostrar el id de los platos de ese menú que se han eliminado o el numero de platos que se han eliminado
-        // Si se elimina el producto hay qeu actualizar de nuevo tabla alergenos y tabla categorias
-        // Mostrar mensajes de lo que va ocurriendo:
-        // Compruebo que existe el id del producto
+
         String sql = "SELECT * FROM productos WHERE id = ?";
         try {
             PreparedStatement ps;
@@ -471,7 +464,7 @@ public class SqlDbProductosImpl implements ProductoDAO {
                 if (tipo.equals("plato")) {
                     double pvp = rs.getDouble("pvp");
                     // Es un plato
-                    // Eliminar en todos los menus ese plato (actualizar el orden de los platos en platosmenus y el pvp del menu en el que se elimina ese plato)
+
                     sql = "SELECT * FROM platosmenus WHERE idplato = ?";
                     ps = conexion.prepareStatement(sql);
                     ps.setInt(1, id);
@@ -516,7 +509,7 @@ public class SqlDbProductosImpl implements ProductoDAO {
                                 System.out.println("Error al actualizar el plato: " + idplato + " del menú: " + idmenu);
                                 resultado = false;
                             }
-                            // Se debe calcular el nuevo PVP del menu
+                            // calculo el nuevo PVP del menu
                             sql = "SELECT * FROM productos WHERE id = ?";
                             ps = conexion.prepareStatement(sql);
                             ps.setInt(1, idplato);
@@ -547,13 +540,12 @@ public class SqlDbProductosImpl implements ProductoDAO {
                     }
                 } else {
                     // Es un menú
-                    // Eliminar todos los registros que tienen ese idmenu en platosmenus. mostrar el id de los platos de ese menú que se han eliminado o el numero de platos que se han eliminado
-                    sql = "SELECT * FROM platosmenus WHERE idmenu = ?";
-                    ps = conexion.prepareStatement(sql);
+                    String sql2 = "SELECT * FROM platosmenus WHERE idmenu = ?";
+                    ps = conexion.prepareStatement(sql2);
                     ps.setInt(1, id);
-                    rs = ps.executeQuery();
-                    while (rs.next()) {
-                        int idplato = rs.getInt("idplato");
+                    ResultSet rs2 = ps.executeQuery();
+                    while (rs2.next()) {
+                        int idplato = rs2.getInt("idplato");
                         sql = "DELETE FROM platosmenus WHERE idmenu = ? AND idplato = ?";
                         ps = conexion.prepareStatement(sql);
                         ps.setInt(1, id);
@@ -569,19 +561,44 @@ public class SqlDbProductosImpl implements ProductoDAO {
                             resultado = false;
                         }
                     }
+                    // 1. Eliminar el producto de la tabla productos
+                    sql = "DELETE FROM productos WHERE id = ?";
+                    ps = conexion.prepareStatement(sql);
+                    ps.setInt(1, id);
+                    int filas = ps.executeUpdate();
+                    if (filas > 0) {
+                        System.out.println("Producto: " + id + " eliminado correctamente");
+                        resultado = true;
+                    } else {
+                        System.out.println("Error al eliminar el producto: " + id + " y no se puede eliminar");
+                        resultado = false;
+                    }
+                    // 2. Eliminar el producto de la tabla alergenos
+                    sql = "DELETE FROM alergenos WHERE idproducto = ?";
+                    ps = conexion.prepareStatement(sql);
+                    ps.setInt(1, id);
+                    filas = ps.executeUpdate();
+                    if (filas > 0) {
+                        System.out.println("Producto: " + id + " eliminado correctamente de la tabla alergenos");
+                        resultado = true;
+                    } else {
+                        System.out.println("Error al eliminar el producto: " + id + " de la tabla alergenos");
+                        resultado = false;
+                    }
+                    // 3. Eliminar el producto de la tabla categorias
+                    sql = "DELETE FROM categorias WHERE idproducto = ?";
+                    ps = conexion.prepareStatement(sql);
+                    ps.setInt(1, id);
+                    filas = ps.executeUpdate();
+                    if (filas > 0) {
+                        System.out.println("Producto: " + id + " eliminado correctamente de la tabla categorias");
+                        resultado = true;
+                    } else {
+                        System.out.println("Error al eliminar el producto: " + id + " de la tabla categorias");
+                        resultado = false;
+                    }
                 }
-                // Eliminar el producto
-                sql = "DELETE FROM productos WHERE id = ?";
-                ps = conexion.prepareStatement(sql);
-                ps.setInt(1, id);
-                int filas = ps.executeUpdate();
-                if (filas > 0) {
-                    System.out.println("Producto: " + id + " eliminado correctamente");
-                    resultado = true;
-                } else {
-                    System.out.println("Error al eliminar el producto: " + id);
-                    resultado = false;
-                }
+
             } else {
                 System.out.println("El producto: " + id + " no existe");
                 resultado = false;

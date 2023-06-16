@@ -133,8 +133,11 @@ public class MongoDbAlergenosImpl implements AlergenosDAO {
                     String nombreproducto = productos.getString("nombre");
                     sb.append(nombreproducto).append(",");
                 }
+               
                 nombreProductos = sb.toString();
-                nombreProductos = nombreProductos.substring(0, nombreProductos.length() - 1);
+                if (nombreProductos.length() > 0) {
+                    nombreProductos = nombreProductos.substring(0, nombreProductos.length() - 1);
+                }
             }
             UpdateResult updateResult = coleccionAlergenos.updateOne(eq("_id", idalergeno),
                     set("nombreproductos", nombreProductos));
